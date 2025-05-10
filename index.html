@@ -185,7 +185,7 @@
             align-items: center;
         }
         .neighborhood-geocities {
-            background: #000;
+            background: #vest: none;
             transition: background 0.3s ease;
         }
         .neighborhood-geocities.light-mode {
@@ -249,7 +249,7 @@
         }
         .neighborhood-broadway.light-mode {
             background: #fffdd0;
-            color: #8b0000;
+            color: #8b0000; /* Changed from #ffff00 to #8b0000 for better readability */
         }
 
         /* Profile Header Display */
@@ -382,7 +382,7 @@
             border-color: #000;
             color: #ff4500;
         }
-        .neighborhood-bourbonstreet #profile-avatar {
+        .neighborhood-bourbonstreet #profileavatar {
             border-color: #fff;
             color: #ffff00;
             font-family: sans-serif;
@@ -398,7 +398,7 @@
         }
         .neighborhood-broadway.light-mode #profile-avatar {
             border-color: #000;
-            color: #8b0000;
+            color: #8b0000; /* Changed from #ffff00 to #8b0000 */
         }
 
         /* Profile Avatar Link Wrapper */
@@ -550,7 +550,7 @@
         .neighborhood-broadway.light-mode .profile-box {
             border-color: #000;
             background: rgba(255, 253, 208, 0.9);
-            color: #8b0000;
+            color: #8b0000; /* Changed from #ffff00 to #8b0000 */
         }
         .neighborhood-broadway.light-mode .profile-box:first-child {
             border-top: 1px solid #000;
@@ -609,7 +609,7 @@
             font-family: sans-serif;
         }
         .neighborhood-broadway.light-mode .profile-box-header {
-            color: #8b0000;
+            color: #8b0000; /* Changed from #ffff00 to #8b0000 */
         }
 
         /* Value part of Profile Box */
@@ -663,7 +663,7 @@
             font-family: sans-serif;
         }
         .neighborhood-broadway.light-mode .profile-box-value {
-            color: #8b0000;
+            color: #8b0000; /* Changed from #ffff00 to #8b0000 */
         }
         .profile-box-value a {
             color: inherit;
@@ -716,7 +716,7 @@
             text-align: center;
             height: 38px;
             background: #000;
-            box-sizing: border-box;
+            box-sizing: border-box
         }
         .toggle-button.light-mode {
             background: #fff;
@@ -811,7 +811,7 @@
         }
         .neighborhood-broadway.light-mode .register-button, .neighborhood-broadway.light-mode .ipfs-button {
             border-color: #000;
-            color: #8b0000;
+            color: #8b0000; /* Changed from #ffff00 to #8b0000 */
             background: rgba(255, 253, 208, 0.9);
         }
 
@@ -888,7 +888,7 @@
             font-size: 0.8em;
             box-sizing: border-box;
             border-top: 1px solid #fff;
-            transition: background 0.3s ease, color 0.3s ease, border-color 0 lanciation: border-color 0.3s ease;
+            transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
             z-index: 10;
         }
         .footer.light-mode {
@@ -1085,7 +1085,7 @@
                     const img = new Image();
                     img.src = headerUrl;
                     img.onload = () => {
-                        headerTarget.style.backgroundImage = `url('${headerUrl}')`;
+                        headerTarget.style.backgroundImage = `url(${headerUrl})`;
                         headerTarget.style.display = 'block';
                     };
                     img.onerror = () => {
@@ -1226,7 +1226,11 @@
                 recordsMap['description'] = { label: 'Bio', value: ensData.description };
             }
             if (ensData.links?.website?.handle) {
-                recordsMap['website'] = { label: 'Website', value: ensData.links.website.handle, isLink: true, linkUrl: ensData.links.website.handle };
+                let websiteUrl = ensData.links.website.handle;
+                if (!websiteUrl.match(/^https?:\/\//)) {
+                    websiteUrl = `https://${websiteUrl}`;
+                }
+                recordsMap['website'] = { label: 'Website', value: ensData.links.website.handle, isLink: true, linkUrl: websiteUrl };
             }
             if (ensData.email) {
                 recordsMap['email'] = { label: 'Email', value: ensData.email };
@@ -1253,86 +1257,69 @@
                             if (linkName !== 'website' && linkData && linkData.handle) {
                                 const formattedLabel = headerRenames[linkName] || linkName.replace(/^./, c => c.toUpperCase());
                                 let linkUrl = '';
-                                let isLink = false;
-
-                                if (linkName === 'com.twitter' && /^[a-zA-Z0-9_]{1,15}$/.test(linkData.handle)) {
-                                    linkUrl = `https://x.com/${linkData.handle}`;
-                                    isLink = true;
-                                } else if (linkName === 'com.github' && /^[a-zA-Z0-9-]+$/.test(linkData.handle)) {
+                                if (linkName === 'com.twitter') {
+                                    linkUrl = `https://x.com/${linkData.handle.replace(/^@/, '')}`;
+                                } else if (linkName === 'com.github') {
                                     linkUrl = `https://github.com/${linkData.handle}`;
-                                    isLink = true;
-                                } else if (linkName === 'org.telegram' && linkData.handle.startsWith('@')) {
-                                    linkUrl = `https://t.me/${linkData.handle.replace('@', '')}`;
-                                    isLink = true;
                                 } else if (linkName === 'com.discord') {
-                                    // Only create a link if the handle is a numeric user ID
-                                    if (/^\d{17,19}$/.test(linkData.handle)) {
-                                        linkUrl = `https://discord.com/users/${linkData.handle}`;
-                                        isLink = true;
-                                    }
-                                } else if (/^https?:\/\//.test(linkData.handle)) {
+                                    linkUrl = `https://discord.com/users/${linkData.handle}`;
+                                } else if (linkName === 'org.telegram') {
+                                    linkUrl = `https://t.me/${linkData.handle.replace(/^@/, '')}`;
+                                } else {
                                     linkUrl = linkData.handle;
-                                    isLink = true;
+                                    if (!linkUrl.match(/^https?:\/\//)) {
+                                        linkUrl = `https://${linkUrl}`;
+                                    }
                                 }
-
-                                targetArray.push({ label: formattedLabel, value: linkData.handle, isLink: isLink, linkUrl: linkUrl });
+                                targetArray.push({ label: formattedLabel, value: linkData.handle, isLink: true, linkUrl: linkUrl });
                             }
                         });
-                    } else if (key === 'records') {
+                    }
+                    else if (key === 'records') {
                         Object.entries(value).forEach(([recordKey, recordValue]) => {
                             if (recordKey !== 'contenthash' && recordKey !== 'contentHash' && recordValue) {
                                 const recordLabel = headerRenames[recordKey] || recordKey.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
-                                let isLink = false;
+                                let isLink = linkableRecords.includes(recordLabel);
                                 let linkUrl = '';
-
-                                if (recordKey === 'com.twitter' && /^[a-zA-Z0-9_]{1,15}$/.test(recordValue)) {
-                                    linkUrl = `https://x.com/${recordValue}`;
-                                    isLink = true;
-                                } else if (recordKey === 'com.github' && /^[a-zA-Z0-9-]+$/.test(recordValue)) {
-                                    linkUrl = `https://github.com/${recordValue}`;
-                                    isLink = true;
-                                } else if (recordKey === 'org.telegram' && recordValue.startsWith('@')) {
-                                    linkUrl = `https://t.me/${recordValue.replace('@', '')}`;
-                                    isLink = true;
-                                } else if (recordKey === 'com.discord') {
-                                    // Only create a link if the value is a numeric user ID
-                                    if (/^\d{17,19}$/.test(recordValue)) {
+                                if (isLink) {
+                                    if (recordKey === 'com.twitter') {
+                                        linkUrl = `https://x.com/${recordValue.replace(/^@/, '')}`;
+                                    } else if (recordKey === 'com.github') {
+                                        linkUrl = `https://github.com/${recordValue}`;
+                                    } else if (recordKey === 'com.discord') {
                                         linkUrl = `https://discord.com/users/${recordValue}`;
-                                        isLink = true;
+                                    } else if (recordKey === 'org.telegram') {
+                                        linkUrl = `https://t.me/${recordValue.replace(/^@/, '')}`;
+                                    } else {
+                                        linkUrl = recordValue;
+                                        if (!linkUrl.match(/^https?:\/\//)) {
+                                            linkUrl = `https://${linkUrl}`;
+                                        }
                                     }
-                                } else if (/^https?:\/\//.test(recordValue)) {
-                                    linkUrl = recordValue;
-                                    isLink = true;
                                 }
-
                                 targetArray.push({ label: recordLabel, value: recordValue, isLink: isLink, linkUrl: linkUrl });
                             }
                         });
                     }
                 } else {
-                    let isLink = false;
+                    let isLink = linkableRecords.includes(label);
                     let linkUrl = '';
-
-                    if (key === 'com.twitter' && /^[a-zA-Z0-9_]{1,15}$/.test(value)) {
-                        linkUrl = `https://x.com/${value}`;
-                        isLink = true;
-                    } else if (key === 'com.github' && /^[a-zA-Z0-9-]+$/.test(value)) {
-                        linkUrl = `https://github.com/${value}`;
-                        isLink = true;
-                    } else if (key === 'org.telegram' && value.startsWith('@')) {
-                        linkUrl = `https://t.me/${value.replace('@', '')}`;
-                        isLink = true;
-                    } else if (key === 'com.discord') {
-                        // Only create a link if the value is a numeric user ID
-                        if (/^\d{17,19}$/.test(value)) {
+                    if (isLink) {
+                        if (key === 'com.twitter') {
+                            linkUrl = `https://x.com/${value.replace(/^@/, '')}`;
+                        } else if (key === 'com.github') {
+                            linkUrl = `https://github.com/${value}`;
+                        } else if (key === 'com.discord') {
                             linkUrl = `https://discord.com/users/${value}`;
-                            isLink = true;
+                        } else if (key === 'org.telegram') {
+                            linkUrl = `https://t.me/${value.replace(/^@/, '')}`;
+                        } else {
+                            linkUrl = value;
+                            if (!linkUrl.match(/^https?:\/\//)) {
+                                linkUrl = `https://${linkUrl}`;
+                            }
                         }
-                    } else if (/^https?:\/\//.test(value)) {
-                        linkUrl = value;
-                        isLink = true;
                     }
-
                     targetArray.push({ label: label, value: value, isLink: isLink, linkUrl: linkUrl });
                 }
             }
@@ -1450,7 +1437,7 @@
             } else if (currentNeighborhood === 'broadway') {
                 pageBody.style.background = lightMode ? '#fffdd0' : '#000000';
             } else {
-                pageBody.style.background = '';
+                pageBody.style.background = ''; // Let CSS handle GeoCities background
             }
 
             if (currentEnsData) {
@@ -1608,11 +1595,11 @@
         }
 
         // Main Search Function
-        async function searchENS(query = '') {
+        async function searchENS() {
             const isOnProfilePage = profilePage.style.display === 'flex';
             const queryInput = isOnProfilePage ? ensInputProfile : ensInputHome;
             const currentErrorMessageElement = isOnProfilePage ? errorMessageProfile : errorMessageHome;
-            const searchQuery = query || queryInput.value.trim().toLowerCase();
+            const query = queryInput.value.trim().toLowerCase();
 
             currentErrorMessageElement.style.display = 'none';
             successMessageProfile.style.display = 'none';
@@ -1621,15 +1608,15 @@
             currentEnsData = null;
             currentEnsName = '';
 
-            if (!searchQuery) {
+            if (!query) {
                 displayError('Please enter an ENS or Base name.', isOnProfilePage);
                 return;
             }
-            if (/\s/.test(searchQuery)) {
+            if (/\s/.test(query)) {
                 displayError('Name cannot contain spaces.', isOnProfilePage);
                 return;
             }
-            const ensName = (searchQuery.endsWith('.eth') || searchQuery.endsWith('.base.eth')) ? searchQuery : `${searchQuery}.eth`;
+            const ensName = (query.endsWith('.eth') || query.endsWith('.base.eth')) ? query : `${query}.eth`;
 
             let url = `https://api.web3.bio/profile/ens/${ensName}`;
             let isBaseName = false;
@@ -1645,10 +1632,6 @@
                     if (response.status === 404) {
                         currentEnsName = ensName;
                         displayUnregisteredProfile(ensName, isBaseName);
-                        // Update URL for unregistered profiles
-                        if (!queryInput.value) {
-                            history.pushState({ ensName }, '', `/${ensName}`);
-                        }
                     } else {
                         let errorText = `Error: ${response.statusText}`;
                         try {
@@ -1669,10 +1652,6 @@
                 currentEnsData = data;
                 currentEnsName = ensName;
                 displayProfile(data, ensName);
-                // Update URL for registered profiles
-                if (!queryInput.value) {
-                    history.pushState({ ensName }, '', `/${ensName}`);
-                }
             } catch (err) {
                 let errorMsg = "Network error. Please check your connection.";
                 if (err instanceof TypeError) { errorMsg = "Network error or CORS issue. Check console."; }
@@ -1707,9 +1686,6 @@
             registerButtonContainer.style.display = 'flex';
             registerButton.style.display = 'none';
             ipfsButton.style.display = 'inline-block';
-
-            // Update search input to reflect current profile
-            ensInputProfile.value = searchedName;
         }
 
         // Show Homepage View
@@ -1726,66 +1702,17 @@
             currentEnsName = '';
             currentNeighborhood = 'geocities';
             neighborhoodSelect.value = currentNeighborhood;
-            pageBody.style.background = '';
+            pageBody.style.background = ''; // Let CSS handle GeoCities background
             registerButtonContainer.style.display = 'none';
-            // Update URL to root
-            history.pushState({}, '', '/');
         }
-
-        // Handle URL Path on Page Load
-        function handleInitialUrl() {
-            const path = window.location.pathname.replace(/^\/+/, ''); // Remove leading slashes
-            if (path) {
-                // Validate path as potential ENS or Base name
-                const validNamePattern = /^([a-z0-9-]+\.)+(eth|base\.eth)$/i;
-                const name = path.toLowerCase();
-                if (validNamePattern.test(name)) {
-                    searchENS(name);
-                } else {
-                    // Invalid name format, show homepage
-                    showHomepage();
-                }
-            } else {
-                showHomepage();
-            }
-        }
-
-        // Handle Browser Navigation (Back/Forward)
-        window.addEventListener('popstate', (event) => {
-            const state = event.state;
-            if (state && state.ensName) {
-                searchENS(state.ensName);
-            } else {
-                showHomepage();
-            }
-        });
 
         // Event Listeners
-        ensInputHome.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                const query = ensInputHome.value.trim().toLowerCase();
-                const ensName = (query.endsWith('.eth') || query.endsWith('.base.eth')) ? query : `${query}.eth`;
-                searchENS();
-                history.pushState({ ensName }, '', `/${ensName}`);
-            }
-        });
-        ensInputProfile.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                const query = ensInputProfile.value.trim().toLowerCase();
-                const ensName = (query.endsWith('.eth') || query.endsWith('.base.eth')) ? query : `${query}.eth`;
-                searchENS();
-                history.pushState({ ensName }, '', `/${ensName}`);
-            }
-        });
+        ensInputHome.addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); searchENS(); } });
+        ensInputProfile.addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); searchENS(); } });
 
         // Initial Setup
         neighborhoodContainer.innerHTML = '';
         registerButtonContainer.style.display = 'none';
-
-        // Check URL path on load
-        handleInitialUrl();
     </script>
 </body>
 </html>
