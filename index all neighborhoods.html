@@ -2,12 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GeoCities</title>
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='50' font-size='80' text-anchor='middle' dominant-baseline='middle' fill='%23000'>G%3C/text%3E%3C/svg%3E" type="image/svg+xml">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Georgia&display=swap" rel="stylesheet">
     <style>
-        /* Body Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
             font-family: sans-serif;
             background: #000;
@@ -15,893 +18,24 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
             min-height: 100vh;
             margin: 0;
-            padding-top: 60px;
-            transition: background 0.3s ease, color 0.3s ease;
-            position: relative;
-            padding-bottom: 60px;
-            box-sizing: border-box;
+            padding: 60px 20px 80px;
         }
         body.light-mode {
             background: #fff;
             color: #000;
         }
-
-        /* Container Styles */
         .container {
-            flex-direction: column;
-            display: flex;
-            align-items: center;
             width: 90%;
             max-width: 600px;
-            justify-content: flex-start;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             flex-grow: 1;
         }
-
-        /* Logo Box (Homepage Avatar) */
         .logo-box {
-            width: 200px;
-            height: 200px;
-            border: 1px solid #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 6em;
-            margin: 20px auto 0;
-            background-size: contain;
-            background-position: center;
-            background-repeat: no-repeat;
-            transition: border-color 0.3s ease, background-image 0.3s ease;
-            border-radius: 0;
-            overflow: hidden;
-            color: #fff;
-        }
-        .light-mode .logo-box {
-            border-color: #000;
-            color: #000;
-        }
-
-        /* Heading "GeoCities" below avatar */
-        h2#homepage-geocities {
-            margin: 0 auto 20px;
-            text-align: center;
-            display: block;
-            transition: color 0.3s ease, border-color 0.3s ease;
-            font-size: 1.2em;
-            border: 1px solid #fff;
-            border-top: none;
-            padding: 10px 0;
-            border-radius: 0;
-            width: 200px;
-        }
-        #homepage-geocities.light-mode {
-            border-color: #000;
-            color: #000;
-        }
-
-        /* Search Bar Container */
-        .search-container {
-            display: flex;
             width: 100%;
-            margin-bottom: 20px;
-            height: 38px;
-        }
-
-        /* Search Input Field */
-        .search-input {
-            flex: 1;
-            padding: 10px;
-            background: #000;
-            color: #fff;
-            border: 1px solid #fff;
-            border-right: none;
-            border-radius: 0;
-            transition: all 0.3s ease;
-            height: 100%;
-            box-sizing: border-box;
-            font-size: 16px;
-        }
-        .search-input.light-mode {
-            background: #fff;
-            color: #000;
-            border-color: #000;
-        }
-        .search-input::placeholder {
-            color: #aaa;
-        }
-        .search-input.light-mode::placeholder {
-            color: #555;
-        }
-        .search-input:focus {
-            font-size: 16px;
-            outline: none;
-        }
-
-        /* Search Button */
-        .search-button {
-            padding: 10px 15px;
-            background: #000;
-            color: #fff;
-            border: 1px solid #fff;
-            cursor: pointer;
-            border-radius: 0;
-            transition: all 0.3s ease;
-            height: 100%;
-            font-size: 0.8em;
-            box-sizing: border-box;
-        }
-        .search-button.light-mode {
-            background: #fff;
-            color: #000;
-            border-color: #000;
-        }
-
-        /* Profile Page Container */
-        #profile-page {
-            width: 100%;
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 20px;
-        }
-
-        /* Neighborhood Dropdown */
-        .neighborhood-select {
-            width: 100%;
-            max-width: 200px;
-            height: 38px;
-            padding: 5px;
-            background: #000;
-            color: #fff;
-            border: 1px solid #fff;
-            border-radius: 0;
-            font-size: 0.9em;
-            font-family: sans-serif;
-            margin: 10px 0;
-            transition: all 0.3s ease;
-            box-sizing: border-box;
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23fff' d='M10.293 3.293L6 7.586 1.707 3.293A1 1 0 00.293 4.707l5 5a1 1 0 001.414 0l5-5a1 1 0 10-1.414-1.414z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 10px center;
-            padding-right: 30px;
-        }
-        .neighborhood-select.light-mode {
-            background-color: #fff;
-            color: #000;
-            border: 1px solid #000;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23000' d='M2 4h8L6 8z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 10px center;
-        }
-
-        /* Neighborhood Container */
-        .neighborhood-container {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .neighborhood-geocities {
-            background: #vest: none;
-            transition: background 0.3s ease;
-        }
-        .neighborhood-geocities.light-mode {
-            background: #fff;
-        }
-        .neighborhood-area51 {
-            background: #000000;
-            color: #00FF00;
-            font-family: 'Orbitron', sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-area51.light-mode {
-            background: linear-gradient(135deg, #e0e0e0 0%, #a0a0a0 100%);
-            color: #008000;
-        }
-        .neighborhood-athens {
-            background: #2F4F4F;
-            color: #ADD8E6;
-            font-family: 'Georgia', serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-athens.light-mode {
-            background: #F5F5DC;
-            color: #00008B;
-        }
-        .neighborhood-augusta {
-            background: #006400;
-            color: #FFFFFF;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-augusta.light-mode {
-            background: #90EE90;
-            color: #006400;
-        }
-        .neighborhood-baja {
-            background: #F4A460;
-            color: #FF4500;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-baja.light-mode {
-            background: #D2B48C;
-            color: #FF4500;
-        }
-        .neighborhood-bourbonstreet {
-            background: #4B0082;
-            color: #FFFF00;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-bourbonstreet.light-mode {
-            background: #E6E6FA;
-            color: #4B0082;
-        }
-        .neighborhood-broadway {
-            background: #000000;
-            color: #FF0000;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-broadway.light-mode {
-            background: #FFFDD0;
-            color: #8B0000;
-        }
-        .neighborhood-capecanaveral {
-            background: #1C2526;
-            color: #00B7EB;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-capecanaveral.light-mode {
-            background: #E6F3FA;
-            color: #0047AB;
-        }
-        .neighborhood-capitolhill {
-            background: #2C3539;
-            color: #FFD700;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-capitolhill.light-mode {
-            background: #F5F6F5;
-            color: #800000;
-        }
-        .neighborhood-collegepark {
-            background: #4A2F6F;
-            color: #FFB6C1;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-collegepark.light-mode {
-            background: #FFF5EE;
-            color: #483D8B;
-        }
-        .neighborhood-colosseum {
-            background: #8B0000;
-            color: #FFFFFF;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-colosseum.light-mode {
-            background: #FFE4C4;
-            color: #8B0000;
-        }
-        .neighborhood-enchantedforest {
-            background: #013220;
-            color: #98FB98;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-enchantedforest.light-mode {
-            background: #F0FFF0;
-            color: #228B22;
-        }
-        .neighborhood-eureka {
-            background: #3C2F2F;
-            color: #FFCC00;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-eureka.light-mode {
-            background: #FFF8DC;
-            color: #8B4513;
-        }
-        .neighborhood-fashionavenue {
-            background: #1C1C1C;
-            color: #FF69B4;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-fashionavenue.light-mode {
-            background: #F5F5F5;
-            color: #C71585;
-        }
-        .neighborhood-heartland {
-            background: #5C4033;
-            color: #F5DEB3;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-heartland.light-mode {
-            background: #FAEBD7;
-            color: #8B4513;
-        }
-        .neighborhood-hollywood {
-            background: #2A1F3D;
-            color: #FFD700;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-hollywood.light-mode {
-            background: #FFF0F5;
-            color: #B22222;
-        }
-        .neighborhood-hotsprings {
-            background: #004953;
-            color: #00CED1;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-hotsprings.light-mode {
-            background: #E0FFFF;
-            color: #008B8B;
-        }
-        .neighborhood-madisonavenue {
-            background: #333333;
-            color: #FFA500;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-madisonavenue.light-mode {
-            background: #F0F0F0;
-            color: #D2691E;
-        }
-        .neighborhood-motorcity {
-            background: #1A2421;
-            color: #FF4500;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-motorcity.light-mode {
-            background: #DCDCDC;
-            color: #8B0000;
-        }
-        .neighborhood-napavalley {
-            background: #4A2C2A;
-            color: #F5F5DC;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-napavalley.light-mode {
-            background: #FFFACD;
-            color: #800000;
-        }
-        .neighborhood-nashville {
-            background: #462C1A;
-            color: #FF8C00;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-nashville.light-mode {
-            background: #FFE4B5;
-            color: #8B4500;
-        }
-        .neighborhood-paris {
-            background: #191970;
-            color: #FFB6C1;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-paris.light-mode {
-            background: #FFF0F5;
-            color: #4682B4;
-        }
-        .neighborhood-pentagon {
-            background: #2F4F4F;
-            color: #B0C4DE;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-pentagon.light-mode {
-            background: #F5F5F5;
-            color: #2F4F4F;
-        }
-        .neighborhood-petsburgh {
-            background: #3C2005;
-            color: #FFDAB9;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-petsburgh.light-mode {
-            background: #FFF5EE;
-            color: #8B4513;
-        }
-        .neighborhood-picketfence {
-            background: #483C32;
-            color: #F0F8FF;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-picketfence.light-mode {
-            background: #F5FFFA;
-            color: #556B2F;
-        }
-        .neighborhood-pipeline {
-            background: #1C2526;
-            color: #FF6347;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-pipeline.light-mode {
-            background: #E6E6E6;
-            color: #B22222;
-        }
-        .neighborhood-rainforest {
-            background: #004225;
-            color: #ADFF2F;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-rainforest.light-mode {
-            background: #F0FFF0;
-            color: #228B22;
-        }
-        .neighborhood-researchtriangle {
-            background: #252850;
-            color: #00FFFF;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-researchtriangle.light-mode {
-            background: #F0F8FF;
-            color: #0000CD;
-        }
-        .neighborhood-rodeodrive {
-            background: #1A1A1A;
-            color: #FFD700;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-rodeodrive.light-mode {
-            background: #F5F5F5;
-            color: #B8860B;
-        }
-        .neighborhood-siliconvalley {
-            background: #0A0A23;
-            color: #39FF14;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-siliconvalley.light-mode {
-            background: #F5F5F5;
-            color: #006400;
-        }
-        .neighborhood-soho {
-            background: #2F2F2F;
-            color: #FF4500;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-soho.light-mode {
-            background: #FFF8DC;
-            color: #A52A2A;
-        }
-        .neighborhood-southbeach {
-            background: #003087;
-            color: #FF00FF;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-southbeach.light-mode {
-            background: #E0FFFF;
-            color: #FF00FF;
-        }
-        .neighborhood-sunsetstrip {
-            background: #1C0F13;
-            color: #FF1493;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-sunsetstrip.light-mode {
-            background: #FFF0F5;
-            color: #C71585;
-        }
-        .neighborhood-televisioncity {
-            background: #1F1F1F;
-            color: #FF4500;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-televisioncity.light-mode {
-            background: #F5F5F5;
-            color: #B22222;
-        }
-        .neighborhood-thetropics {
-            background: #004B49;
-            color: #FFD700;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-thetropics.light-mode {
-            background: #E0FFFF;
-            color: #008B8B;
-        }
-        .neighborhood-timessquare {
-            background: #000000;
-            color: #FF0000;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-timessquare.light-mode {
-            background: #F5F5F5;
-            color: #8B0000;
-        }
-        .neighborhood-tokyo {
-            background: #2E1A47;
-            color: #FF69B4;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-tokyo.light-mode {
-            background: #FFF0F5;
-            color: #9932CC;
-        }
-        .neighborhood-vienna {
-            background: #2C1A2E;
-            color: #FFD700;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-vienna.light-mode {
-            background: #FFF8DC;
-            color: #4B0082;
-        }
-        .neighborhood-wallstreet {
-            background: #1C2526;
-            color: #FFD700;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-wallstreet.light-mode {
-            background: #F5F5F5;
-            color: #006400;
-        }
-        .neighborhood-wellesley {
-            background: #4A2F6F;
-            color: #FFB6C1;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-wellesley.light-mode {
-            background: #FFF0F5;
-            color: #483D8B;
-        }
-        .neighborhood-westhollywood {
-            background: #1A1A3D;
-            color: #FF69B4;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-westhollywood.light-mode {
-            background: #F5F5F5;
-            color: #FF1493;
-        }
-        .neighborhood-yosemite {
-            background: #2F4F4F;
-            color: #B0C4DE;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-yosemite.light-mode {
-            background: #F0FFF0;
-            color: #228B22;
-        }
-        .neighborhood-northpole {
-            background: #003366;
-            color: #F0F8FF;
-            font-family: sans-serif;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-        .neighborhood-northpole.light-mode {
-            background: #E6F3FA;
-            color: #B22222;
-        }
-
-        /* Profile Header Display */
-        #profile-header {
-            width: 100%;
-            height: 0;
-            padding-bottom: 33.33% !important;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            display: none;
-            border: 1px solid #fff;
-            box-sizing: border-box;
-            border-radius: 0;
-            overflow: hidden;
-            margin-bottom: 0;
-            transition: border-color 0.3s ease;
-        }
-        .light-mode #profile-header {
-            border-color: #000;
-        }
-        .neighborhood-area51 #profile-header {
-            border-color: #00FF00;
-        }
-        .neighborhood-area51.light-mode #profile-header {
-            border-color: #008000;
-        }
-        .neighborhood-athens #profile-header {
-            border-color: #c0c0c0;
-        }
-        .neighborhood-athens.light-mode #profile-header {
-            border-color: #ffd700;
-        }
-        .neighborhood-augusta #profile-header {
-            border-color: #fff;
-        }
-        .neighborhood-augusta.light-mode #profile-header {
-            border-color: #000;
-        }
-        .neighborhood-baja #profile-header {
-            border-color: #fff;
-        }
-        .neighborhood-baja.light-mode #profile-header {
-            border-color: #000;
-        }
-        .neighborhood-bourbonstreet #profile-header {
-            border-color: #fff;
-        }
-        .neighborhood-bourbonstreet.light-mode #profile-header {
-            border-color: #000;
-        }
-        .neighborhood-broadway #profile-header {
-            border-color: #fff;
-        }
-        .neighborhood-broadway.light-mode #profile-header {
-            border-color: #000;
-        }
-        .neighborhood-capecanaveral #profile-header {
-            border-color: #00B7EB;
-        }
-        .neighborhood-capecanaveral.light-mode #profile-header {
-            border-color: #0047AB;
-        }
-        .neighborhood-capitolhill #profile-header {
-            border-color: #FFD700;
-        }
-        .neighborhood-capitolhill.light-mode #profile-header {
-            border-color: #800000;
-        }
-        .neighborhood-collegepark #profile-header {
-            border-color: #FFB6C1;
-        }
-        .neighborhood-collegepark.light-mode #profile-header {
-            border-color: #483D8B;
-        }
-        .neighborhood-colosseum #profile-header {
-            border-color: #FFFFFF;
-        }
-        .neighborhood-colosseum.light-mode #profile-header {
-            border-color: #8B0000;
-        }
-        .neighborhood-enchantedforest #profile-header {
-            border-color: #98FB98;
-        }
-        .neighborhood-enchantedforest.light-mode #profile-header {
-            border-color: #228B22;
-        }
-        .neighborhood-eureka #profile-header {
-            border-color: #FFCC00;
-        }
-        .neighborhood-eureka.light-mode #profile-header {
-            border-color: #8B4513;
-        }
-        .neighborhood-fashionavenue #profile-header {
-            border-color: #FF69B4;
-        }
-        .neighborhood-fashionavenue.light-mode #profile-header {
-            border-color: #C71585;
-        }
-        .neighborhood-heartland #profile-header {
-            border-color: #F5DEB3;
-        }
-        .neighborhood-heartland.light-mode #profile-header {
-            border-color: #8B4513;
-        }
-        .neighborhood-hollywood #profile-header {
-            border-color: #FFD700;
-        }
-        .neighborhood-hollywood.light-mode #profile-header {
-            border-color: #B22222;
-        }
-        .neighborhood-hotsprings #profile-header {
-            border-color: #00CED1;
-        }
-        .neighborhood-hotsprings.light-mode #profile-header {
-            border-color: #008B8B;
-        }
-        .neighborhood-madisonavenue #profile-header {
-            border-color: #FFA500;
-        }
-        .neighborhood-madisonavenue.light-mode #profile-header {
-            border-color: #D2691E;
-        }
-        .neighborhood-motorcity #profile-header {
-            border-color: #FF4500;
-        }
-        .neighborhood-motorcity.light-mode #profile-header {
-            border-color: #8B0000;
-        }
-        .neighborhood-napavalley #profile-header {
-            border-color: #F5F5DC;
-        }
-        .neighborhood-napavalley.light-mode #profile-header {
-            border-color: #800000;
-        }
-        .neighborhood-nashville #profile-header {
-            border-color: #FF8C00;
-        }
-        .neighborhood-nashville.light-mode #profile-header {
-            border-color: #8B4500;
-        }
-        .neighborhood-paris #profile-header {
-            border-color: #FFB6C1;
-        }
-        .neighborhood-paris.light-mode #profile-header {
-            border-color: #4682B4;
-        }
-        .neighborhood-pentagon #profile-header {
-            border-color: #B0C4DE;
-        }
-        .neighborhood-pentagon.light-mode #profile-header {
-            border-color: #2F4F4F;
-        }
-        .neighborhood-petsburgh #profile-header {
-            border-color: #FFDAB9;
-        }
-        .neighborhood-petsburgh.light-mode #profile-header {
-            border-color: #8B4513;
-        }
-        .neighborhood-picketfence #profile-header {
-            border-color: #F0F8FF;
-        }
-        .neighborhood-picketfence.light-mode #profile-header {
-            border-color: #556B2F;
-        }
-        .neighborhood-pipeline #profile-header {
-            border-color: #FF6347;
-        }
-        .neighborhood-pipeline.light-mode #profile-header {
-            border-color: #B22222;
-        }
-        .neighborhood-rainforest #profile-header {
-            border-color: #ADFF2F;
-        }
-        .neighborhood-rainforest.light-mode #profile-header {
-            border-color: #228B22;
-        }
-        .neighborhood-researchtriangle #profile-header {
-            border-color: #00FFFF;
-        }
-        .neighborhood-researchtriangle.light-mode #profile-header {
-            border-color: #0000CD;
-        }
-        .neighborhood-rodeodrive #profile-header {
-            border-color: #FFD700;
-        }
-        .neighborhood-rodeodrive.light-mode #profile-header {
-            border-color: #B8860B;
-        }
-        .neighborhood-siliconvalley #profile-header {
-            border-color: #39FF14;
-        }
-        .neighborhood-siliconvalley.light-mode #profile-header {
-            border-color: #006400;
-        }
-        .neighborhood-soho #profile-header {
-            border-color: #FF4500;
-        }
-        .neighborhood-soho.light-mode #profile-header {
-            border-color: #A52A2A;
-        }
-        .neighborhood-southbeach #profile-header {
-            border-color: #FF00FF;
-        }
-        .neighborhood-southbeach.light-mode #profile-header {
-            border-color: #FF00FF;
-        }
-        .neighborhood-sunsetstrip #profile-header {
-            border-color: #FF1493;
-        }
-        .neighborhood-sunsetstrip.light-mode #profile-header {
-            border-color: #C71585;
-        }
-        .neighborhood-televisioncity #profile-header {
-            border-color: #FF4500;
-        }
-        .neighborhood-televisioncity.light-mode #profile-header {
-            border-color: #B22222;
-        }
-        .neighborhood-thetropics #profile-header {
-            border-color: #FFD700;
-        }
-        .neighborhood-thetropics.light-mode #profile-header {
-            border-color: #008B8B;
-        }
-        .neighborhood-timessquare #profile-header {
-            border-color: #FF0000;
-        }
-        .neighborhood-timessquare.light-mode #profile-header {
-            border-color: #8B0000;
-        }
-        .neighborhood-tokyo #profile-header {
-            border-color: #FF69B4;
-        }
-        .neighborhood-tokyo.light-mode #profile-header {
-            border-color: #9932CC;
-        }
-        .neighborhood-vienna #profile-header {
-            border-color: #FFD700;
-        }
-        .neighborhood-vienna.light-mode #profile-header {
-            border-color: #4B0082;
-        }
-        .neighborhood-wallstreet #profile-header {
-            border-color: #FFD700;
-        }
-        .neighborhood-wallstreet.light-mode #profile-header {
-            border-color: #006400;
-        }
-        .neighborhood-wellesley #profile-header {
-            border-color: #FFB6C1;
-        }
-        .neighborhood-wellesley.light-mode #profile-header {
-            border-color: #483D8B;
-        }
-        .neighborhood-westhollywood #profile-header {
-            border-color: #FF69B4;
-        }
-        .neighborhood-westhollywood.light-mode #profile-header {
-            border-color: #FF1493;
-        }
-        .neighborhood-yosemite #profile-header {
-            border-color: #B0C4DE;
-        }
-        .neighborhood-yosemite.light-mode #profile-header {
-            border-color: #228B22;
-        }
-        .neighborhood-northpole #profile-header {
-            border-color: #F0F8FF;
-        }
-        .neighborhood-northpole.light-mode #profile-header {
-            border-color: #B22222;
-        }
-
-        /* Profile Header Link Wrapper */
-        #profile-header-link {
-            display: block;
-            width: 100%;
-            text-decoration: none;
-            color: inherit;
-            cursor: default;
-            pointer-events: none;
-        }
-        #profile-header-link[href]:not([href=""]) {
-            cursor: pointer;
-            pointer-events: auto;
-        }
-
-        /* Profile Avatar Display */
-        #profile-avatar {
-            width: 100%;
-            height: auto;
             aspect-ratio: 1 / 1;
             background-size: contain;
             background-position: center;
@@ -912,446 +46,168 @@
             font-size: 10em;
             border: 1px solid #fff;
             box-sizing: border-box;
-            border-radius: 0;
-            overflow: hidden;
-            margin-bottom: 0;
             color: #fff;
-            transition: border-color 0.3s ease, color 0.3s ease, background-image 0.3s ease;
+            transition: all 0.3s ease;
         }
-        .light-mode #profile-avatar {
+        .logo-box.light-mode {
             border-color: #000;
             color: #000;
         }
-        .neighborhood-area51 #profile-avatar {
-            border-color: #00FF00;
-            color: #00FF00;
-            font-family: 'Orbitron', sans-serif;
-        }
-        .neighborhood-area51.light-mode #profile-avatar {
-            border-color: #008000;
-            color: #008000;
-        }
-        .neighborhood-athens #profile-avatar {
-            border-color: #c0c0c0;
-            color: #ADD8E6;
-            font-family: 'Georgia', serif;
-        }
-        .neighborhood-athens.light-mode #profile-avatar {
-            border-color: #ffd700;
-            color: #00008B;
-        }
-        .neighborhood-augusta #profile-avatar {
-            border-color: #fff;
-            color: #FFFFFF;
-            font-family: sans-serif;
-        }
-        .neighborhood-augusta.light-mode #profile-avatar {
-            border-color: #000;
-            color: #006400;
-        }
-        .neighborhood-baja #profile-avatar {
-            border-color: #fff;
-            color: #FF4500;
-            font-family: sans-serif;
-        }
-        .neighborhood-baja.light-mode #profile-avatar {
-            border-color: #000;
-            color: #FF4500;
-        }
-        .neighborhood-bourbonstreet #profileavatar {
-            border-color: #fff;
-            color: #FFFF00;
-            font-family: sans-serif;
-        }
-        .neighborhood-bourbonstreet.light-mode #profile-avatar {
-            border-color: #000;
-            color: #4B0082;
-        }
-        .neighborhood-broadway #profile-avatar {
-            border-color: #fff;
-            color: #FF0000;
-            font-family: sans-serif;
-        }
-        .neighborhood-broadway.light-mode #profile-avatar {
-            border-color: #000;
-            color: #8B0000;
-        }
-        .neighborhood-capecanaveral #profile-avatar {
-            border-color: #00B7EB;
-            color: #00B7EB;
-            font-family: sans-serif;
-        }
-        .neighborhood-capecanaveral.light-mode #profile-avatar {
-            border-color: #0047AB;
-            color: #0047AB;
-        }
-        .neighborhood-capitolhill #profile-avatar {
-            border-color: #FFD700;
-            color: #FFD700;
-            font-family: sans-serif;
-        }
-        .neighborhood-capitolhill.light-mode #profile-avatar {
-            border-color: #800000;
-            color: #800000;
-        }
-        .neighborhood-collegepark #profile-avatar {
-            border-color: #FFB6C1;
-            color: #FFB6C1;
-            font-family: sans-serif;
-        }
-        .neighborhood-collegepark.light-mode #profile-avatar {
-            border-color: #483D8B;
-            color: #483D8B;
-        }
-        .neighborhood-colosseum #profile-avatar {
-            border-color: #FFFFFF;
-            color: #FFFFFF;
-            font-family: sans-serif;
-        }
-        .neighborhood-colosseum.light-mode #profile-avatar {
-            border-color: #8B0000;
-            color: #8B0000;
-        }
-        .neighborhood-enchantedforest #profile-avatar {
-            border-color: #98FB98;
-            color: #98FB98;
-            font-family: sans-serif;
-        }
-        .neighborhood-enchantedforest.light-mode #profile-avatar {
-            border-color: #228B22;
-            color: #228B22;
-        }
-        .neighborhood-eureka #profile-avatar {
-            border-color: #FFCC00;
-            color: #FFCC00;
-            font-family: sans-serif;
-        }
-        .neighborhood-eureka.light-mode #profile-avatar {
-            border-color: #8B4513;
-            color: #8B4513;
-        }
-        .neighborhood-fashionavenue #profile-avatar {
-            border-color: #FF69B4;
-            color: #FF69B4;
-            font-family: sans-serif;
-        }
-        .neighborhood-fashionavenue.light-mode #profile-avatar {
-            border-color: #C71585;
-            color: #C71585;
-        }
-        .neighborhood-heartland #profile-avatar {
-            border-color: #F5DEB3;
-            color: #F5DEB3;
-            font-family: sans-serif;
-        }
-        .neighborhood-heartland.light-mode #profile-avatar {
-            border-color: #8B4513;
-            color: #8B4513;
-        }
-        .neighborhood-hollywood #profile-avatar {
-            border-color: #FFD700;
-            color: #FFD700;
-            font-family: sans-serif;
-        }
-        .neighborhood-hollywood.light-mode #profile-avatar {
-            border-color: #B22222;
-            color: #B22222;
-        }
-        .neighborhood-hotsprings #profile-avatar {
-            border-color: #00CED1;
-            color: #00CED1;
-            font-family: sans-serif;
-        }
-        .neighborhood-hotsprings.light-mode #profile-avatar {
-            border-color: #008B8B;
-            color: #008B8B;
-        }
-        .neighborhood-madisonavenue #profile-avatar {
-            border-color: #FFA500;
-            color: #FFA500;
-            font-family: sans-serif;
-        }
-        .neighborhood-madisonavenue.light-mode #profile-avatar {
-            border-color: #D2691E;
-            color: #D2691E;
-        }
-        .neighborhood-motorcity #profile-avatar {
-            border-color: #FF4500;
-            color: #FF4500;
-            font-family: sans-serif;
-        }
-        .neighborhood-motorcity.light-mode #profile-avatar {
-            border-color: #8B0000;
-            color: #8B0000;
-        }
-        .neighborhood-napavalley #profile-avatar {
-            border-color: #F5F5DC;
-            color: #F5F5DC;
-            font-family: sans-serif;
-        }
-        .neighborhood-napavalley.light-mode #profile-avatar {
-            border-color: #800000;
-            color: #800000;
-        }
-        .neighborhood-nashville #profile-avatar {
-            border-color: #FF8C00;
-            color: #FF8C00;
-            font-family: sans-serif;
-        }
-        .neighborhood-nashville.light-mode #profile-avatar {
-            border-color: #8B4500;
-            color: #8B4500;
-        }
-        .neighborhood-paris #profile-avatar {
-            border-color: #FFB6C1;
-            color: #FFB6C1;
-            font-family: sans-serif;
-        }
-        .neighborhood-paris.light-mode #profile-avatar {
-            border-color: #4682B4;
-            color: #4682B4;
-        }
-        .neighborhood-pentagon #profile-avatar {
-            border-color: #B0C4DE;
-            color: #B0C4DE;
-            font-family: sans-serif;
-        }
-        .neighborhood-pentagon.light-mode #profile-avatar {
-            border-color: #2F4F4F;
-            color: #2F4F4F;
-        }
-        .neighborhood-petsburgh #profile-avatar {
-            border-color: #FFDAB9;
-            color: #FFDAB9;
-            font-family: sans-serif;
-        }
-        .neighborhood-petsburgh.light-mode #profile-avatar {
-            border-color: #8B4513;
-            color: #8B4513;
-        }
-        .neighborhood-picketfence #profile-avatar {
-            border-color: #F0F8FF;
-            color: #F0F8FF;
-            font-family: sans-serif;
-        }
-        .neighborhood-picketfence.light-mode #profile-avatar {
-            border-color: #556B2F;
-            color: #556B2F;
-        }
-        .neighborhood-pipeline #profile-avatar {
-            border-color: #FF6347;
-            color: #FF6347;
-            font-family: sans-serif;
-        }
-        .neighborhood-pipeline.light-mode #profile-avatar {
-            border-color: #B22222;
-            color: #B22222;
-        }
-        .neighborhood-rainforest #profile-avatar {
-            border-color: #ADFF2F;
-            color: #ADFF2F;
-            font-family: sans-serif;
-        }
-        .neighborhood-rainforest.light-mode #profile-avatar {
-            border-color: #228B22;
-            color: #228B22;
-        }
-        .neighborhood-researchtriangle #profile-avatar {
-            border-color: #00FFFF;
-            color: #00FFFF;
-            font-family: sans-serif;
-        }
-        .neighborhood-researchtriangle.light-mode #profile-avatar {
-            border-color: #0000CD;
-            color: #0000CD;
-        }
-        .neighborhood-rodeodrive #profile-avatar {
-            border-color: #FFD700;
-            color: #FFD700;
-            font-family: sans-serif;
-        }
-        .neighborhood-rodeodrive.light-mode #profile-avatar {
-            border-color: #B8860B;
-            color: #B8860B;
-        }
-        .neighborhood-siliconvalley #profile-avatar {
-            border-color: #39FF14;
-            color: #39FF14;
-            font-family: sans-serif;
-        }
-        .neighborhood-siliconvalley.light-mode #profile-avatar {
-            border-color: #006400;
-            color: #006400;
-        }
-        .neighborhood-soho #profile-avatar {
-            border-color: #FF4500;
-            color: #FF4500;
-            font-family: sans-serif;
-        }
-        .neighborhood-soho.light-mode #profile-avatar {
-            border-color: #A52A2A;
-            color: #A52A2A;
-        }
-        .neighborhood-southbeach #profile-avatar {
-            border-color: #FF00FF;
-            color: #FF00FF;
-            font-family: sans-serif;
-        }
-        .neighborhood-southbeach.light-mode #profile-avatar {
-            border-color: #FF00FF;
-            color: #FF00FF;
-        }
-        .neighborhood-sunsetstrip #profile-avatar {
-            border-color: #FF1493;
-            color: #FF1493;
-            font-family: sans-serif;
-        }
-        .neighborhood-sunsetstrip.light-mode #profile-avatar {
-            border-color: #C71585;
-            color: #C71585;
-        }
-        .neighborhood-televisioncity #profile-avatar {
-            border-color: #FF4500;
-            color: #FF4500;
-            font-family: sans-serif;
-        }
-        .neighborhood-televisioncity.light-mode #profile-avatar {
-            border-color: #B22222;
-            color: #B22222;
-        }
-        .neighborhood-thetropics #profile-avatar {
-            border-color: #FFD700;
-            color: #FFD700;
-            font-family: sans-serif;
-        }
-        .neighborhood-thetropics.light-mode #profile-avatar {
-            border-color: #008B8B;
-            color: #008B8B;
-        }
-        .neighborhood-timessquare #profile-avatar {
-            border-color: #FF0000;
-            color: #FF0000;
-            font-family: sans-serif;
-        }
-        .neighborhood-timessquare.light-mode #profile-avatar {
-            border-color: #8B0000;
-            color: #8B0000;
-        }
-        .neighborhood-tokyo #profile-avatar {
-            border-color: #FF69B4;
-            color: #FF69B4;
-            font-family: sans-serif;
-        }
-        .neighborhood-tokyo.light-mode #profile-avatar {
-            border-color: #9932CC;
-            color: #9932CC;
-        }
-        .neighborhood-vienna #profile-avatar {
-            border-color: #FFD700;
-            color: #FFD700;
-            font-family: sans-serif;
-        }
-        .neighborhood-vienna.light-mode #profile-avatar {
-            border-color: #4B0082;
-            color: #4B0082;
-        }
-        .neighborhood-wallstreet #profile-avatar {
-            border-color: #FFD700;
-            color: #FFD700;
-            font-family: sans-serif;
-        }
-        .neighborhood-wallstreet.light-mode #profile-avatar {
-            border-color: #006400;
-            color: #006400;
-        }
-        .neighborhood-wellesley #profile-avatar {
-            border-color: #FFB6C1;
-            color: #FFB6C1;
-            font-family: sans-serif;
-        }
-        .neighborhood-wellesley.light-mode #profile-avatar {
-            border-color: #483D8B;
-            color: #483D8B;
-        }
-        .neighborhood-westhollywood #profile-avatar {
-            border-color: #FF69B4;
-            color: #FF69B4;
-            font-family: sans-serif;
-        }
-        .neighborhood-westhollywood.light-mode #profile-avatar {
-            border-color: #FF1493;
-            color: #FF1493;
-        }
-        .neighborhood-yosemite #profile-avatar {
-            border-color: #B0C4DE;
-            color: #B0C4DE;
-            font-family: sans-serif;
-        }
-        .neighborhood-yosemite.light-mode #profile-avatar {
-            border-color: #228B22;
-            color: #228B22;
-        }
-        .neighborhood-northpole #profile-avatar {
-            border-color: #F0F8FF;
-            color: #F0F8FF;
-            font-family: sans-serif;
-        }
-        .neighborhood-northpole.light-mode #profile-avatar {
-            border-color: #B22222;
-            color: #B22222;
-        }
-
-        /* Profile Avatar Link Wrapper */
-        #profile-avatar-link {
-            display: block;
-            width: 100%;
-            text-decoration: none;
-            color: inherit;
-            cursor: default;
-            pointer-events: none;
-        }
-        #profile-avatar-link[href]:not([href=""]) {
-            cursor: pointer;
-            pointer-events: auto;
-        }
-
-        /* Container for Profile Records */
-        .profile-container {
-            width: 100%;
+        h2 {
+            font-size: 2em;
+            margin: 20px 0;
+            color: #fff;
+            transition: color 0.3s ease;
+        }
+        h2.light-mode {
+            color: #000;
+        }
+        .search-container {
             display: flex;
-            flex-direction: column;
-            align-items: stretch;
-            margin: 0;
+            width: 100%;
+            gap: 10px;
+            margin-bottom: 10px;
         }
-
-        /* Individual Profile Record Box */
-        .profile-box {
-            border: 1px solid #fff;
+        .search-input {
+            flex: 1;
             padding: 10px;
             background: #000;
             color: #fff;
-            word-break: break-word;
+            border: 1px solid #fff;
+            font-size: 0.9em;
             transition: all 0.3s ease;
-            border-radius: 0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 0;
-            border-top: none;
-            width: 100%;
-            box-sizing: border-box;
-            min-height: 38px;
+            outline: none;
         }
-        .profile-box:first-child {
-            border-top: 1px solid #fff;
-        }
-        .profile-box.light-mode {
+        .search-input.light-mode {
             background: #fff;
             color: #000;
             border-color: #000;
         }
+        .search-button {
+            padding: 10px 20px;
+            background: #000;
+            color: #fff;
+            border: 1px solid #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9em;
+        }
+        .search-button.light-mode {
+            background: #fff;
+            color: #000;
+            border-color: #000;
+        }
+        .neighborhood-select {
+            width: 100%;
+            padding: 10px;
+            background: #000 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="white"><path d="M5 7l5 5 5-5H5z"/></svg>') no-repeat calc(100% - 10px) center;
+            background-size: 20px;
+            color: #fff;
+            border: 1px solid #fff;
+            font-size: 0.9em;
+            appearance: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .neighborhood-select.light-mode {
+            background: #fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="black"><path d="M5 7l5 5 5-5H5z"/></svg>') no-repeat calc(100% - 10px) center;
+            background-size: 20px;
+            color: #000;
+            border: 1px solid #000;
+        }
+        .neighborhood-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .profile-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #profile-header {
+            width: 100%;
+            height: 0;
+            padding-bottom: 33.33%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border: 1px solid #fff;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            display: none;
+        }
+        #profile-header.light-mode {
+            border-color: #000;
+        }
+        #profile-avatar {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 10em;
+            border: 1px solid #fff;
+            box-sizing: border-box;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+        #profile-avatar.light-mode {
+            border-color: #000;
+            color: #000;
+        }
+        .profile-box {
+            border: 1px solid #fff;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            word-break: break-word;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-top: none;
+            width: 100%;
+            box-sizing: border-box;
+            min-height: 38px;
+            font-family: sans-serif;
+            transition: all 0.3s ease;
+        }
+        .profile-box.light-mode {
+            border-color: #000;
+            background: rgba(255, 255, 255, 0.9);
+            color: #000;
+        }
+        .profile-box:first-child {
+            border-top: 1px solid #fff;
+        }
         .profile-box.light-mode:first-child {
             border-top: 1px solid #000;
+        }
+        .neighborhood-area51 {
+            color: #00FF00;
+        }
+        .neighborhood-area51.light-mode {
+            color: #008000;
+        }
+        .neighborhood-area51 #profile-header {
+            border-color: #00FF00;
+        }
+        .neighborhood-area51.light-mode #profile-header {
+            border-color: #008000;
+        }
+        .neighborhood-area51 #profile-avatar {
+            border-color: #00FF00;
+            color: #00FF00;
+        }
+        .neighborhood-area51.light-mode #profile-avatar {
+            border-color: #008000;
+            color: #008000;
         }
         .neighborhood-area51 .profile-box {
             border-color: #00FF00;
@@ -1370,90 +226,210 @@
         .neighborhood-area51.light-mode .profile-box:first-child {
             border-top: 1px solid #008000;
         }
+        .neighborhood-athens {
+            color: #ADD8E6;
+        }
+        .neighborhood-athens.light-mode {
+            color: #00008B;
+        }
+        .neighborhood-athens #profile-header {
+            border-color: #ADD8E6;
+        }
+        .neighborhood-athens.light-mode #profile-header {
+            border-color: #00008B;
+        }
+        .neighborhood-athens #profile-avatar {
+            border-color: #ADD8E6;
+            color: #ADD8E6;
+        }
+        .neighborhood-athens.light-mode #profile-avatar {
+            border-color: #00008B;
+            color: #00008B;
+        }
         .neighborhood-athens .profile-box {
-            border-color: #c0c0c0;
+            border-color: #ADD8E6;
             background: rgba(47, 79, 79, 0.8);
             color: #ADD8E6;
             font-family: 'Georgia', serif;
         }
         .neighborhood-athens .profile-box:first-child {
-            border-top: 1px solid #c0c0c0;
+            border-top: 1px solid #ADD8E6;
         }
         .neighborhood-athens.light-mode .profile-box {
-            border-color: #ffd700;
+            border-color: #00008B;
             background: rgba(245, 245, 220, 0.9);
             color: #00008B;
         }
         .neighborhood-athens.light-mode .profile-box:first-child {
-            border-top: 1px solid #ffd700;
+            border-top: 1px solid #00008B;
+        }
+        .neighborhood-augusta {
+            color: #FFFFFF;
+        }
+        .neighborhood-augusta.light-mode {
+            color: #006400;
+        }
+        .neighborhood-augusta #profile-header {
+            border-color: #FFFFFF;
+        }
+        .neighborhood-augusta.light-mode #profile-header {
+            border-color: #006400;
+        }
+        .neighborhood-augusta #profile-avatar {
+            border-color: #FFFFFF;
+            color: #FFFFFF;
+        }
+        .neighborhood-augusta.light-mode #profile-avatar {
+            border-color: #006400;
+            color: #006400;
         }
         .neighborhood-augusta .profile-box {
-            border-color: #fff;
+            border-color: #FFFFFF;
             background: rgba(0, 100, 0, 0.8);
-            color: #fff;
+            color: #FFFFFF;
             font-family: sans-serif;
         }
         .neighborhood-augusta .profile-box:first-child {
-            border-top: 1px solid #fff;
+            border-top: 1px solid #FFFFFF;
         }
         .neighborhood-augusta.light-mode .profile-box {
-            border-color: #000;
+            border-color: #006400;
             background: rgba(144, 238, 144, 0.9);
             color: #006400;
         }
         .neighborhood-augusta.light-mode .profile-box:first-child {
-            border-top: 1px solid #000;
+            border-top: 1px solid #006400;
+        }
+        .neighborhood-baja {
+            color: #FF4500;
+        }
+        .neighborhood-baja.light-mode {
+            color: #FF4500;
+        }
+        .neighborhood-baja #profile-header {
+            border-color: #FF4500;
+        }
+        .neighborhood-baja.light-mode #profile-header {
+            border-color: #FF4500;
+        }
+        .neighborhood-baja #profile-avatar {
+            border-color: #FF4500;
+            color: #FF4500;
+        }
+        .neighborhood-baja.light-mode #profile-avatar {
+            border-color: #FF4500;
+            color: #FF4500;
         }
         .neighborhood-baja .profile-box {
-            border-color: #fff;
+            border-color: #FF4500;
             background: rgba(244, 164, 96, 0.8);
             color: #FF4500;
             font-family: sans-serif;
         }
         .neighborhood-baja .profile-box:first-child {
-            border-top: 1px solid #fff;
+            border-top: 1px solid #FF4500;
         }
         .neighborhood-baja.light-mode .profile-box {
-            border-color: #000;
+            border-color: #FF4500;
             background: rgba(210, 180, 140, 0.9);
             color: #FF4500;
         }
         .neighborhood-baja.light-mode .profile-box:first-child {
-            border-top: 1px solid #000;
+            border-top: 1px solid #FF4500;
+        }
+        .neighborhood-bourbonstreet {
+            color: #FFFF00;
+        }
+        .neighborhood-bourbonstreet.light-mode {
+            color: #4B0082;
+        }
+        .neighborhood-bourbonstreet #profile-header {
+            border-color: #FFFF00;
+        }
+        .neighborhood-bourbonstreet.light-mode #profile-header {
+            border-color: #4B0082;
+        }
+        .neighborhood-bourbonstreet #profile-avatar {
+            border-color: #FFFF00;
+            color: #FFFF00;
+        }
+        .neighborhood-bourbonstreet.light-mode #profile-avatar {
+            border-color: #4B0082;
+            color: #4B0082;
         }
         .neighborhood-bourbonstreet .profile-box {
-            border-color: #fff;
+            border-color: #FFFF00;
             background: rgba(75, 0, 130, 0.8);
             color: #FFFF00;
             font-family: sans-serif;
         }
         .neighborhood-bourbonstreet .profile-box:first-child {
-            border-top: 1px solid #fff;
+            border-top: 1px solid #FFFF00;
         }
         .neighborhood-bourbonstreet.light-mode .profile-box {
-            border-color: #000;
+            border-color: #4B0082;
             background: rgba(230, 230, 250, 0.9);
             color: #4B0082;
         }
         .neighborhood-bourbonstreet.light-mode .profile-box:first-child {
-            border-top: 1px solid #000;
+            border-top: 1px solid #4B0082;
+        }
+        .neighborhood-broadway {
+            color: #FF0000;
+        }
+        .neighborhood-broadway.light-mode {
+            color: #8B0000;
+        }
+        .neighborhood-broadway #profile-header {
+            border-color: #FF0000;
+        }
+        .neighborhood-broadway.light-mode #profile-header {
+            border-color: #8B0000;
+        }
+        .neighborhood-broadway #profile-avatar {
+            border-color: #FF0000;
+            color: #FF0000;
+        }
+        .neighborhood-broadway.light-mode #profile-avatar {
+            border-color: #8B0000;
+            color: #8B0000;
         }
         .neighborhood-broadway .profile-box {
-            border-color: #fff;
+            border-color: #FF0000;
             background: rgba(0, 0, 0, 0.8);
             color: #FF0000;
             font-family: sans-serif;
         }
         .neighborhood-broadway .profile-box:first-child {
-            border-top: 1px solid #fff;
+            border-top: 1px solid #FF0000;
         }
         .neighborhood-broadway.light-mode .profile-box {
-            border-color: #000;
+            border-color: #8B0000;
             background: rgba(255, 253, 208, 0.9);
             color: #8B0000;
         }
         .neighborhood-broadway.light-mode .profile-box:first-child {
-            border-top: 1px solid #000;
+            border-top: 1px solid #8B0000;
+        }
+        .neighborhood-capecanaveral {
+            color: #00B7EB;
+        }
+        .neighborhood-capecanaveral.light-mode {
+            color: #0047AB;
+        }
+        .neighborhood-capecanaveral #profile-header {
+            border-color: #00B7EB;
+        }
+        .neighborhood-capecanaveral.light-mode #profile-header {
+            border-color: #0047AB;
+        }
+        .neighborhood-capecanaveral #profile-avatar {
+            border-color: #00B7EB;
+            color: #00B7EB;
+        }
+        .neighborhood-capecanaveral.light-mode #profile-avatar {
+            border-color: #0047AB;
+            color: #0047AB;
         }
         .neighborhood-capecanaveral .profile-box {
             border-color: #00B7EB;
@@ -1472,6 +448,26 @@
         .neighborhood-capecanaveral.light-mode .profile-box:first-child {
             border-top: 1px solid #0047AB;
         }
+        .neighborhood-capitolhill {
+            color: #FFD700;
+        }
+        .neighborhood-capitolhill.light-mode {
+            color: #800000;
+        }
+        .neighborhood-capitolhill #profile-header {
+            border-color: #FFD700;
+        }
+        .neighborhood-capitolhill.light-mode #profile-header {
+            border-color: #800000;
+        }
+        .neighborhood-capitolhill #profile-avatar {
+            border-color: #FFD700;
+            color: #FFD700;
+        }
+        .neighborhood-capitolhill.light-mode #profile-avatar {
+            border-color: #800000;
+            color: #800000;
+        }
         .neighborhood-capitolhill .profile-box {
             border-color: #FFD700;
             background: rgba(44, 53, 57, 0.8);
@@ -1488,6 +484,26 @@
         }
         .neighborhood-capitolhill.light-mode .profile-box:first-child {
             border-top: 1px solid #800000;
+        }
+        .neighborhood-collegepark {
+            color: #FFB6C1;
+        }
+        .neighborhood-collegepark.light-mode {
+            color: #483D8B;
+        }
+        .neighborhood-collegepark #profile-header {
+            border-color: #FFB6C1;
+        }
+        .neighborhood-collegepark.light-mode #profile-header {
+            border-color: #483D8B;
+        }
+        .neighborhood-collegepark #profile-avatar {
+            border-color: #FFB6C1;
+            color: #FFB6C1;
+        }
+        .neighborhood-collegepark.light-mode #profile-avatar {
+            border-color: #483D8B;
+            color: #483D8B;
         }
         .neighborhood-collegepark .profile-box {
             border-color: #FFB6C1;
@@ -1506,6 +522,26 @@
         .neighborhood-collegepark.light-mode .profile-box:first-child {
             border-top: 1px solid #483D8B;
         }
+        .neighborhood-colosseum {
+            color: #FFFFFF;
+        }
+        .neighborhood-colosseum.light-mode {
+            color: #8B0000;
+        }
+        .neighborhood-colosseum #profile-header {
+            border-color: #FFFFFF;
+        }
+        .neighborhood-colosseum.light-mode #profile-header {
+            border-color: #8B0000;
+        }
+        .neighborhood-colosseum #profile-avatar {
+            border-color: #FFFFFF;
+            color: #FFFFFF;
+        }
+        .neighborhood-colosseum.light-mode #profile-avatar {
+            border-color: #8B0000;
+            color: #8B0000;
+        }
         .neighborhood-colosseum .profile-box {
             border-color: #FFFFFF;
             background: rgba(139, 0, 0, 0.8);
@@ -1522,6 +558,26 @@
         }
         .neighborhood-colosseum.light-mode .profile-box:first-child {
             border-top: 1px solid #8B0000;
+        }
+        .neighborhood-enchantedforest {
+            color: #98FB98;
+        }
+        .neighborhood-enchantedforest.light-mode {
+            color: #228B22;
+        }
+        .neighborhood-enchantedforest #profile-header {
+            border-color: #98FB98;
+        }
+        .neighborhood-enchantedforest.light-mode #profile-header {
+            border-color: #228B22;
+        }
+        .neighborhood-enchantedforest #profile-avatar {
+            border-color: #98FB98;
+            color: #98FB98;
+        }
+        .neighborhood-enchantedforest.light-mode #profile-avatar {
+            border-color: #228B22;
+            color: #228B22;
         }
         .neighborhood-enchantedforest .profile-box {
             border-color: #98FB98;
@@ -1540,6 +596,26 @@
         .neighborhood-enchantedforest.light-mode .profile-box:first-child {
             border-top: 1px solid #228B22;
         }
+        .neighborhood-eureka {
+            color: #FFCC00;
+        }
+        .neighborhood-eureka.light-mode {
+            color: #8B4513;
+        }
+        .neighborhood-eureka #profile-header {
+            border-color: #FFCC00;
+        }
+        .neighborhood-eureka.light-mode #profile-header {
+            border-color: #8B4513;
+        }
+        .neighborhood-eureka #profile-avatar {
+            border-color: #FFCC00;
+            color: #FFCC00;
+        }
+        .neighborhood-eureka.light-mode #profile-avatar {
+            border-color: #8B4513;
+            color: #8B4513;
+        }
         .neighborhood-eureka .profile-box {
             border-color: #FFCC00;
             background: rgba(60, 47, 47, 0.8);
@@ -1556,6 +632,26 @@
         }
         .neighborhood-eureka.light-mode .profile-box:first-child {
             border-top: 1px solid #8B4513;
+        }
+        .neighborhood-fashionavenue {
+            color: #FF69B4;
+        }
+        .neighborhood-fashionavenue.light-mode {
+            color: #C71585;
+        }
+        .neighborhood-fashionavenue #profile-header {
+            border-color: #FF69B4;
+        }
+        .neighborhood-fashionavenue.light-mode #profile-header {
+            border-color: #C71585;
+        }
+        .neighborhood-fashionavenue #profile-avatar {
+            border-color: #FF69B4;
+            color: #FF69B4;
+        }
+        .neighborhood-fashionavenue.light-mode #profile-avatar {
+            border-color: #C71585;
+            color: #C71585;
         }
         .neighborhood-fashionavenue .profile-box {
             border-color: #FF69B4;
@@ -1574,6 +670,26 @@
         .neighborhood-fashionavenue.light-mode .profile-box:first-child {
             border-top: 1px solid #C71585;
         }
+        .neighborhood-heartland {
+            color: #F5DEB3;
+        }
+        .neighborhood-heartland.light-mode {
+            color: #8B4513;
+        }
+        .neighborhood-heartland #profile-header {
+            border-color: #F5DEB3;
+        }
+        .neighborhood-heartland.light-mode #profile-header {
+            border-color: #8B4513;
+        }
+        .neighborhood-heartland #profile-avatar {
+            border-color: #F5DEB3;
+            color: #F5DEB3;
+        }
+        .neighborhood-heartland.light-mode #profile-avatar {
+            border-color: #8B4513;
+            color: #8B4513;
+        }
         .neighborhood-heartland .profile-box {
             border-color: #F5DEB3;
             background: rgba(92, 64, 51, 0.8);
@@ -1590,6 +706,26 @@
         }
         .neighborhood-heartland.light-mode .profile-box:first-child {
             border-top: 1px solid #8B4513;
+        }
+        .neighborhood-hollywood {
+            color: #FFD700;
+        }
+        .neighborhood-hollywood.light-mode {
+            color: #B22222;
+        }
+        .neighborhood-hollywood #profile-header {
+            border-color: #FFD700;
+        }
+        .neighborhood-hollywood.light-mode #profile-header {
+            border-color: #B22222;
+        }
+        .neighborhood-hollywood #profile-avatar {
+            border-color: #FFD700;
+            color: #FFD700;
+        }
+        .neighborhood-hollywood.light-mode #profile-avatar {
+            border-color: #B22222;
+            color: #B22222;
         }
         .neighborhood-hollywood .profile-box {
             border-color: #FFD700;
@@ -1608,6 +744,26 @@
         .neighborhood-hollywood.light-mode .profile-box:first-child {
             border-top: 1px solid #B22222;
         }
+        .neighborhood-hotsprings {
+            color: #00CED1;
+        }
+        .neighborhood-hotsprings.light-mode {
+            color: #008B8B;
+        }
+        .neighborhood-hotsprings #profile-header {
+            border-color: #00CED1;
+        }
+        .neighborhood-hotsprings.light-mode #profile-header {
+            border-color: #008B8B;
+        }
+        .neighborhood-hotsprings #profile-avatar {
+            border-color: #00CED1;
+            color: #00CED1;
+        }
+        .neighborhood-hotsprings.light-mode #profile-avatar {
+            border-color: #008B8B;
+            color: #008B8B;
+        }
         .neighborhood-hotsprings .profile-box {
             border-color: #00CED1;
             background: rgba(0, 73, 83, 0.8);
@@ -1624,6 +780,26 @@
         }
         .neighborhood-hotsprings.light-mode .profile-box:first-child {
             border-top: 1px solid #008B8B;
+        }
+        .neighborhood-madisonavenue {
+            color: #FFA500;
+        }
+        .neighborhood-madisonavenue.light-mode {
+            color: #D2691E;
+        }
+        .neighborhood-madisonavenue #profile-header {
+            border-color: #FFA500;
+        }
+        .neighborhood-madisonavenue.light-mode #profile-header {
+            border-color: #D2691E;
+        }
+        .neighborhood-madisonavenue #profile-avatar {
+            border-color: #FFA500;
+            color: #FFA500;
+        }
+        .neighborhood-madisonavenue.light-mode #profile-avatar {
+            border-color: #D2691E;
+            color: #D2691E;
         }
         .neighborhood-madisonavenue .profile-box {
             border-color: #FFA500;
@@ -1642,6 +818,26 @@
         .neighborhood-madisonavenue.light-mode .profile-box:first-child {
             border-top: 1px solid #D2691E;
         }
+        .neighborhood-motorcity {
+            color: #FF4500;
+        }
+        .neighborhood-motorcity.light-mode {
+            color: #8B0000;
+        }
+        .neighborhood-motorcity #profile-header {
+            border-color: #FF4500;
+        }
+        .neighborhood-motorcity.light-mode #profile-header {
+            border-color: #8B0000;
+        }
+        .neighborhood-motorcity #profile-avatar {
+            border-color: #FF4500;
+            color: #FF4500;
+        }
+        .neighborhood-motorcity.light-mode #profile-avatar {
+            border-color: #8B0000;
+            color: #8B0000;
+        }
         .neighborhood-motorcity .profile-box {
             border-color: #FF4500;
             background: rgba(26, 36, 33, 0.8);
@@ -1658,6 +854,26 @@
         }
         .neighborhood-motorcity.light-mode .profile-box:first-child {
             border-top: 1px solid #8B0000;
+        }
+        .neighborhood-napavalley {
+            color: #F5F5DC;
+        }
+        .neighborhood-napavalley.light-mode {
+            color: #800000;
+        }
+        .neighborhood-napavalley #profile-header {
+            border-color: #F5F5DC;
+        }
+        .neighborhood-napavalley.light-mode #profile-header {
+            border-color: #800000;
+        }
+        .neighborhood-napavalley #profile-avatar {
+            border-color: #F5F5DC;
+            color: #F5F5DC;
+        }
+        .neighborhood-napavalley.light-mode #profile-avatar {
+            border-color: #800000;
+            color: #800000;
         }
         .neighborhood-napavalley .profile-box {
             border-color: #F5F5DC;
@@ -1676,6 +892,26 @@
         .neighborhood-napavalley.light-mode .profile-box:first-child {
             border-top: 1px solid #800000;
         }
+        .neighborhood-nashville {
+            color: #FF8C00;
+        }
+        .neighborhood-nashville.light-mode {
+            color: #8B4500;
+        }
+        .neighborhood-nashville #profile-header {
+            border-color: #FF8C00;
+        }
+        .neighborhood-nashville.light-mode #profile-header {
+            border-color: #8B4500;
+        }
+        .neighborhood-nashville #profile-avatar {
+            border-color: #FF8C00;
+            color: #FF8C00;
+        }
+        .neighborhood-nashville.light-mode #profile-avatar {
+            border-color: #8B4500;
+            color: #8B4500;
+        }
         .neighborhood-nashville .profile-box {
             border-color: #FF8C00;
             background: rgba(70, 44, 26, 0.8);
@@ -1692,6 +928,26 @@
         }
         .neighborhood-nashville.light-mode .profile-box:first-child {
             border-top: 1px solid #8B4500;
+        }
+        .neighborhood-paris {
+            color: #FFB6C1;
+        }
+        .neighborhood-paris.light-mode {
+            color: #4682B4;
+        }
+        .neighborhood-paris #profile-header {
+            border-color: #FFB6C1;
+        }
+        .neighborhood-paris.light-mode #profile-header {
+            border-color: #4682B4;
+        }
+        .neighborhood-paris #profile-avatar {
+            border-color: #FFB6C1;
+            color: #FFB6C1;
+        }
+        .neighborhood-paris.light-mode #profile-avatar {
+            border-color: #4682B4;
+            color: #4682B4;
         }
         .neighborhood-paris .profile-box {
             border-color: #FFB6C1;
@@ -1710,6 +966,26 @@
         .neighborhood-paris.light-mode .profile-box:first-child {
             border-top: 1px solid #4682B4;
         }
+        .neighborhood-pentagon {
+            color: #B0C4DE;
+        }
+        .neighborhood-pentagon.light-mode {
+            color: #2F4F4F;
+        }
+        .neighborhood-pentagon #profile-header {
+            border-color: #B0C4DE;
+        }
+        .neighborhood-pentagon.light-mode #profile-header {
+            border-color: #2F4F4F;
+        }
+        .neighborhood-pentagon #profile-avatar {
+            border-color: #B0C4DE;
+            color: #B0C4DE;
+        }
+        .neighborhood-pentagon.light-mode #profile-avatar {
+            border-color: #2F4F4F;
+            color: #2F4F4F;
+        }
         .neighborhood-pentagon .profile-box {
             border-color: #B0C4DE;
             background: rgba(47, 79, 79, 0.8);
@@ -1726,6 +1002,26 @@
         }
         .neighborhood-pentagon.light-mode .profile-box:first-child {
             border-top: 1px solid #2F4F4F;
+        }
+        .neighborhood-petsburgh {
+            color: #FFDAB9;
+        }
+        .neighborhood-petsburgh.light-mode {
+            color: #8B4513;
+        }
+        .neighborhood-petsburgh #profile-header {
+            border-color: #FFDAB9;
+        }
+        .neighborhood-petsburgh.light-mode #profile-header {
+            border-color: #8B4513;
+        }
+        .neighborhood-petsburgh #profile-avatar {
+            border-color: #FFDAB9;
+            color: #FFDAB9;
+        }
+        .neighborhood-petsburgh.light-mode #profile-avatar {
+            border-color: #8B4513;
+            color: #8B4513;
         }
         .neighborhood-petsburgh .profile-box {
             border-color: #FFDAB9;
@@ -1744,6 +1040,26 @@
         .neighborhood-petsburgh.light-mode .profile-box:first-child {
             border-top: 1px solid #8B4513;
         }
+        .neighborhood-picketfence {
+            color: #F0F8FF;
+        }
+        .neighborhood-picketfence.light-mode {
+            color: #556B2F;
+        }
+        .neighborhood-picketfence #profile-header {
+            border-color: #F0F8FF;
+        }
+        .neighborhood-picketfence.light-mode #profile-header {
+            border-color: #556B2F;
+        }
+        .neighborhood-picketfence #profile-avatar {
+            border-color: #F0F8FF;
+            color: #F0F8FF;
+        }
+        .neighborhood-picketfence.light-mode #profile-avatar {
+            border-color: #556B2F;
+            color: #556B2F;
+        }
         .neighborhood-picketfence .profile-box {
             border-color: #F0F8FF;
             background: rgba(72, 60, 50, 0.8);
@@ -1760,6 +1076,26 @@
         }
         .neighborhood-picketfence.light-mode .profile-box:first-child {
             border-top: 1px solid #556B2F;
+        }
+        .neighborhood-pipeline {
+            color: #FF6347;
+        }
+        .neighborhood-pipeline.light-mode {
+            color: #B22222;
+        }
+        .neighborhood-pipeline #profile-header {
+            border-color: #FF6347;
+        }
+        .neighborhood-pipeline.light-mode #profile-header {
+            border-color: #B22222;
+        }
+        .neighborhood-pipeline #profile-avatar {
+            border-color: #FF6347;
+            color: #FF6347;
+        }
+        .neighborhood-pipeline.light-mode #profile-avatar {
+            border-color: #B22222;
+            color: #B22222;
         }
         .neighborhood-pipeline .profile-box {
             border-color: #FF6347;
@@ -1778,6 +1114,26 @@
         .neighborhood-pipeline.light-mode .profile-box:first-child {
             border-top: 1px solid #B22222;
         }
+        .neighborhood-rainforest {
+            color: #ADFF2F;
+        }
+        .neighborhood-rainforest.light-mode {
+            color: #228B22;
+        }
+        .neighborhood-rainforest #profile-header {
+            border-color: #ADFF2F;
+        }
+        .neighborhood-rainforest.light-mode #profile-header {
+            border-color: #228B22;
+        }
+        .neighborhood-rainforest #profile-avatar {
+            border-color: #ADFF2F;
+            color: #ADFF2F;
+        }
+        .neighborhood-rainforest.light-mode #profile-avatar {
+            border-color: #228B22;
+            color: #228B22;
+        }
         .neighborhood-rainforest .profile-box {
             border-color: #ADFF2F;
             background: rgba(0, 66, 37, 0.8);
@@ -1794,6 +1150,26 @@
         }
         .neighborhood-rainforest.light-mode .profile-box:first-child {
             border-top: 1px solid #228B22;
+        }
+        .neighborhood-researchtriangle {
+            color: #00FFFF;
+        }
+        .neighborhood-researchtriangle.light-mode {
+            color: #0000CD;
+        }
+        .neighborhood-researchtriangle #profile-header {
+            border-color: #00FFFF;
+        }
+        .neighborhood-researchtriangle.light-mode #profile-header {
+            border-color: #0000CD;
+        }
+        .neighborhood-researchtriangle #profile-avatar {
+            border-color: #00FFFF;
+            color: #00FFFF;
+        }
+        .neighborhood-researchtriangle.light-mode #profile-avatar {
+            border-color: #0000CD;
+            color: #0000CD;
         }
         .neighborhood-researchtriangle .profile-box {
             border-color: #00FFFF;
@@ -1812,6 +1188,26 @@
         .neighborhood-researchtriangle.light-mode .profile-box:first-child {
             border-top: 1px solid #0000CD;
         }
+        .neighborhood-rodeodrive {
+            color: #FFD700;
+        }
+        .neighborhood-rodeodrive.light-mode {
+            color: #B8860B;
+        }
+        .neighborhood-rodeodrive #profile-header {
+            border-color: #FFD700;
+        }
+        .neighborhood-rodeodrive.light-mode #profile-header {
+            border-color: #B8860B;
+        }
+        .neighborhood-rodeodrive #profile-avatar {
+            border-color: #FFD700;
+            color: #FFD700;
+        }
+        .neighborhood-rodeodrive.light-mode #profile-avatar {
+            border-color: #B8860B;
+            color: #B8860B;
+        }
         .neighborhood-rodeodrive .profile-box {
             border-color: #FFD700;
             background: rgba(26, 26, 26, 0.8);
@@ -1828,6 +1224,26 @@
         }
         .neighborhood-rodeodrive.light-mode .profile-box:first-child {
             border-top: 1px solid #B8860B;
+        }
+        .neighborhood-siliconvalley {
+            color: #39FF14;
+        }
+        .neighborhood-siliconvalley.light-mode {
+            color: #006400;
+        }
+        .neighborhood-siliconvalley #profile-header {
+            border-color: #39FF14;
+        }
+        .neighborhood-siliconvalley.light-mode #profile-header {
+            border-color: #006400;
+        }
+        .neighborhood-siliconvalley #profile-avatar {
+            border-color: #39FF14;
+            color: #39FF14;
+        }
+        .neighborhood-siliconvalley.light-mode #profile-avatar {
+            border-color: #006400;
+            color: #006400;
         }
         .neighborhood-siliconvalley .profile-box {
             border-color: #39FF14;
@@ -1846,6 +1262,26 @@
         .neighborhood-siliconvalley.light-mode .profile-box:first-child {
             border-top: 1px solid #006400;
         }
+        .neighborhood-soho {
+            color: #FF4500;
+        }
+        .neighborhood-soho.light-mode {
+            color: #A52A2A;
+        }
+        .neighborhood-soho #profile-header {
+            border-color: #FF4500;
+        }
+        .neighborhood-soho.light-mode #profile-header {
+            border-color: #A52A2A;
+        }
+        .neighborhood-soho #profile-avatar {
+            border-color: #FF4500;
+            color: #FF4500;
+        }
+        .neighborhood-soho.light-mode #profile-avatar {
+            border-color: #A52A2A;
+            color: #A52A2A;
+        }
         .neighborhood-soho .profile-box {
             border-color: #FF4500;
             background: rgba(47, 47, 47, 0.8);
@@ -1862,6 +1298,26 @@
         }
         .neighborhood-soho.light-mode .profile-box:first-child {
             border-top: 1px solid #A52A2A;
+        }
+        .neighborhood-southbeach {
+            color: #FF00FF;
+        }
+        .neighborhood-southbeach.light-mode {
+            color: #FF00FF;
+        }
+        .neighborhood-southbeach #profile-header {
+            border-color: #FF00FF;
+        }
+        .neighborhood-southbeach.light-mode #profile-header {
+            border-color: #FF00FF;
+        }
+        .neighborhood-southbeach #profile-avatar {
+            border-color: #FF00FF;
+            color: #FF00FF;
+        }
+        .neighborhood-southbeach.light-mode #profile-avatar {
+            border-color: #FF00FF;
+            color: #FF00FF;
         }
         .neighborhood-southbeach .profile-box {
             border-color: #FF00FF;
@@ -1880,6 +1336,26 @@
         .neighborhood-southbeach.light-mode .profile-box:first-child {
             border-top: 1px solid #FF00FF;
         }
+        .neighborhood-sunsetstrip {
+            color: #FF1493;
+        }
+        .neighborhood-sunsetstrip.light-mode {
+            color: #C71585;
+        }
+        .neighborhood-sunsetstrip #profile-header {
+            border-color: #FF1493;
+        }
+        .neighborhood-sunsetstrip.light-mode #profile-header {
+            border-color: #C71585;
+        }
+        .neighborhood-sunsetstrip #profile-avatar {
+            border-color: #FF1493;
+            color: #FF1493;
+        }
+        .neighborhood-sunsetstrip.light-mode #profile-avatar {
+            border-color: #C71585;
+            color: #C71585;
+        }
         .neighborhood-sunsetstrip .profile-box {
             border-color: #FF1493;
             background: rgba(28, 15, 19, 0.8);
@@ -1896,6 +1372,26 @@
         }
         .neighborhood-sunsetstrip.light-mode .profile-box:first-child {
             border-top: 1px solid #C71585;
+        }
+        .neighborhood-televisioncity {
+            color: #FF4500;
+        }
+        .neighborhood-televisioncity.light-mode {
+            color: #B22222;
+        }
+        .neighborhood-televisioncity #profile-header {
+            border-color: #FF4500;
+        }
+        .neighborhood-televisioncity.light-mode #profile-header {
+            border-color: #B22222;
+        }
+        .neighborhood-televisioncity #profile-avatar {
+            border-color: #FF4500;
+            color: #FF4500;
+        }
+        .neighborhood-televisioncity.light-mode #profile-avatar {
+            border-color: #B22222;
+            color: #B22222;
         }
         .neighborhood-televisioncity .profile-box {
             border-color: #FF4500;
@@ -1914,6 +1410,26 @@
         .neighborhood-televisioncity.light-mode .profile-box:first-child {
             border-top: 1px solid #B22222;
         }
+        .neighborhood-thetropics {
+            color: #FFD700;
+        }
+        .neighborhood-thetropics.light-mode {
+            color: #008B8B;
+        }
+        .neighborhood-thetropics #profile-header {
+            border-color: #FFD700;
+        }
+        .neighborhood-thetropics.light-mode #profile-header {
+            border-color: #008B8B;
+        }
+        .neighborhood-thetropics #profile-avatar {
+            border-color: #FFD700;
+            color: #FFD700;
+        }
+        .neighborhood-thetropics.light-mode #profile-avatar {
+            border-color: #008B8B;
+            color: #008B8B;
+        }
         .neighborhood-thetropics .profile-box {
             border-color: #FFD700;
             background: rgba(0, 75, 73, 0.8);
@@ -1931,6 +1447,26 @@
         .neighborhood-thetropics.light-mode .profile-box:first-child {
             border-top: 1px solid #008B8B;
         }
+        .neighborhood-timessquare {
+            color: #FF0000;
+        }
+        .neighborhood-timessquare.light-mode {
+            color: #8B0000;
+        }
+        .neighborhood-timessquare #profile-header {
+            border-color: #FF0000;
+        }
+        .neighborhood-timessquare.light-mode #profile-header {
+            border-color: #8B0000;
+        }
+        .neighborhood-timessquare #profile-avatar {
+            border-color: #FF0000;
+            color: #FF0000;
+        }
+        .neighborhood-timessquare.light-mode #profile-avatar {
+            border-color: #8B0000;
+            color: #8B0000;
+        }
         .neighborhood-timessquare .profile-box {
             border-color: #FF0000;
             background: rgba(0, 0, 0, 0.8);
@@ -1943,10 +1479,30 @@
         .neighborhood-timessquare.light-mode .profile-box {
             border-color: #8B0000;
             background: rgba(245, 245, 245, 0.9);
-                        #8B0000;
+            color: #8B0000;
         }
         .neighborhood-timessquare.light-mode .profile-box:first-child {
             border-top: 1px solid #8B0000;
+        }
+        .neighborhood-tokyo {
+            color: #FF69B4;
+        }
+        .neighborhood-tokyo.light-mode {
+            color: #9932CC;
+        }
+        .neighborhood-tokyo #profile-header {
+            border-color: #FF69B4;
+        }
+        .neighborhood-tokyo.light-mode #profile-header {
+            border-color: #9932CC;
+        }
+        .neighborhood-tokyo #profile-avatar {
+            border-color: #FF69B4;
+            color: #FF69B4;
+        }
+        .neighborhood-tokyo.light-mode #profile-avatar {
+            border-color: #9932CC;
+            color: #9932CC;
         }
         .neighborhood-tokyo .profile-box {
             border-color: #FF69B4;
@@ -1965,6 +1521,26 @@
         .neighborhood-tokyo.light-mode .profile-box:first-child {
             border-top: 1px solid #9932CC;
         }
+        .neighborhood-vienna {
+            color: #FFD700;
+        }
+        .neighborhood-vienna.light-mode {
+            color: #4B0082;
+        }
+        .neighborhood-vienna #profile-header {
+            border-color: #FFD700;
+        }
+        .neighborhood-vienna.light-mode #profile-header {
+            border-color: #4B0082;
+        }
+        .neighborhood-vienna #profile-avatar {
+            border-color: #FFD700;
+            color: #FFD700;
+        }
+        .neighborhood-vienna.light-mode #profile-avatar {
+            border-color: #4B0082;
+            color: #4B0082;
+        }
         .neighborhood-vienna .profile-box {
             border-color: #FFD700;
             background: rgba(44, 26, 46, 0.8);
@@ -1981,6 +1557,26 @@
         }
         .neighborhood-vienna.light-mode .profile-box:first-child {
             border-top: 1px solid #4B0082;
+        }
+        .neighborhood-wallstreet {
+            color: #FFD700;
+        }
+        .neighborhood-wallstreet.light-mode {
+            color: #006400;
+        }
+        .neighborhood-wallstreet #profile-header {
+            border-color: #FFD700;
+        }
+        .neighborhood-wallstreet.light-mode #profile-header {
+            border-color: #006400;
+        }
+        .neighborhood-wallstreet #profile-avatar {
+            border-color: #FFD700;
+            color: #FFD700;
+        }
+        .neighborhood-wallstreet.light-mode #profile-avatar {
+            border-color: #006400;
+            color: #006400;
         }
         .neighborhood-wallstreet .profile-box {
             border-color: #FFD700;
@@ -1999,6 +1595,26 @@
         .neighborhood-wallstreet.light-mode .profile-box:first-child {
             border-top: 1px solid #006400;
         }
+        .neighborhood-wellesley {
+            color: #FFB6C1;
+        }
+        .neighborhood-wellesley.light-mode {
+            color: #483D8B;
+        }
+        .neighborhood-wellesley #profile-header {
+            border-color: #FFB6C1;
+        }
+        .neighborhood-wellesley.light-mode #profile-header {
+            border-color: #483D8B;
+        }
+        .neighborhood-wellesley #profile-avatar {
+            border-color: #FFB6C1;
+            color: #FFB6C1;
+        }
+        .neighborhood-wellesley.light-mode #profile-avatar {
+            border-color: #483D8B;
+            color: #483D8B;
+        }
         .neighborhood-wellesley .profile-box {
             border-color: #FFB6C1;
             background: rgba(74, 47, 111, 0.8);
@@ -2015,6 +1631,26 @@
         }
         .neighborhood-wellesley.light-mode .profile-box:first-child {
             border-top: 1px solid #483D8B;
+        }
+        .neighborhood-westhollywood {
+            color: #FF69B4;
+        }
+        .neighborhood-westhollywood.light-mode {
+            color: #FF1493;
+        }
+        .neighborhood-westhollywood #profile-header {
+            border-color: #FF69B4;
+        }
+        .neighborhood-westhollywood.light-mode #profile-header {
+            border-color: #FF1493;
+        }
+        .neighborhood-westhollywood #profile-avatar {
+            border-color: #FF69B4;
+            color: #FF69B4;
+        }
+        .neighborhood-westhollywood.light-mode #profile-avatar {
+            border-color: #FF1493;
+            color: #FF1493;
         }
         .neighborhood-westhollywood .profile-box {
             border-color: #FF69B4;
@@ -2033,6 +1669,26 @@
         .neighborhood-westhollywood.light-mode .profile-box:first-child {
             border-top: 1px solid #FF1493;
         }
+        .neighborhood-yosemite {
+            color: #B0C4DE;
+        }
+        .neighborhood-yosemite.light-mode {
+            color: #228B22;
+        }
+        .neighborhood-yosemite #profile-header {
+            border-color: #B0C4DE;
+        }
+        .neighborhood-yosemite.light-mode #profile-header {
+            border-color: #228B22;
+        }
+        .neighborhood-yosemite #profile-avatar {
+            border-color: #B0C4DE;
+            color: #B0C4DE;
+        }
+        .neighborhood-yosemite.light-mode #profile-avatar {
+            border-color: #228B22;
+            color: #228B22;
+        }
         .neighborhood-yosemite .profile-box {
             border-color: #B0C4DE;
             background: rgba(47, 79, 79, 0.8);
@@ -2049,6 +1705,26 @@
         }
         .neighborhood-yosemite.light-mode .profile-box:first-child {
             border-top: 1px solid #228B22;
+        }
+        .neighborhood-northpole {
+            color: #F0F8FF;
+        }
+        .neighborhood-northpole.light-mode {
+            color: #B22222;
+        }
+        .neighborhood-northpole #profile-header {
+            border-color: #F0F8FF;
+        }
+        .neighborhood-northpole.light-mode #profile-header {
+            border-color: #B22222;
+        }
+        .neighborhood-northpole #profile-avatar {
+            border-color: #F0F8FF;
+            color: #F0F8FF;
+        }
+        .neighborhood-northpole.light-mode #profile-avatar {
+            border-color: #B22222;
+            color: #B22222;
         }
         .neighborhood-northpole .profile-box {
             border-color: #F0F8FF;
@@ -2067,8 +1743,6 @@
         .neighborhood-northpole.light-mode .profile-box:first-child {
             border-top: 1px solid #B22222;
         }
-
-        /* Profile Box Header */
         .profile-box-header {
             font-weight: bold;
             color: #fff;
@@ -2273,1451 +1947,4 @@
             color: #FFD700;
             font-family: sans-serif;
         }
-        .neighborhood-rodeodrive.light-mode .profile-box-header {
-            color: #B8860B;
-        }
-        .neighborhood-siliconvalley .profile-box-header {
-            color: #39FF14;
-            font-family: sans-serif;
-        }
-        .neighborhood-siliconvalley.light-mode .profile-box-header {
-            color: #006400;
-        }
-        .neighborhood-soho .profile-box-header {
-            color: #FF4500;
-            font-family: sans-serif;
-        }
-        .neighborhood-soho.light-mode .profile-box-header {
-            color: #A52A2A;
-        }
-        .neighborhood-southbeach .profile-box-header {
-            color: #FF00FF;
-            font-family: sans-serif;
-        }
-        .neighborhood-southbeach.light-mode .profile-box-header {
-            color: #FF00FF;
-        }
-        .neighborhood-sunsetstrip .profile-box-header {
-            color: #FF1493;
-            font-family: sans-serif;
-        }
-        .neighborhood-sunsetstrip.light-mode .profile-box-header {
-            color: #C71585;
-        }
-        .neighborhood-televisioncity .profile-box-header {
-            color: #FF4500;
-            font-family: sans-serif;
-        }
-        .neighborhood-televisioncity.light-mode .profile-box-header {
-            color: #B22222;
-        }
-        .neighborhood-thetropics .profile-box-header {
-            color: #FFD700;
-            font-family: sans-serif;
-        }
-        .neighborhood-thetropics.light-mode .profile-box-header {
-            color: #008B8B;
-        }
-        .neighborhood-timessquare .profile-box-header {
-            color: #FF0000;
-            font-family: sans-serif;
-        }
-        .neighborhood-timessquare.light-mode .profile-box-header {
-            color: #8B0000;
-        }
-        .neighborhood-tokyo .profile-box-header {
-            color: #FF69B4;
-            font-family: sans-serif;
-        }
-        .neighborhood-tokyo.light-mode .profile-box-header {
-            color: #9932CC;
-        }
-        .neighborhood-vienna .profile-box-header {
-            color: #FFD700;
-            font-family: sans-serif;
-        }
-        .neighborhood-vienna.light-mode .profile-box-header {
-            color: #4B0082;
-        }
-        .neighborhood-wallstreet .profile-box-header {
-            color: #FFD700;
-            font-family: sans-serif;
-        }
-        .neighborhood-wallstreet.light-mode .profile-box-header {
-            color: #006400;
-        }
-        .neighborhood-wellesley .profile-box-header {
-            color: #FFB6C1;
-            font-family: sans-serif;
-        }
-        .neighborhood-wellesley.light-mode .profile-box-header {
-            color: #483D8B;
-        }
-        .neighborhood-westhollywood .profile-box-header {
-            color: #FF69B4;
-            font-family: sans-serif;
-        }
-        .neighborhood-westhollywood.light-mode .profile-box-header {
-            color: #FF1493;
-        }
-        .neighborhood-yosemite .profile-box-header {
-            color: #B0C4DE;
-            font-family: sans-serif;
-        }
-        .neighborhood-yosemite.light-mode .profile-box-header {
-            color: #228B22;
-        }
-        .neighborhood-northpole .profile-box-header {
-            color: #F0F8FF;
-            font-family: sans-serif;
-        }
-        .neighborhood-northpole.light-mode .profile-box-header {
-            color: #B22222;
-        }
-
-        /* Profile Box Value */
-        .profile-box-value {
-            flex: 1;
-            text-align: left;
-            word-break: break-all;
-            color: #fff;
-            transition: color 0.3s ease;
-        }
-        .profile-box-value.light-mode {
-            color: #000;
-        }
-        .profile-box-value a {
-            color: inherit;
-            text-decoration: underline;
-        }
-        .profile-box-value a:hover {
-            text-decoration: none;
-        }
-        .neighborhood-area51 .profile-box-value {
-            color: #00FF00;
-            font-family: 'Orbitron', sans-serif;
-        }
-        .neighborhood-area51.light-mode .profile-box-value {
-            color: #008000;
-        }
-        .neighborhood-athens .profile-box-value {
-            color: #ADD8E6;
-            font-family: 'Georgia', serif;
-        }
-        .neighborhood-athens.light-mode .profile-box-value {
-            color: #00008B;
-        }
-        .neighborhood-augusta .profile-box-value {
-            color: #FFFFFF;
-            font-family: sans-serif;
-        }
-        .neighborhood-augusta.light-mode .profile-box-value {
-            color: #006400;
-        }
-        .neighborhood-baja .profile-box-value {
-            color: #FF4500;
-            font-family: sans-serif;
-        }
-        .neighborhood-baja.light-mode .profile-box-value {
-            color: #FF4500;
-        }
-        .neighborhood-bourbonstreet .profile-box-value {
-            color: #FFFF00;
-            font-family: sans-serif;
-        }
-        .neighborhood-bourbonstreet.light-mode .profile-box-value {
-            color: #4B0082;
-        }
-        .neighborhood-broadway .profile-box-value {
-            color: #FF0000;
-            font-family: sans-serif;
-        }
-        .neighborhood-broadway.light-mode .profile-box-value {
-            color: #8B0000;
-        }
-        .neighborhood-capecanaveral .profile-box-value {
-            color: #00B7EB;
-            font-family: sans-serif;
-        }
-        .neighborhood-capecanaveral.light-mode .profile-box-value {
-            color: #0047AB;
-        }
-        .neighborhood-capitolhill .profile-box-value {
-            color: #FFD700;
-            font-family: sans-serif;
-        }
-        .neighborhood-capitolhill.light-mode .profile-box-value {
-            color: #800000;
-        }
-        .neighborhood-collegepark .profile-box-value {
-            color: #FFB6C1;
-            font-family: sans-serif;
-        }
-        .neighborhood-collegepark.light-mode .profile-box-value {
-            color: #483D8B;
-        }
-        .neighborhood-colosseum .profile-box-value {
-            color: #FFFFFF;
-            font-family: sans-serif;
-        }
-        .neighborhood-colosseum.light-mode .profile-box-value {
-            color: #8B0000;
-        }
-        .neighborhood-enchantedforest .profile-box-value {
-            color: #98FB98;
-            font-family: sans-serif;
-        }
-        .neighborhood-enchantedforest.light-mode .profile-box-value {
-            color: #228B22;
-        }
-        .neighborhood-eureka .profile-box-value {
-            color: #FFCC00;
-            font-family: sans-serif;
-        }
-        .neighborhood-eureka.light-mode .profile-box-value {
-            color: #8B4513;
-        }
-        .neighborhood-fashionavenue .profile-box-value {
-            color: #FF69B4;
-            font-family: sans-serif;
-        }
-        .neighborhood-fashionavenue.light-mode .profile-box-value {
-            color: #C71585;
-        }
-        .neighborhood-heartland .profile-box-value {
-            color: #F5DEB3;
-            font-family: sans-serif;
-        }
-        .neighborhood-heartland.light-mode .profile-box-value {
-            color: #8B4513;
-        }
-        .neighborhood-hollywood .profile-box-value {
-            color: #FFD700;
-            font-family: sans-serif;
-        }
-        .neighborhood-hollywood.light-mode .profile-box-value {
-            color: #B22222;
-        }
-        .neighborhood-hotsprings .profile-box-value {
-            color: #00CED1;
-            font-family: sans-serif;
-        }
-        .neighborhood-hotsprings.light-mode .profile-box-value {
-            color: #008B8B;
-        }
-        .neighborhood-madisonavenue .profile-box-value {
-            color: #FFA500;
-            font-family: sans-serif;
-        }
-        .neighborhood-madisonavenue.light-mode .profile-box-value {
-            color: #D2691E;
-        }
-        .neighborhood-motorcity .profile-box-value {
-            color: #FF4500;
-            font-family: sans-serif;
-        }
-        .neighborhood-motorcity.light-mode .profile-box-value {
-            color: #8B0000;
-        }
-        .neighborhood-napavalley .profile-box-value {
-            color: #F5F5DC;
-            font-family: sans-serif;
-        }
-        .neighborhood-napavalley.light-mode .profile-box-value {
-            color: #800000;
-        }
-        .neighborhood-nashville .profile-box-value {
-            color: #FF8C00;
-            font-family: sans-serif;
-        }
-        .neighborhood-nashville.light-mode .profile-box-value {
-            color: #8B4500;
-        }
-        .neighborhood-paris .profile-box-value {
-            color: #FFB6C1;
-            font-family: sans-serif;
-        }
-        .neighborhood-paris.light-mode .profile-box-value {
-            color: #4682B4;
-        }
-        .neighborhood-pentagon .profile-box-value {
-            color: #B0C4DE;
-            font-family: sans-serif;
-        }
-        .neighborhood-pentagon.light-mode .profile-box-value {
-            color: #2F4F4F;
-        }
-        .neighborhood-petsburgh .profile-box-value {
-            color: #FFDAB9;
-            font-family: sans-serif;
-        }
-        .neighborhood-petsburgh.light-mode .profile-box-value {
-            color: #8B4513;
-        }
-        .neighborhood-picketfence .profile-box-value {
-            color: #F0F8FF;
-            font-family: sans-serif;
-        }
-        .neighborhood-picketfence.light-mode .profile-box-value {
-            color: #556B2F;
-        }
-        .neighborhood-pipeline .profile-box-value {
-            color: #FF6347;
-            font-family: sans-serif;
-        }
-        .neighborhood-pipeline.light-mode .profile-box-value {
-            color: #B22222;
-        }
-        .neighborhood-rainforest .profile-box-value {
-            color: #ADFF2F;
-            font-family: sans-serif;
-        }
-        .neighborhood-rainforest.light-mode .profile-box-value {
-            color: #228B22;
-        }
-        .neighborhood-researchtriangle .profile-box-value {
-            color: #00FFFF;
-            font-family: sans-serif;
-        }
-        .neighborhood-researchtriangle.light-mode .profile-box-value {
-            color: #0000CD;
-        }
-        .neighborhood-rodeodrive .profile-box-value {
-            color: #FFD700;
-            font-family: sans-serif;
-        }
-        .neighborhood-rodeodrive.light-mode .profile-box-value {
-            color: #B8860B;
-        }
-        .neighborhood-siliconvalley .profile-box-value {
-            color: #39FF14;
-            font-family: sans-serif;
-        }
-        .neighborhood-siliconvalley.light-mode .profile-box-value {
-            color: #006400;
-        }
-        .neighborhood-soho .profile-box-value {
-            color: #FF4500;
-            font-family: sans-serif;
-        }
-        .neighborhood-soho.light-mode .profile-box-value {
-            color: #A52A2A;
-        }
-        .neighborhood-southbeach .profile-box-value {
-            color: #FF00FF;
-            font-family: sans-serif;
-        }
-        .neighborhood-southbeach.light-mode .profile-box-value {
-            color: #FF00FF;
-        }
-        .neighborhood-sunsetstrip .profile-box-value {
-            color: #FF1493;
-            font-family: sans-serif;
-        }
-        .neighborhood-sunsetstrip.light-mode .profile-box-value {
-            color: #C71585;
-        }
-        .neighborhood-televisioncity .profile-box-value {
-            color: #FF4500;
-            font-family: sans-serif;
-        }
-        .neighborhood-televisioncity.light-mode .profile-box-value {
-            color: #B22222;
-        }
-        .neighborhood-thetropics .profile-box-value {
-            color: #FFD700;
-            font-family: sans-serif;
-        }
-        .neighborhood-thetropics.light-mode .profile-box-value {
-            color: #008B8B;
-        }
-        .neighborhood-timessquare .profile-box-value {
-            color: #FF0000;
-            font-family: sans-serif;
-        }
-        .neighborhood-timessquare.light-mode .profile-box-value {
-            color: #8B0000;
-        }
-        .neighborhood-tokyo .profile-box-value {
-            color: #FF69B4;
-            font-family: sans-serif;
-        }
-        .neighborhood-tokyo.light-mode .profile-box-value {
-            color: #9932CC;
-        }
-        .neighborhood-vienna .profile-box-value {
-            color: #FFD700;
-            font-family: sans-serif;
-        }
-        .neighborhood-vienna.light-mode .profile-box-value {
-            color: #4B0082;
-        }
-        .neighborhood-wallstreet .profile-box-value {
-            color: #FFD700;
-            font-family: sans-serif;
-        }
-        .neighborhood-wallstreet.light-mode .profile-box-value {
-            color: #006400;
-        }
-        .neighborhood-wellesley .profile-box-value {
-            color: #FFB6C1;
-            font-family: sans-serif;
-        }
-        .neighborhood-wellesley.light-mode .profile-box-value {
-            color: #483D8B;
-        }
-        .neighborhood-westhollywood .profile-box-value {
-            color: #FF69B4;
-            font-family: sans-serif;
-        }
-        .neighborhood-westhollywood.light-mode .profile-box-value {
-            color: #FF1493;
-        }
-        .neighborhood-yosemite .profile-box-value {
-            color: #B0C4DE;
-            font-family: sans-serif;
-        }
-        .neighborhood-yosemite.light-mode .profile-box-value {
-            color: #228B22;
-        }
-        .neighborhood-northpole .profile-box-value {
-            color: #F0F8FF;
-            font-family: sans-serif;
-        }
-        .neighborhood-northpole.light-mode .profile-box-value {
-            color: #B22222;
-        }
-
-        /* Error Message Styling */
-        .error-message {
-            color: #ff4d4d;
-            font-size: 0.9em;
-            margin-top: 10px;
-            display: none;
-            text-align: center;
-            word-break: break-word;
-        }
-        .error-message.light-mode {
-            color: #cc0000;
-        }
-
-        /* Success Message Styling */
-        .success-message {
-            color: #00ff00;
-            font-size: 0.9em;
-            margin-top: 10px;
-            display: none;
-            text-align: center;
-            word-break: break-word;
-        }
-        .success-message.light-mode {
-            color: #006600;
-        }
-        .success-message a {
-            color: inherit;
-            text-decoration: underline;
-        }
-        .success-message a:hover {
-            text-decoration: none;
-        }
-
-        /* Register Button Styling */
-        .register-button-container {
-            display: none;
-            margin-top: 20px;
-            width: 100%;
-            justify-content: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        .register-button {
-            padding: 10px 20px;
-            background: #000;
-            color: #fff;
-            border: 1px solid #fff;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.9em;
-            border-radius: 0;
-            text-align: center;
-            box-sizing: border-box;
-            display: none;
-        }
-        .register-button.light-mode {
-            background: #fff;
-            color: #000;
-            border-color: #000;
-        }
-
-        /* IPFS Button Styling */
-        #ipfs-button {
-            padding: 10px 20px;
-            background: #000;
-            color: #fff;
-            border: 1px solid #fff;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.9em;
-            border-radius: 0;
-            text-align: center;
-            box-sizing: border-box;
-            display: none;
-        }
-        #ipfs-button.light-mode {
-            background: #fff;
-            color: #000;
-            border-color: #000;
-        }
-
-        /* Header Styling */
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: #000;
-            color: #fff;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-sizing: border-box;
-            border-bottom: 1px solid #fff;
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-        .header.light-mode {
-            background: #fff;
-            color: #000;
-            border-bottom: 1px solid #000;
-        }
-
-        /* Header Title */
-        .header-title {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #fff;
-            transition: color 0.3s ease;
-            cursor: pointer;
-        }
-        .header-title.light-mode {
-            color: #000;
-        }
-
-        /* Header Title Box */
-        .header-title-box {
-            border: 1px solid #fff;
-            padding: 5px 10px;
-            transition: border-color 0.3s ease;
-        }
-        .header-title-box.light-mode {
-            border-color: #000;
-        }
-
-        /* Toggle Theme Button */
-        .toggle-button {
-            padding: 5px 10px;
-            background: #000;
-            color: #fff;
-            border: 1px solid #fff;
-            cursor: pointer;
-            font-size: 0.8em;
-            transition: all 0.3s ease;
-            border-radius: 0;
-            box-sizing: border-box;
-        }
-        .toggle-button.light-mode {
-            background: #fff;
-            color: #000;
-            border-color: #000;
-        }
-
-        /* Footer Styling */
-        .footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: #000;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
-            font-size: 0.8em;
-            border-top: 1px solid #fff;
-            transition: all 0.3s ease;
-        }
-        .footer.light-mode {
-            background: #fff;
-            color: #000;
-            border-top: 1px solid #000;
-        }
-        .footer a {
-            color: inherit;
-            text-decoration: underline;
-        }
-        .footer a:hover {
-            text-decoration: none;
-        }
-    </style>
-</head>
-<body>
-    <!-- Header -->
-    <div class="header">
-        <div class="header-title-box">
-            <span class="header-title" onclick="showHomepage()">GeoCities</span>
-        </div>
-        <button class="toggle-button" onclick="toggleTheme()">Light</button>
-    </div>
-
-    <!-- Homepage -->
-    <div id="homepage" class="container">
-        <div id="homepage-avatar" class="logo-box">G</div>
-        <h2 id="homepage-geocities">GeoCities</h2>
-        <div class="search-container">
-            <input id="ens-query-home" class="search-input" type="text" placeholder="Enter ENS or Base name">
-            <button class="search-button" id="home-search-button" onclick="searchENS()">Search</button>
-        </div>
-        <div id="error-message-home" class="error-message"></div>
-    </div>
-
-    <!-- Profile Page -->
-    <div id="profile-page" class="container">
-        <div class="search-container">
-            <input id="ens-query-profile" class="search-input" type="text" placeholder="Enter ENS or Base name">
-            <button class="search-button" id="profile-search-button" onclick="searchENS()">Search</button>
-        </div>
-        <div id="error-message-profile" class="error-message"></div>
-        <div id="success-message-profile" class="success-message"></div>
-        <select id="neighborhood-select" class="neighborhood-select" onchange="changeNeighborhood()">
-            <option value="geocities">GeoCities</option>
-            <option value="area51">Area51</option>
-            <option value="athens">Athens</option>
-            <option value="augusta">Augusta</option>
-            <option value="baja">Baja</option>
-            <option value="bourbonstreet">BourbonStreet</option>
-            <option value="broadway">Broadway</option>
-            <option value="capecanaveral">CapeCanaveral</option>
-            <option value="capitolhill">CapitolHill</option>
-            <option value="collegepark">CollegePark</option>
-            <option value="colosseum">Colosseum</option>
-            <option value="enchantedforest">EnchantedForest</option>
-            <option value="eureka">Eureka</option>
-            <option value="fashionavenue">FashionAvenue</option>
-            <option value="heartland">Heartland</option>
-            <option value="hollywood">Hollywood</option>
-            <option value="hotsprings">HotSprings</option>
-            <option value="madisonavenue">MadisonAvenue</option>
-            <option value="motorcity">MotorCity</option>
-            <option value="napavalley">NapaValley</option>
-            <option value="nashville">Nashville</option>
-            <option value="paris">Paris</option>
-            <option value="pentagon">Pentagon</option>
-            <option value="petsburgh">Petsburgh</option>
-            <option value="picketfence">PicketFence</option>
-            <option value="pipeline">Pipeline</option>
-            <option value="rainforest">RainForest</option>
-            <option value="researchtriangle">ResearchTriangle</option>
-            <option value="rodeodrive">RodeoDrive</option>
-            <option value="siliconvalley">SiliconValley</option>
-            <option value="soho">SoHo</option>
-            <option value="southbeach">SouthBeach</option>
-            <option value="sunsetstrip">SunsetStrip</option>
-            <option value="televisioncity">TelevisionCity</option>
-            <option value="thetropics">TheTropics</option>
-            <option value="timessquare">TimesSquare</option>
-            <option value="tokyo">Tokyo</option>
-            <option value="vienna">Vienna</option>
-            <option value="wallstreet">Wallstreet</option>
-            <option value="wellesley">Wellesley</option>
-            <option value="westhollywood">WestHollywood</option>
-            <option value="yosemite">Yosemite</option>
-            <option value="northpole">Northpole</option>
-        </select>
-        <div id="neighborhood-container" class="neighborhood-container"></div>
-        <div id="register-button-container" class="register-button-container">
-            <button id="register-name-button" class="register-button">Register Name</button>
-            <button id="ipfs-button" onclick="deployToIPFS()">Deploy to IPFS</button>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <div class="footer">
-        Powered by <a href="https://web3.bio/" target="_blank" rel="noopener noreferrer">Web3.bio</a> | Built by <a href="https://x.com/web3bio" target="_blank" rel="noopener noreferrer">@web3bio</a>
-    </div>
-
-    <script>
-        // DOM Element References
-        const homepage = document.getElementById('homepage');
-        const profilePage = document.getElementById('profile-page');
-        const ensInputHome = document.getElementById('ens-query-home');
-        const ensInputProfile = document.getElementById('ens-query-profile');
-        const profileRecords = document.getElementById('profile-records');
-        const errorMessageHome = document.getElementById('error-message-home');
-        const errorMessageProfile = document.getElementById('error-message-profile');
-        const successMessageProfile = document.getElementById('success-message-profile');
-        const homepageAvatar = document.getElementById('homepage-avatar');
-        const profileAvatar = document.getElementById('profile-avatar');
-        const profileHeader = document.getElementById('profile-header');
-        const profileAvatarLink = document.getElementById('profile-avatar-link');
-        const profileHeaderLink = document.getElementById('profile-header-link');
-        const pageBody = document.body;
-        const homeSearchButton = document.getElementById('home-search-button');
-        const profileSearchButton = document.getElementById('profile-search-button');
-        const themeBtn = document.querySelector('.toggle-button');
-        const headerLogo = document.querySelector('.header-title');
-        const headerBox = document.querySelector('.header-title-box');
-        const headerElement = document.querySelector('.header');
-        const geoCitiesTitle = document.getElementById('homepage-geocities');
-        const footerElement = document.querySelector('.footer');
-        const registerButtonContainer = document.getElementById('register-button-container');
-        const registerButton = document.getElementById('register-name-button');
-        const ipfsButton = document.getElementById('ipfs-button');
-        const neighborhoodSelect = document.getElementById('neighborhood-select');
-        const neighborhoodContainer = document.getElementById('neighborhood-container');
-
-        // State Variables
-        let lightMode = false;
-        let currentNeighborhood = 'geocities';
-        let currentEnsData = null;
-        let currentEnsName = '';
-
-        // Theme Toggling Function
-        function toggleTheme() {
-            lightMode = !lightMode;
-            pageBody.classList.toggle('light-mode', lightMode);
-            headerElement.classList.toggle('light-mode', lightMode);
-            footerElement.classList.toggle('light-mode', lightMode);
-            ensInputHome.classList.toggle('light-mode', lightMode);
-            ensInputProfile.classList.toggle('light-mode', lightMode);
-            homeSearchButton.classList.toggle('light-mode', lightMode);
-            profileSearchButton.classList.toggle('light-mode', lightMode);
-            themeBtn.classList.toggle('light-mode', lightMode);
-            headerLogo.classList.toggle('light-mode', lightMode);
-            headerBox.classList.toggle('light-mode', lightMode);
-            geoCitiesTitle.classList.toggle('light-mode', lightMode);
-            homepageAvatar.classList.toggle('light-mode', lightMode);
-            neighborhoodSelect.classList.toggle('light-mode', lightMode);
-            registerButton.classList.toggle('light-mode', lightMode);
-            ipfsButton.classList.toggle('light-mode', lightMode);
-            neighborhoodContainer.classList.toggle('light-mode', lightMode);
-
-            changeNeighborhood();
-            themeBtn.textContent = lightMode ? 'Dark' : 'Light';
-        }
-
-        // Set Profile Images (Avatar and Header)
-        async function setProfileImages(name, avatarElement, headerElement, isProfile = false, makeClickable = true) {
-            const avatarTarget = avatarElement;
-            const headerTarget = headerElement || null;
-            const avatarLink = isProfile ? profileAvatarLink : null;
-            const headerLink = isProfile ? profileHeaderLink : null;
-
-            avatarTarget.style.backgroundImage = 'none';
-            const initial = name ? name[0].toUpperCase() : 'G';
-            avatarTarget.textContent = initial;
-
-            if (headerTarget) {
-                headerTarget.style.backgroundImage = 'none';
-                headerTarget.style.display = 'none';
-                if (headerLink) {
-                    headerLink.href = '';
-                    headerLink.style.cursor = 'default';
-                    headerLink.style.pointerEvents = 'none';
-                }
-            }
-
-            if (avatarLink && makeClickable && name && typeof name === 'string' && name.trim()) {
-                let normalizedName = name.trim().toLowerCase().replace(/\.eth$/, '').replace(/\.base\.eth$/, '');
-                let limoUrl = name.endsWith('.base.eth')
-                    ? `https://${normalizedName}.base.eth.limo`
-                    : `https://${normalizedName}.eth.limo`;
-                avatarLink.href = limoUrl;
-                avatarLink.style.cursor = 'pointer';
-                avatarLink.style.pointerEvents = 'auto';
-                if (headerLink) {
-                    headerLink.href = limoUrl;
-                    headerLink.style.cursor = 'pointer';
-                    headerLink.style.pointerEvents = 'auto';
-                }
-            }
-
-            if (!name || !name.trim()) return;
-
-            let url = `https://api.web3.bio/profile/ens/${name}`;
-            if (name.endsWith('.base.eth')) {
-                url = `https://api.web3.bio/profile/basenames/${name}`;
-            }
-
-            try {
-                const response = await fetch(url);
-                if (!response.ok) throw new Error(`API error: ${response.statusText}`);
-                const data = await response.json();
-                const avatarUrl = data.avatar;
-                const headerUrl = data.header;
-
-                if (avatarUrl) {
-                    const img = new Image();
-                    img.src = avatarUrl;
-                    img.onload = () => {
-                        avatarTarget.style.backgroundImage = `url('${avatarUrl}')`;
-                        avatarTarget.textContent = '';
-                    };
-                    img.onerror = () => (avatarTarget.textContent = initial);
-                }
-
-                if (headerUrl && headerTarget) {
-                    const img = new Image();
-                    img.src = headerUrl;
-                    img.onload = () => {
-                        headerTarget.style.backgroundImage = `url(${headerUrl})`;
-                        headerTarget.style.display = 'block';
-                    };
-                    img.onerror = () => (headerTarget.style.display = 'none');
-                } else if (headerTarget) {
-                    headerTarget.style.display = 'none';
-                }
-            } catch (err) {
-                avatarTarget.textContent = initial;
-                if (headerTarget) headerTarget.style.display = 'none';
-            }
-        }
-
-        // Set initial homepage avatar
-        setProfileImages('geocities.eth', homepageAvatar, null, false, false);
-
-        // Add Profile Record to DOM
-        function addProfileRecord(container, label, value, isFirst, isLink = false, linkUrl = '') {
-            const recordDiv = document.createElement('div');
-            recordDiv.classList.add('profile-box');
-            if (lightMode) recordDiv.classList.add('light-mode');
-
-            const headerElement = document.createElement('div');
-            headerElement.classList.add('profile-box-header');
-            if (lightMode) headerElement.classList.add('light-mode');
-            headerElement.textContent = label;
-
-            const valueContainer = document.createElement('div');
-            valueContainer.classList.add('profile-box-value');
-            if (lightMode) valueContainer.classList.add('light-mode');
-
-            if (isLink && linkUrl) {
-                const linkElement = document.createElement('a');
-                linkElement.href = linkUrl;
-                linkElement.target = '_blank';
-                linkElement.rel = 'noopener noreferrer';
-                linkElement.textContent = (typeof value === 'object' && value !== null) ? JSON.stringify(value) : value;
-                valueContainer.appendChild(linkElement);
-            } else {
-                valueContainer.textContent = (typeof value === 'object' && value !== null) ? JSON.stringify(value) : value;
-            }
-
-            recordDiv.appendChild(headerElement);
-            recordDiv.appendChild(valueContainer);
-            container.appendChild(recordDiv);
-        }
-
-        // Generate Profile HTML
-        function generateProfileHtml(ensData, ensName, neighborhood) {
-            neighborhoodContainer.innerHTML = '';
-            neighborhoodContainer.className = `neighborhood-container neighborhood-${neighborhood}`;
-            if (lightMode) neighborhoodContainer.classList.add('light-mode');
-
-            const headerLink = document.createElement('a');
-            headerLink.id = 'profile-header-link';
-            headerLink.target = '_blank';
-            headerLink.rel = 'noopener noreferrer';
-
-            const headerDiv = document.createElement('div');
-            headerDiv.id = 'profile-header';
-            headerLink.appendChild(headerDiv);
-
-            const avatarLink = document.createElement('a');
-            avatarLink.id = 'profile-avatar-link';
-            avatarLink.target = '_blank';
-            avatarLink.rel = 'noopener noreferrer';
-
-            const avatarDiv = document.createElement('div');
-            avatarDiv.id = 'profile-avatar';
-            avatarLink.appendChild(avatarDiv);
-
-            const recordsDiv = document.createElement('div');
-            recordsDiv.id = 'profile-records';
-            recordsDiv.className = 'profile-container';
-
-            neighborhoodContainer.appendChild(headerLink);
-            neighborhoodContainer.appendChild(avatarLink);
-            neighborhoodContainer.appendChild(recordsDiv);
-
-            const identityName = ensData?.identity || ensName;
-            setProfileImages(identityName, avatarDiv, headerDiv, true, true);
-
-            const specificOmissions = ['avatar', 'header', 'contenthash', 'contentHash', 'identity', 'address', 'displayName', 'description', 'email', 'location', 'status', 'createdAt', 'records', 'followers', 'platform', 'follower', 'following', 'social'];
-            const headerRenames = {
-                'email': 'Email',
-                'description': 'Bio',
-                'location': 'Location',
-                'status': 'Status',
-                'keywords': 'Tags',
-                'com.discord': 'Discord',
-                'com.twitter': 'Twitter',
-                'com.github': 'GitHub',
-                'org.telegram': 'Telegram'
-            };
-            const linkableRecords = ['Website', 'Twitter', 'GitHub', 'Discord', 'Telegram'];
-
-            let recordsMap = {
-                'address': null,
-                'identity': null,
-                'displayName': null,
-                'followers': null,
-                'following': null,
-                'location': null,
-                'status': null,
-                'description': null,
-                'website': null,
-                'email': null,
-                'createdAt': null
-            };
-            let otherRecords = [];
-
-            if (ensData.address) recordsMap['address'] = { label: 'Address', value: ensData.address };
-            if (ensData.identity) {
-                const isBase = ensData.identity.endsWith('.base.eth');
-                const displayLabel = isBase ? 'Base Name' : 'ENS';
-                recordsMap['identity'] = { label: displayLabel, value: ensData.identity };
-            }
-            if (ensData.displayName && ensData.displayName !== ensData.identity) {
-                recordsMap['displayName'] = { label: 'Name', value: ensData.displayName };
-            }
-            if (ensData.social?.follower != null) {
-                recordsMap['followers'] = { label: 'Followers', value: ensData.social.follower };
-            }
-            if (ensData.social?.following != null) {
-                recordsMap['following'] = { label: 'Following', value: ensData.social.following };
-            }
-            if (ensData.location) {
-                recordsMap['location'] = { label: 'Location', value: ensData.location };
-            }
-            if (ensData.status) {
-                recordsMap['status'] = { label: 'Status', value: ensData.status };
-            }
-            if (ensData.description) {
-                recordsMap['description'] = { label: 'Bio', value: ensData.description };
-            }
-            if (ensData.links?.website?.handle) {
-                let websiteUrl = ensData.links.website.handle;
-                if (!websiteUrl.match(/^https?:\/\//)) websiteUrl = `https://${websiteUrl}`;
-                recordsMap['website'] = { label: 'Website', value: ensData.links.website.handle, isLink: true, linkUrl: websiteUrl };
-            }
-            if (ensData.email) {
-                recordsMap['email'] = { label: 'Email', value: ensData.email };
-            }
-            if (ensData.createdAt) {
-                let formattedDate = ensData.createdAt;
-                try {
-                    const date = new Date(ensData.createdAt);
-                    if (!isNaN(date.getTime())) formattedDate = date.toLocaleDateString();
-                } catch (err) {}
-                recordsMap['createdAt'] = { label: 'Created', value: formattedDate };
-            }
-
-            function processValue(key, value, targetArray) {
-                if (value === null || value === undefined || value === '' || specificOmissions.includes(key)) return;
-
-                const label = headerRenames[key] || key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
-
-                if (recordsMap[key] || targetArray.some(r => r.label === label)) return;
-
-                if (typeof value === 'object') {
-                    if (key === 'links') {
-                        Object.entries(value).forEach(([linkName, linkData]) => {
-                            if (linkName !== 'website' && linkData && linkData.handle) {
-                                const formattedLabel = headerRenames[linkName] || linkName.replace(/^./, c => c.toUpperCase());
-                                let linkUrl = '';
-                                if (linkName === 'com.twitter') linkUrl = `https://x.com/${linkData.handle.replace(/^@/, '')}`;
-                                else if (linkName === 'com.github') linkUrl = `https://github.com/${linkData.handle}`;
-                                else if (linkName === 'com.discord') linkUrl = `https://discord.com/users/${linkData.handle}`;
-                                else if (linkName === 'org.telegram') linkUrl = `https://t.me/${linkData.handle.replace(/^@/, '')}`;
-                                else {
-                                    linkUrl = linkData.handle;
-                                    if (!linkUrl.match(/^https?:\/\//)) linkUrl = `https://${linkUrl}`;
-                                }
-                                targetArray.push({ label: formattedLabel, value: linkData.handle, isLink: true, linkUrl });
-                            }
-                        });
-                    } else if (key === 'records') {
-                        Object.entries(value).forEach(([recordKey, recordValue]) => {
-                            if (recordKey !== 'contenthash' && recordKey !== 'contentHash' && recordValue) {
-                                const recordLabel = headerRenames[recordKey] || recordKey.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
-                                let isLink = linkableRecords.includes(recordLabel);
-                                let linkUrl = '';
-                                if (isLink) {
-                                    if (recordKey === 'com.twitter') linkUrl = `https://x.com/${recordValue.replace(/^@/, '')}`;
-                                    else if (recordKey === 'com.github') linkUrl = `https://github.com/${recordValue}`;
-                                    else if (recordKey === 'com.discord') linkUrl = `https://discord.com/users/${recordValue}`;
-                                    else if (recordKey === 'org.telegram') linkUrl = `https://t.me/${recordValue.replace(/^@/, '')}`;
-                                    else {
-                                        linkUrl = recordValue;
-                                        if (!linkUrl.match(/^https?:\/\//)) linkUrl = `https://${linkUrl}`;
-                                    }
-                                }
-                                targetArray.push({ label: recordLabel, value: recordValue, isLink, linkUrl });
-                            }
-                        });
-                    }
-                } else {
-                    let isLink = linkableRecords.includes(label);
-                    let linkUrl = '';
-                    if (isLink) {
-                        if (key === 'com.twitter') linkUrl = `https://x.com/${value.replace(/^@/, '')}`;
-                        else if (key === 'com.github') linkUrl = `https://github.com/${value}`;
-                        else if (key === 'com.discord') linkUrl = `https://discord.com/users/${value}`;
-                        else if (key === 'org.telegram') linkUrl = `https://t.me/${value.replace(/^@/, '')}`;
-                        else {
-                            linkUrl = value;
-                            if (!linkUrl.match(/^https?:\/\//)) linkUrl = `https://${linkUrl}`;
-                        }
-                    }
-                    targetArray.push({ label, value, isLink, linkUrl });
-                }
-            }
-
-            Object.entries(ensData).forEach(([key, value]) => {
-                if (!Object.keys(recordsMap).includes(key)) processValue(key, value, otherRecords);
-            });
-
-            let orderedRecords = [];
-            if (recordsMap['address']) orderedRecords.push(recordsMap['address']);
-            if (recordsMap['identity']) orderedRecords.push(recordsMap['identity']);
-            if (recordsMap['displayName']) orderedRecords.push(recordsMap['displayName']);
-            if (recordsMap['followers']) orderedRecords.push(recordsMap['followers']);
-            if (recordsMap['following']) orderedRecords.push(recordsMap['following']);
-            if (recordsMap['location']) orderedRecords.push(recordsMap['location']);
-            if (recordsMap['status']) orderedRecords.push(recordsMap['status']);
-            if (recordsMap['description']) orderedRecords.push(recordsMap['description']);
-            if (recordsMap['email']) orderedRecords.push(recordsMap['email']);
-            if (recordsMap['website']) orderedRecords.push(recordsMap['website']);
-            otherRecords.sort((a, b) => a.label.localeCompare(b.label));
-            orderedRecords = orderedRecords.concat(otherRecords);
-            if (recordsMap['createdAt']) orderedRecords.push(recordsMap['createdAt']);
-
-            if (orderedRecords.length === 0) {
-                addProfileRecord(recordsDiv, 'Status', 'No profile records found.', true);
-            } else {
-                orderedRecords.forEach((record, index) => {
-                    addProfileRecord(recordsDiv, record.label, record.value, index === 0, record.isLink, record.linkUrl);
-                });
-            }
-        }
-
-        // Display Unregistered Profile
-        function displayUnregisteredProfile(ensName, isBaseName) {
-            homepage.style.display = 'none';
-            profilePage.style.display = 'flex';
-            neighborhoodContainer.innerHTML = '';
-            neighborhoodContainer.className = `neighborhood-container neighborhood-${currentNeighborhood}`;
-            if (lightMode) neighborhoodContainer.classList.add('light-mode');
-            errorMessageProfile.style.display = 'none';
-            errorMessageHome.style.display = 'none';
-            successMessageProfile.style.display = 'none';
-
-            const headerLink = document.createElement('a');
-            headerLink.id = 'profile-header-link';
-            headerLink.target = '_blank';
-            headerLink.rel = 'noopener noreferrer';
-
-            const headerDiv = document.createElement('div');
-            headerDiv.id = 'profile-header';
-            headerLink.appendChild(headerDiv);
-
-            const avatarLink = document.createElement('a');
-            avatarLink.id = 'profile-avatar-link';
-            avatarLink.target = '_blank';
-            avatarLink.rel = 'noopener noreferrer';
-
-            const avatarDiv = document.createElement('div');
-            avatarDiv.id = 'profile-avatar';
-            avatarLink.appendChild(avatarDiv);
-
-            const recordsDiv = document.createElement('div');
-            recordsDiv.id = 'profile-records';
-            recordsDiv.className = 'profile-container';
-
-            neighborhoodContainer.appendChild(headerLink);
-            neighborhoodContainer.appendChild(avatarLink);
-            neighborhoodContainer.appendChild(recordsDiv);
-
-            setProfileImages(ensName, avatarDiv, headerDiv, true, true);
-
-            if (isBaseName) {
-                addProfileRecord(recordsDiv, 'Base Name', ensName, true);
-            } else {
-                addProfileRecord(recordsDiv, 'ENS', ensName, true);
-            }
-
-            addProfileRecord(recordsDiv, 'Status', 'Name not registered', false);
-
-            const buttonText = isBaseName ? 'Register Base Name' : 'Register ENS Name';
-            let registerUrl = isBaseName
-                ? `https://www.base.org/names?claim=${ensName.replace(/\.base\.eth$/, '')}`
-                : `https://app.ens.domains/${ensName}/register`;
-
-            registerButton.textContent = buttonText;
-            registerButton.onclick = () => window.open(registerUrl, '_blank');
-            registerButton.className = 'register-button';
-            if (lightMode) registerButton.classList.add('light-mode');
-            registerButtonContainer.style.display = 'flex';
-            registerButton.style.display = 'inline-block';
-            ipfsButton.style.display = 'none';
-        }
-
-        // Change Neighborhood
-        function changeNeighborhood() {
-            currentNeighborhood = neighborhoodSelect.value;
-            pageBody.style.background = currentNeighborhood === 'area51'
-                ? (lightMode ? 'linear-gradient(135deg, #e0e0e0 0%, #a0a0a0 100%)' : '#000000')
-                : currentNeighborhood === 'athens'
-                ? (lightMode ? '#F5F5DC' : '#2F4F4F')
-                : currentNeighborhood === 'augusta'
-                ? (lightMode ? '#90EE90' : '#006400')
-                : currentNeighborhood === 'baja'
-                ? (lightMode ? '#D2B48C' : '#F4A460')
-                : currentNeighborhood === 'bourbonstreet'
-                ? (lightMode ? '#E6E6FA' : '#4B0082')
-                : currentNeighborhood === 'broadway'
-                ? (lightMode ? '#FFFDD0' : '#000000')
-                : currentNeighborhood === 'capecanaveral'
-                ? (lightMode ? '#E6F3FA' : '#1C2526')
-                : currentNeighborhood === 'capitolhill'
-                ? (lightMode ? '#F5F6F5' : '#2C3539')
-                : currentNeighborhood === 'collegepark'
-                ? (lightMode ? '#FFF5EE' : '#4A2F6F')
-                : currentNeighborhood === 'colosseum'
-                ? (lightMode ? '#FFE4C4' : '#8B0000')
-                : currentNeighborhood === 'enchantedforest'
-                ? (lightMode ? '#F0FFF0' : '#013220')
-                : currentNeighborhood === 'eureka'
-                ? (lightMode ? '#FFF8DC' : '#3C2F2F')
-                : currentNeighborhood === 'fashionavenue'
-                ? (lightMode ? '#F5F5F5' : '#1C1C1C')
-                : currentNeighborhood === 'heartland'
-                ? (lightMode ? '#FAEBD7' : '#5C4033')
-                : currentNeighborhood === 'hollywood'
-                ? (lightMode ? '#FFF0F5' : '#2A1F3D')
-                : currentNeighborhood === 'hotsprings'
-                ? (lightMode ? '#E0FFFF' : '#004953')
-                : currentNeighborhood === 'madisonavenue'
-                ? (lightMode ? '#F0F0F0' : '#333333')
-                : currentNeighborhood === 'motorcity'
-                ? (lightMode ? '#DCDCDC' : '#1A2421')
-                : currentNeighborhood === 'napavalley'
-                ? (lightMode ? '#FFFACD' : '#4A2C2A')
-                : currentNeighborhood === 'nashville'
-                ? (lightMode ? '#FFE4B5' : '#462C1A')
-                : currentNeighborhood === 'paris'
-                ? (lightMode ? '#FFF0F5' : '#191970')
-                : currentNeighborhood === 'pentagon'
-                ? (lightMode ? '#F5F5F5' : '#2F4F4F')
-                : currentNeighborhood === 'petsburgh'
-                ? (lightMode ? '#FFF5EE' : '#3C2005')
-                : currentNeighborhood === 'picketfence'
-                ? (lightMode ? '#F5FFFA' : '#483C32')
-                : currentNeighborhood === 'pipeline'
-                ? (lightMode ? '#E6E6E6' : '#1C2526')
-                : currentNeighborhood === 'rainforest'
-                ? (lightMode ? '#F0FFF0' : '#004225')
-                : currentNeighborhood === 'researchtriangle'
-                ? (lightMode ? '#F0F8FF' : '#252850')
-                : currentNeighborhood === 'rodeodrive'
-                ? (lightMode ? '#F5F5F5' : '#1A1A1A')
-                : current临摎currentNeighborhood === 'siliconvalley'
-                ? (lightMode ? '#F5F5F5' : '#0A0A23')
-                : currentNeighborhood === 'soho'
-                ? (lightMode ? '#FFF8DC' : '#2F2F2F')
-                : currentNeighborhood === 'southbeach'
-                ? (lightMode ? '#E0FFFF' : '#003087')
-                : currentNeighborhood === 'sunsetstrip'
-                ? (lightMode ? '#FFF0F5' : '#1C0F13')
-                : currentNeighborhood === 'televisioncity'
-                ? (lightMode ? '#F5F5F5' : '#1F1F1F')
-                : currentNeighborhood === 'thetropics'
-                ? (lightMode ? '#E0FFFF' : '#004B49')
-                : currentNeighborhood === 'timessquare'
-                ? (lightMode ? '#F5F5F5' : '#000000')
-                : currentNeighborhood === 'tokyo'
-                ? (lightMode ? '#FFF0F5' : '#2E1A47')
-                : currentNeighborhood === 'vienna'
-                ? (lightMode ? '#FFF8DC' : '#2C1A2E')
-                : currentNeighborhood === 'wallstreet'
-                ? (lightMode ? '#F5F5F5' : '#1C2526')
-                : currentNeighborhood === 'wellesley'
-                ? (lightMode ? '#FFF0F5' : '#4A2F6F')
-                : currentNeighborhood === 'westhollywood'
-                ? (lightMode ? '#F5F5F5' : '#1A1A3D')
-                : currentNeighborhood === 'yosemite'
-                ? (lightMode ? '#F0FFF0' : '#2F4F4F')
-                : currentNeighborhood === 'northpole'
-                ? (lightMode ? '#E6F3FA' : '#003366')
-                : '';
-
-            if (currentEnsData) {
-                generateProfileHtml(currentEnsData, currentEnsName, currentNeighborhood);
-                registerButtonContainer.style.display = 'flex';
-                registerButton.style.display = 'none';
-                ipfsButton.style.display = 'inline-block';
-            } else if (currentEnsName) {
-                displayUnregisteredProfile(currentEnsName, currentEnsName.endsWith('.base.eth'));
-            }
-        }
-
-        // Deploy to IPFS
-        async function deployToIPFS() {
-            if (!currentEnsData) return;
-
-            const htmlContent = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${currentEnsName} - GeoCities Profile</title>
-    <style>
-        body {
-            font-family: ${currentNeighborhood === 'area51' ? "'Orbitron', sans-serif" : currentNeighborhood === 'athens' ? "'Georgia', serif" : 'sans-serif'};
-            background: ${pageBody.style.background || '#000'};
-            color: ${neighborhoodContainer.style.color || '#fff'};
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        .profile-container {
-            width: 90%;
-            max-width: 600px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .profile-header {
-            width: 100%;
-            height: 0;
-            padding-bottom: 33.33%;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            border: 1px solid ${neighborhoodContainer.style.color || '#fff'};
-            box-sizing: border-box;
-        }
-        .profile-avatar {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            background-size: contain;
-            background-position: center;
-            background-repeat: no-repeat;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 10em;
-            border: 1px solid ${neighborhoodContainer.style.color || '#fff'};
-            box-sizing: border-box;
-            color: ${neighborhoodContainer.style.color || '#fff'};
-        }
-        .profile-box {
-            border: 1px solid ${neighborhoodContainer.style.color || '#fff'};
-            padding: 10px;
-            background: ${neighborhoodContainer.style.background || 'rgba(0, 0, 0, 0.8)'};
-            color: ${neighborhoodContainer.style.color || '#fff'};
-            word-break: break-word;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border-top: none;
-            width: 100%;
-            box-sizing: border-box;
-            min-height: 38px;
-        }
-        .profile-box:first-child {
-            border-top: 1px solid ${neighborhoodContainer.style.color || '#fff'};
-        }
-        .profile-box-header {
-            font-weight: bold;
-            color: ${neighborhoodContainer.style.color || '#fff'};
-            flex: 0 0 100px;
-            min-width: 80px;
-            text-align: left;
-        }
-        .profile-box-value {
-            flex: 1;
-            text-align: left;
-            word-break: break-all;
-            color: ${neighborhoodContainer.style.color || '#fff'};
-        }
-        .profile-box-value a {
-            color: inherit;
-            text-decoration: underline;
-        }
-        .profile-box-value a:hover {
-            text-decoration: none;
-        }
-    </style>
-</head>
-<body>
-    <div class="profile-container">
-        <a href="${profileHeaderLink.href}" target="_blank" rel="noopener noreferrer">
-            <div class="profile-header" style="background-image: url('${profileHeader.style.backgroundImage ? profileHeader.style.backgroundImage.slice(5, -2) : ''}'); display: ${profileHeader.style.display};"></div>
-        </a>
-        <a href="${profileAvatarLink.href}" target="_blank" rel="noopener noreferrer">
-            <div class="profile-avatar" style="background-image: url('${profileAvatar.style.backgroundImage ? profileAvatar.style.backgroundImage.slice(5, -2) : ''}');">${profileAvatar.textContent}</div>
-        </a>
-        <div class="profile-records">
-            ${Array.from(document.querySelectorAll('.profile-box')).map(box => `
-                <div class="profile-box">
-                    <div class="profile-box-header">${box.querySelector('.profile-box-header').textContent}</div>
-                    <div class="profile-box-value">${box.querySelector('.profile-box-value').innerHTML}</div>
-                </div>
-            `).join('')}
-        </div>
-    </div>
-</body>
-</html>
-            `;
-
-            try {
-                const formData = new FormData();
-                formData.append('file', new Blob([htmlContent], { type: 'text/html' }), `${currentEnsName}.html`);
-
-                const response = await fetch('https://ipfs.infura.io:5001/api/v0/add', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                if (!response.ok) throw new Error('IPFS upload failed');
-
-                const data = await response.json();
-                const ipfsUrl = `https://ipfs.io/ipfs/${data.Hash}`;
-
-                successMessageProfile.textContent = `Profile deployed to IPFS: ${ipfsUrl}`;
-                successMessageProfile.style.display = 'block';
-                setTimeout(() => (successMessageProfile.style.display = 'none'), 5000);
-            } catch (err) {
-                errorMessageProfile.textContent = `IPFS upload error: ${err.message}`;
-                errorMessageProfile.style.display = 'block';
-            }
-        }
-
-        // Main Search Function
-        async function searchENS() {
-            const isOnProfilePage = profilePage.style.display === 'flex';
-            const queryInput = isOnProfilePage ? ensInputProfile : ensInputHome;
-            const currentErrorMessageElement = isOnProfilePage ? errorMessageProfile : errorMessageHome;
-            const query = queryInput.value.trim().toLowerCase();
-
-            currentErrorMessageElement.style.display = 'none';
-            successMessageProfile.style.display = 'none';
-            neighborhoodContainer.innerHTML = '';
-            registerButtonContainer.style.display = 'none';
-            currentEnsData = null;
-            currentEnsName = '';
-
-            if (!query) {
-                displayError('Please enter an ENS or Base name.', isOnProfilePage);
-                return;
-            }
-            if (/\s/.test(query)) {
-                displayError('Name cannot contain spaces.', isOnProfilePage);
-                return;
-            }
-
-            const ensName = (query.endsWith('.eth') || query.endsWith('.base.eth')) ? query : `${query}.eth`;
-            let url = `https://api.web3.bio/profile/ens/${ensName}`;
-            let isBaseName = false;
-            if (ensName.endsWith('.base.eth')) {
-                url = `https://api.web3.bio/profile/basenames/${ensName}`;
-                isBaseName = true;
-            }
-
-            try {
-                const response = await fetch(url);
-                if (!response.ok) {
-                    if (response.status === 404) {
-                        currentEnsName = ensName;
-                        displayUnregisteredProfile(ensName, isBaseName);
-                    } else {
-                        const errorData = await response.json().catch(() => ({}));
-                        let errorText = errorData?.message || errorData?.error || `Error ${response.status}: ${response.statusText}`;
-                        if (errorText.toLowerCase().includes('invalid name')) errorText = `Invalid name format: ${ensName}`;
-                        else if (response.status >= 500) errorText = "Server error. Please try again later.";
-                        displayError(errorText, isOnProfilePage);
-                    }
-                    return;
-                }
-
-                const data = await response.json();
-                currentEnsData = data;
-                currentEnsName = ensName;
-                displayProfile(data, ensName);
-            } catch (err) {
-                let errorMsg = err instanceof TypeError ? "Network error or CORS issue. Check console." : `Unexpected error: ${err.message}`;
-                displayError(errorMsg, isOnProfilePage);
-            }
-        }
-
-        // Display Error Messages
-        function displayError(message, onProfilePage) {
-            const targetErrorElement = onProfilePage ? errorMessageProfile : errorMessageHome;
-            targetErrorElement.textContent = message;
-            targetErrorElement.style.display = 'block';
-            successMessageProfile.style.display = 'none';
-
-            if (onProfilePage) {
-                neighborhoodContainer.innerHTML = '';
-                registerButtonContainer.style.display = 'none';
-            }
-        }
-
-        // Display Registered Profile Data
-        function displayProfile(ensData, searchedName) {
-            homepage.style.display = 'none';
-            profilePage.style.display = 'flex';
-            errorMessageProfile.style.display = 'none';
-            errorMessageHome.style.display = 'none';
-            successMessageProfile.style.display = 'none';
-            neighborhoodSelect.value = currentNeighborhood;
-
-            generateProfileHtml(ensData, searchedName, currentNeighborhood);
-            registerButtonContainer.style.display = 'flex';
-            registerButton.style.display = 'none';
-            ipfsButton.style.display = 'inline-block';
-        }
-
-        // Show Homepage View
-        function showHomepage() {
-            profilePage.style.display = 'none';
-            homepage.style.display = 'block';
-            ensInputHome.value = '';
-            ensInputProfile.value = '';
-            errorMessageHome.style.display = 'none';
-            errorMessageProfile.style.display = 'none';
-            successMessageProfile.style.display = 'none';
-            neighborhoodContainer.innerHTML = '';
-            currentEnsData = null;
-            currentEnsName = '';
-            currentNeighborhood = 'geocities';
-            neighborhoodSelect.value = currentNeighborhood;
-            pageBody.style.background = '';
-            registerButtonContainer.style.display = 'none';
-        }
-
-        // Event Listeners
-        ensInputHome.addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); searchENS(); } });
-        ensInputProfile.addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); searchENS(); } });
-
-        // Initial Setup
-        neighborhoodContainer.innerHTML = '';
-        registerButtonContainer.style.display = 'none';
-    </script>
-</body>
-</html>
+        .neighborhood-rodeod
