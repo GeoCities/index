@@ -1,0 +1,1926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GeoCities</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='50' font-size='80' text-anchor='middle' dominant-baseline='middle' fill='%23000'>G%3C/text%3E%3C/svg%3E" type="image/svg+xml">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Georgia&display=swap" rel="stylesheet">
+    <style>
+        /* Body Styles */
+        body {
+            font-family: sans-serif;
+            background: #000;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            padding-top: 60px;
+            transition: background 0.3s ease, color 0.3s ease;
+            position: relative;
+            padding-bottom: 60px;
+            box-sizing: border-box;
+        }
+        body.light-mode {
+            background: #fff;
+            color: #000;
+        }
+
+        /* Container Styles */
+        .container {
+            flex-direction: column;
+            display: flex;
+            align-items: center;
+            width: 90%;
+            max-width: 600px;
+            justify-content: flex-start;
+            flex-grow: 1;
+        }
+
+        /* Logo Box (Homepage Avatar) */
+        .logo-box {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 6em;
+            margin: 20px auto 0;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: border-color 0.3s ease, background-image 0.3s ease;
+            border-radius: 0;
+            overflow: hidden;
+            color: #fff;
+        }
+        .light-mode .logo-box {
+            border-color: #000;
+            color: #000;
+        }
+
+        /* Heading "GeoCities" below avatar */
+        h2#homepage-geocities {
+            margin: 0 auto 20px;
+            text-align: center;
+            display: block;
+            transition: color 0.3s ease, border-color 0.3s ease;
+            font-size: 1.2em;
+            border: 1px solid #fff;
+            border-top: none;
+            padding: 10px 0;
+            border-radius: 0;
+            width: 200px;
+        }
+        #homepage-geocities.light-mode {
+            border-color: #000;
+            color: #000;
+        }
+
+        /* Search Bar Container */
+        .search-container {
+            display: flex;
+            width: 100%;
+            margin-bottom: 20px;
+            height: 38px;
+        }
+
+        /* Search Input Field */
+        .search-input {
+            flex: 1;
+            padding: 10px;
+            background: #000;
+            color: #fff;
+            border: 1px solid #fff;
+            border-right: none;
+            border-radius: 0;
+            transition: all 0.3s ease;
+            height: 100%;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        .search-input.light-mode {
+            background: #fff;
+            color: #000;
+            border-color: #000;
+        }
+        .search-input::placeholder {
+            color: #aaa;
+        }
+        .search-input.light-mode::placeholder {
+            color: #555;
+        }
+        .search-input:focus {
+            font-size: 16px;
+            outline: none;
+        }
+
+        /* Search Button */
+        .search-button {
+            padding: 10px 15px;
+            background: #000;
+            color: #fff;
+            border: 1px solid #fff;
+            cursor: pointer;
+            border-radius: 0;
+            transition: all 0.3s ease;
+            height: 100%;
+            font-size: 0.8em;
+            box-sizing: border-box;
+        }
+        .search-button.light-mode {
+            background: #fff;
+            color: #000;
+            border-color: #000;
+        }
+
+        /* Profile Page Container */
+        #profile-page {
+            width: 100%;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        /* Neighborhood Dropdown */
+        .neighborhood-select {
+            width: 100%;
+            max-width: 200px;
+            height: 38px;
+            padding: 5px;
+            background: #000;
+            color: #fff;
+            border: 1px solid #fff;
+            border-radius: 0;
+            font-size: 0.9em;
+            font-family: sans-serif;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23fff' d='M10.293 3.293L6 7.586 1.707 3.293A1 1 0 00.293 4.707l5 5a1 1 0 001.414 0l5-5a1 1 0 10-1.414-1.414z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            padding-right: 30px;
+        }
+        .neighborhood-select.light-mode {
+            background-color: #fff;
+            color: #000;
+            border: 1px solid #000;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23000' d='M2 4h8L6 8z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+        }
+
+        /* Neighborhood Container */
+        .neighborhood-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .neighborhood-geocities {
+            background: #000;
+            transition: background 0.3s ease;
+        }
+        .neighborhood-geocities.light-mode {
+            background: #fff;
+        }
+        .neighborhood-area51 {
+            background: #000;
+            color: #00ff00;
+            font-family: 'Orbitron', sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-area51.light-mode {
+            background: linear-gradient(135deg, #e0e0e0 0%, #a0a0a0 100%);
+            color: #008000;
+        }
+        .neighborhood-athens {
+            background: #2f4f4f;
+            color: #add8e6;
+            font-family: 'Georgia', serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-athens.light-mode {
+            background: #f5f5dc;
+            color: #00008b;
+        }
+        .neighborhood-augusta {
+            background: #006400;
+            color: #fff;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-augusta.light-mode {
+            background: #90ee90;
+            color: #006400;
+        }
+        .neighborhood-baja {
+            background: #f4a460;
+            color: #ff4500;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-baja.light-mode {
+            background: #d2b48c;
+            color: #ff4500;
+        }
+        .neighborhood-bourbonstreet {
+            background: #4b0082;
+            color: #ffff00;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-bourbonstreet.light-mode {
+            background: #e6e6fa;
+            color: #4b0082;
+        }
+        .neighborhood-broadway {
+            background: #000000;
+            color: #ff0000;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-broadway.light-mode {
+            background: #fffdd0;
+            color: #8b0000;
+        }
+        .neighborhood-capecanaveral {
+            background: #1C2526;
+            color: #00B7EB;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-capecanaveral.light-mode {
+            background: #E6F3FA;
+            color: #0047AB;
+        }
+        .neighborhood-capitolhill {
+            background: #2C3539;
+            color: #FFD700;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-capitolhill.light-mode {
+            background: #F5F6F5;
+            color: #800000;
+        }
+        .neighborhood-collegepark {
+            background: #4A2F6F;
+            color: #FFB6C1;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-collegepark.light-mode {
+            background: #FFF5EE;
+            color: #483D8B;
+        }
+        .neighborhood-colosseum {
+            background: #8B0000;
+            color: #FFFFFF;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-colosseum.light-mode {
+            background: #FFE4C4;
+            color: #8B0000;
+        }
+        .neighborhood-enchantedforest {
+            background: #013220;
+            color: #98FB98;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-enchantedforest.light-mode {
+            background: #F0FFF0;
+            color: #228B22;
+        }
+        .neighborhood-eureka {
+            background: #3C2F2F;
+            color: #FFCC00;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-eureka.light-mode {
+            background: #FFF8DC;
+            color: #8B4513;
+        }
+        .neighborhood-fashionavenue {
+            background: #1C1C1C;
+            color: #FF69B4;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-fashionavenue.light-mode {
+            background: #F5F5F5;
+            color: #C71585;
+        }
+        .neighborhood-heartland {
+            background: #5C4033;
+            color: #F5DEB3;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-heartland.light-mode {
+            background: #FAEBD7;
+            color: #8B4513;
+        }
+        .neighborhood-hollywood {
+            background: #2A1F3D;
+            color: #FFD700;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-hollywood.light-mode {
+            background: #FFF0F5;
+            color: #B22222;
+        }
+        .neighborhood-hotsprings {
+            background: #004953;
+            color: #00CED1;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-hotsprings.light-mode {
+            background: #E0FFFF;
+            color: #008B8B;
+        }
+        .neighborhood-madisonavenue {
+            background: #333333;
+            color: #FFA500;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-madisonavenue.light-mode {
+            background: #F0F0F0;
+            color: #D2691E;
+        }
+        .neighborhood-motorcity {
+            background: #1A2421;
+            color: #FF4500;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-motorcity.light-mode {
+            background: #DCDCDC;
+            color: #8B0000;
+        }
+        .neighborhood-napavalley {
+            background: #4A2C2A;
+            color: #F5F5DC;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-napavalley.light-mode {
+            background: #FFFACD;
+            color: #800000;
+        }
+        .neighborhood-nashville {
+            background: #462C1A;
+            color: #FF8C00;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-nashville.light-mode {
+            background: #FFE4B5;
+            color: #8B4500;
+        }
+        .neighborhood-paris {
+            background: #191970;
+            color: #FFB6C1;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-paris.light-mode {
+            background: #FFF0F5;
+            color: #4682B4;
+        }
+        .neighborhood-pentagon {
+            background: #2F4F4F;
+            color: #B0C4DE;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-pentagon.light-mode {
+            background: #F5F5F5;
+            color: #2F4F4F;
+        }
+        .neighborhood-petsburgh {
+            background: #3C2005;
+            color: #FFDAB9;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-petsburgh.light-mode {
+            background: #FFF5EE;
+            color: #8B4513;
+        }
+        .neighborhood-picketfence {
+            background: #483C32;
+            color: #F0F8FF;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-picketfence.light-mode {
+            background: #F5FFFA;
+            color: #556B2F;
+        }
+        .neighborhood-pipeline {
+            background: #1C2526;
+            color: #FF6347;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-pipeline.light-mode {
+            background: #E6E6E6;
+            color: #B22222;
+        }
+        .neighborhood-rainforest {
+            background: #004225;
+            color: #ADFF2F;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-rainforest.light-mode {
+            background: #F0FFF0;
+            color: #228B22;
+        }
+        .neighborhood-researchtriangle {
+            background: #252850;
+            color: #00FFFF;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-researchtriangle.light-mode {
+            background: #F0F8FF;
+            color: #0000CD;
+        }
+        .neighborhood-rodeodrive {
+            background: #1A1A1A;
+            color: #FFD700;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-rodeodrive.light-mode {
+            background: #F5F5F5;
+            color: #B8860B;
+        }
+        .neighborhood-siliconvalley {
+            background: #0A0A23;
+            color: #39FF14;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-siliconvalley.light-mode {
+            background: #F5F5F5;
+            color: #006400;
+        }
+        .neighborhood-soho {
+            background: #2F2F2F;
+            color: #FF4500;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-soho.light-mode {
+            background: #FFF8DC;
+            color: #A52A2A;
+        }
+        .neighborhood-southbeach {
+            background: #003087;
+            color: #FF00FF;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-southbeach.light-mode {
+            background: #E0FFFF;
+            color: #FF00FF;
+        }
+        .neighborhood-sunsetstrip {
+            background: #1C0F13;
+            color: #FF1493;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-sunsetstrip.light-mode {
+            background: #FFF0F5;
+            color: #C71585;
+        }
+        .neighborhood-televisioncity {
+            background: #1F1F1F;
+            color: #FF4500;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-televisioncity.light-mode {
+            background: #F5F5F5;
+            color: #B22222;
+        }
+        .neighborhood-thetropics {
+            background: #004B49;
+            color: #FFD700;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-thetropics.light-mode {
+            background: #E0FFFF;
+            color: #008B8B;
+        }
+        .neighborhood-timessquare {
+            background: #000000;
+            color: #FF0000;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-timessquare.light-mode {
+            background: #F5F5F5;
+            color: #8B0000;
+        }
+        .neighborhood-tokyo {
+            background: #2E1A47;
+            color: #FF69B4;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-tokyo.light-mode {
+            background: #FFF0F5;
+            color: #9932CC;
+        }
+        .neighborhood-vienna {
+            background: #2C1A2E;
+            color: #FFD700;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-vienna.light-mode {
+            background: #FFF8DC;
+            color: #4B0082;
+        }
+        .neighborhood-wallstreet {
+            background: #1C2526;
+            color: #FFD700;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-wallstreet.light-mode {
+            background: #F5F5F5;
+            color: #006400;
+        }
+        .neighborhood-wellesley {
+            background: #4A2F6F;
+            color: #FFB6C1;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-wellesley.light-mode {
+            background: #FFF0F5;
+            color: #483D8B;
+        }
+        .neighborhood-westhollywood {
+            background: #1A1A3D;
+            color: #FF69B4;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-westhollywood.light-mode {
+            background: #F5F5F5;
+            color: #FF1493;
+        }
+        .neighborhood-yosemite {
+            background: #2F4F4F;
+            color: #B0C4DE;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-yosemite.light-mode {
+            background: #F0FFF0;
+            color: #228B22;
+        }
+        .neighborhood-northpole {
+            background: #003366;
+            color: #F0F8FF;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-northpole.light-mode {
+            background: #E6F3FA;
+            color: #B22222;
+        }
+
+        /* Profile Header Display */
+        #profile-header {
+            width: 100%;
+            height: 0;
+            padding-bottom: 33.33% !important;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: none;
+            border: 1px solid #fff;
+            box-sizing: border-box;
+            border-radius: 0;
+            overflow: hidden;
+            margin-bottom: 0;
+            transition: border-color 0.3s ease;
+        }
+        .light-mode #profile-header {
+            border-color: #000;
+        }
+        .neighborhood-area51 #profile-header {
+            border-color: #00ff00;
+        }
+        .neighborhood-area51.light-mode #profile-header {
+            border-color: #008000;
+        }
+        .neighborhood-athens #profile-header {
+            border-color: #c0c0c0;
+        }
+        .neighborhood-athens.light-mode #profile-header {
+            border-color: #ffd700;
+        }
+        .neighborhood-augusta #profile-header {
+            border-color: #fff;
+        }
+        .neighborhood-augusta.light-mode #profile-header {
+            border-color: #000;
+        }
+        .neighborhood-baja #profile-header {
+            border-color: #fff;
+        }
+        .neighborhood-baja.light-mode #profile-header {
+            border-color: #000;
+        }
+        .neighborhood-bourbonstreet #profile-header {
+            border-color: #fff;
+        }
+        .neighborhood-bourbonstreet.light-mode #profile-header {
+            border-color: #000;
+        }
+        .neighborhood-broadway #profile-header {
+            border-color: #fff;
+        }
+        .neighborhood-broadway.light-mode #profile-header {
+            border-color: #000;
+        }
+        .neighborhood-capecanaveral #profile-header {
+            border-color: #00B7EB;
+        }
+        .neighborhood-capecanaveral.light-mode #profile-header {
+            border-color: #0047AB;
+        }
+        .neighborhood-capitolhill #profile-header {
+            border-color: #FFD700;
+        }
+        .neighborhood-capitolhill.light-mode #profile-header {
+            border-color: #800000;
+        }
+        .neighborhood-collegepark #profile-header {
+            border-color: #FFB6C1;
+        }
+        .neighborhood-collegepark.light-mode #profile-header {
+            border-color: #483D8B;
+        }
+        .neighborhood-colosseum #profile-header {
+            border-color: #FFFFFF;
+        }
+        .neighborhood-colosseum.light-mode #profile-header {
+            border-color: #8B0000;
+        }
+        .neighborhood-enchantedforest #profile-header {
+            border-color: #98FB98;
+        }
+        .neighborhood-enchantedforest.light-mode #profile-header {
+            border-color: #228B22;
+        }
+        .neighborhood-eureka #profile-header {
+            border-color: #FFCC00;
+        }
+        .neighborhood-eureka.light-mode #profile-header {
+            border-color: #8B4513;
+        }
+        .neighborhood-fashionavenue #profile-header {
+            border-color: #FF69B4;
+        }
+        .neighborhood-fashionavenue.light-mode #profile-header {
+            border-color: #C71585;
+        }
+        .neighborhood-heartland #profile-header {
+            border-color: #F5DEB3;
+        }
+        .neighborhood-heartland.light-mode #profile-header {
+            border-color: #8B4513;
+        }
+        .neighborhood-hollywood #profile-header {
+            border-color: #FFD700;
+        }
+        .neighborhood-hollywood.light-mode #profile-header {
+            border-color: #B22222;
+        }
+        .neighborhood-hotsprings #profile-header {
+            border-color: #00CED1;
+        }
+        .neighborhood-hotsprings.light-mode #profile-header {
+            border-color: #008B8B;
+        }
+        .neighborhood-madisonavenue #profile-header {
+            border-color: #FFA500;
+        }
+        .neighborhood-madisonavenue.light-mode #profile-header {
+            border-color: #D2691E;
+        }
+        .neighborhood-motorcity #profile-header {
+            border-color: #FF4500;
+        }
+        .neighborhood-motorcity.light-mode #profile-header {
+            border-color: #8B0000;
+        }
+        .neighborhood-napavalley #profile-header {
+            border-color: #F5F5DC;
+        }
+        .neighborhood-napavalley.light-mode #profile-header {
+            border-color: #800000;
+        }
+        .neighborhood-nashville #profile-header {
+            border-color: #FF8C00;
+        }
+        .neighborhood-nashville.light-mode #profile-header {
+            border-color: #8B4500;
+        }
+        .neighborhood-paris #profile-header {
+            border-color: #FFB6C1;
+        }
+        .neighborhood-paris.light-mode #profile-header {
+            border-color: #4682B4;
+        }
+        .neighborhood-pentagon #profile-header {
+            border-color: #B0C4DE;
+        }
+        .neighborhood-pentagon.light-mode #profile-header {
+            border-color: #2F4F4F;
+        }
+        .neighborhood-petsburgh #profile-header {
+            border-color: #FFDAB9;
+        }
+        .neighborhood-petsburgh.light-mode #profile-header {
+            border-color: #8B4513;
+        }
+        .neighborhood-picketfence #profile-header {
+            border-color: #F0F8FF;
+        }
+        .neighborhood-picketfence.light-mode #profile-header {
+            border-color: #556B2F;
+        }
+        .neighborhood-pipeline #profile-header {
+            border-color: #FF6347;
+        }
+        .neighborhood-pipeline.light-mode #profile-header {
+            border-color: #B22222;
+        }
+        .neighborhood-rainforest #profile-header {
+            border-color: #ADFF2F;
+        }
+        .neighborhood-rainforest.light-mode #profile-header {
+            border-color: #228B22;
+        }
+        .neighborhood-researchtriangle #profile-header {
+            border-color: #00FFFF;
+        }
+        .neighborhood-researchtriangle.light-mode #profile-header {
+            border-color: #0000CD;
+        }
+        .neighborhood-rodeodrive #profile-header {
+            border-color: #FFD700;
+        }
+        .neighborhood-rodeodrive.light-mode #profile-header {
+            border-color: #B8860B;
+        }
+        .neighborhood-siliconvalley #profile-header {
+            border-color: #39FF14;
+        }
+        .neighborhood-siliconvalley.light-mode #profile-header {
+            border-color: #006400;
+        }
+        .neighborhood-soho #profile-header {
+            border-color: #FF4500;
+        }
+        .neighborhood-soho.light-mode #profile-header {
+            border-color: #A52A2A;
+        }
+        .neighborhood-southbeach #profile-header {
+            border-color: #FF00FF;
+        }
+        .neighborhood-southbeach.light-mode #profile-header {
+            border-color: #FF00FF;
+        }
+        .neighborhood-sunsetstrip #profile-header {
+            border-color: #FF1493;
+        }
+        .neighborhood-sunsetstrip.light-mode #profile-header {
+            border-color: #C71585;
+        }
+        .neighborhood-televisioncity #profile-header {
+            border-color: #FF4500;
+        }
+        .neighborhood-televisioncity.light-mode #profile-header {
+            border-color: #B22222;
+        }
+        .neighborhood-thetropics #profile-header {
+            border-color: #FFD700;
+        }
+        .neighborhood-thetropics.light-mode #profile-header {
+            border-color: #008B8B;
+        }
+        .neighborhood-timessquare #profile-header {
+            border-color: #FF0000;
+        }
+        .neighborhood-timessquare.light-mode #profile-header {
+            border-color: #8B0000;
+        }
+        .neighborhood-tokyo #profile-header {
+            border-color: #FF69B4;
+        }
+        .neighborhood-tokyo.light-mode #profile-header {
+            border-color: #9932CC;
+        }
+        .neighborhood-vienna #profile-header {
+            border-color: #FFD700;
+        }
+        .neighborhood-vienna.light-mode #profile-header {
+            border-color: #4B0082;
+        }
+        .neighborhood-wallstreet #profile-header {
+            border-color: #FFD700;
+        }
+        .neighborhood-wallstreet.light-mode #profile-header {
+            border-color: #006400;
+        }
+        .neighborhood-wellesley #profile-header {
+            border-color: #FFB6C1;
+        }
+        .neighborhood-wellesley.light-mode #profile-header {
+            border-color: #483D8B;
+        }
+        .neighborhood-westhollywood #profile-header {
+            border-color: #FF69B4;
+        }
+        .neighborhood-westhollywood.light-mode #profile-header {
+            border-color: #FF1493;
+        }
+        .neighborhood-yosemite #profile-header {
+            border-color: #B0C4DE;
+        }
+        .neighborhood-yosemite.light-mode #profile-header {
+            border-color: #228B22;
+        }
+        .neighborhood-northpole #profile-header {
+            border-color: #F0F8FF;
+        }
+        .neighborhood-northpole.light-mode #profile-header {
+            border-color: #B22222;
+        }
+
+        /* Profile Header Link Wrapper */
+        #profile-header-link {
+            display: block;
+            width: 100%;
+            text-decoration: none;
+            color: inherit;
+            cursor: default;
+            pointer-events: none;
+        }
+        #profile-header-link[href]:not([href=""]) {
+            cursor: pointer;
+            pointer-events: auto;
+        }
+
+        /* Profile Avatar Display */
+        #profile-avatar {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1 / 1;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 10em;
+            border: 1px solid #fff;
+            box-sizing: border-box;
+            border-radius: 0;
+            overflow: hidden;
+            margin-bottom: 0;
+            color: #fff;
+            transition: border-color 0.3s ease, color 0.3s ease, background-image 0.3s ease;
+        }
+        .light-mode #profile-avatar {
+            border-color: #000;
+            color: #000;
+        }
+        .neighborhood-area51 #profile-avatar {
+            border-color: #00ff00;
+            color: #00ff00;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .neighborhood-area51.light-mode #profile-avatar {
+            border-color: #008000;
+            color: #008000;
+        }
+        .neighborhood-athens #profile-avatar {
+            border-color: #c0c0c0;
+            color: #add8e6;
+            font-family: 'Georgia', serif;
+        }
+        .neighborhood-athens.light-mode #profile-avatar {
+            border-color: #ffd700;
+            color: #00008b;
+        }
+        .neighborhood-augusta #profile-avatar {
+            border-color: #fff;
+            color: #fff;
+            font-family: sans-serif;
+        }
+        .neighborhood-augusta.light-mode #profile-avatar {
+            border-color: #000;
+            color: #006400;
+        }
+        .neighborhood-baja #profile-avatar {
+            border-color: #fff;
+            color: #ff4500;
+            font-family: sans-serif;
+        }
+        .neighborhood-baja.light-mode #profile-avatar {
+            border-color: #000;
+            color: #ff4500;
+        }
+        .neighborhood-bourbonstreet #profile-avatar {
+            border-color: #fff;
+            color: #ffff00;
+            font-family: sans-serif;
+        }
+        .neighborhood-bourbonstreet.light-mode #profile-avatar {
+            border-color: #000;
+            color: #4b0082;
+        }
+        .neighborhood-broadway #profile-avatar {
+            border-color: #fff;
+            color: #ff0000;
+            font-family: sans-serif;
+        }
+        .neighborhood-broadway.light-mode #profile-avatar {
+            border-color: #000;
+            color: #8b0000;
+        }
+        .neighborhood-capecanaveral #profile-avatar {
+            border-color: #00B7EB;
+            color: #00B7EB;
+            font-family: sans-serif;
+        }
+        .neighborhood-capecanaveral.light-mode #profile-avatar {
+            border-color: #0047AB;
+            color: #0047AB;
+        }
+        .neighborhood-capitolhill #profile-avatar {
+            border-color: #FFD700;
+            color: #FFD700;
+            font-family: sans-serif;
+        }
+        .neighborhood-capitolhill.light-mode #profile-avatar {
+            border-color: #800000;
+            color: #800000;
+        }
+        .neighborhood-collegepark #profile-avatar {
+            border-color: #FFB6C1;
+            color: #FFB6C1;
+            font-family: sans-serif;
+        }
+        .neighborhood-collegepark.light-mode #profile-avatar {
+            border-color: #483D8B;
+            color: #483D8B;
+        }
+        .neighborhood-colosseum #profile-avatar {
+            border-color: #FFFFFF;
+            color: #FFFFFF;
+            font-family: sans-serif;
+        }
+        .neighborhood-colosseum.light-mode #profile-avatar {
+            border-color: #8B0000;
+            color: #8B0000;
+        }
+        .neighborhood-enchantedforest #profile-avatar {
+            border-color: #98FB98;
+            color: #98FB98;
+            font-family: sans-serif;
+        }
+        .neighborhood-enchantedforest.light-mode #profile-avatar {
+            border-color: #228B22;
+            color: #228B22;
+        }
+        .neighborhood-eureka #profile-avatar {
+            border-color: #FFCC00;
+            color: #FFCC00;
+            font-family: sans-serif;
+        }
+        .neighborhood-eureka.light-mode #profile-avatar {
+            border-color: #8B4513;
+            color: #8B4513;
+        }
+        .neighborhood-fashionavenue #profile-avatar {
+            border-color: #FF69B4;
+            color: #FF69B4;
+            font-family: sans-serif;
+        }
+        .neighborhood-fashionavenue.light-mode #profile-avatar {
+            border-color: #C71585;
+            color: #C71585;
+        }
+        .neighborhood-heartland #profile-avatar {
+            border-color: #F5DEB3;
+            color: #F5DEB3;
+            font-family: sans-serif;
+        }
+        .neighborhood-heartland.light-mode #profile-avatar {
+            border-color: #8B4513;
+            color: #8B4513;
+        }
+        .neighborhood-hollywood #profile-avatar {
+            border-color: #FFD700;
+            color: #FFD700;
+            font-family: sans-serif;
+        }
+        .neighborhood-hollywood.light-mode #profile-avatar {
+            border-color: #B22222;
+            color: #B22222;
+        }
+        .neighborhood-hotsprings #profile-avatar {
+            border-color: #00CED1;
+            color: #00CED1;
+            font-family: sans-serif;
+        }
+        .neighborhood-hotsprings.light-mode #profile-avatar {
+            border-color: #008B8B;
+            color: #008B8B;
+        }
+        .neighborhood-madisonavenue #profile-avatar {
+            border-color: #FFA500;
+            color: #FFA500;
+            font-family: sans-serif;
+        }
+        .neighborhood-madisonavenue.light-mode #profile-avatar {
+            border-color: #D2691E;
+            color: #D2691E;
+        }
+        .neighborhood-motorcity #profile-avatar {
+            border-color: #FF4500;
+            color: #FF4500;
+            font-family: sans-serif;
+        }
+        .neighborhood-motorcity.light-mode #profile-avatar {
+            border-color: #8B0000;
+            color: #8B0000;
+        }
+        .neighborhood-napavalley #profile-avatar {
+            border-color: #F5F5DC;
+            color: #F5F5DC;
+            font-family: sans-serif;
+        }
+        .neighborhood-napavalley.light-mode #profile-avatar {
+            border-color: #800000;
+            color: #800000;
+        }
+        .neighborhood-nashville #profile-avatar {
+            border-color: #FF8C00;
+            color: #FF8C00;
+            font-family: sans-serif;
+        }
+        .neighborhood-nashville.light-mode #profile-avatar {
+            border-color: #8B4500;
+            color: #8B4500;
+        }
+        .neighborhood-paris #profile-avatar {
+            border-color: #FFB6C1;
+            color: #FFB6C1;
+            font-family: sans-serif;
+        }
+        .neighborhood-paris.light-mode #profile-avatar {
+            border-color: #4682B4;
+            color: #4682B4;
+        }
+        .neighborhood-pentagon #profile-avatar {
+            border-color: #B0C4DE;
+            color: #B0C4DE;
+            font-family: sans-serif;
+        }
+        .neighborhood-pentagon.light-mode #profile-avatar {
+            border-color: #2F4F4F;
+            color: #2F4F4F;
+        }
+        .neighborhood-petsburgh #profile-avatar {
+            border-color: #FFDAB9;
+            color: #FFDAB9;
+            font-family: sans-serif;
+        }
+        .neighborhood-petsburgh.light-mode #profile-avatar {
+            border-color: #8B4513;
+            color: #8B4513;
+        }
+        .neighborhood-picketfence #profile-avatar {
+            border-color: #F0F8FF;
+            color: #F0F8FF;
+            font-family: sans-serif;
+        }
+        .neighborhood-picketfence.light-mode #profile-avatar {
+            border-color: #556B2F;
+            color: #556B2F;
+        }
+        .neighborhood-pipeline #profile-avatar {
+            border-color: #FF6347;
+            color: #FF6347;
+            font-family: sans-serif;
+        }
+        .neighborhood-pipeline.light-mode #profile-avatar {
+            border-color: #B22222;
+            color: #B22222;
+        }
+        .neighborhood-rainforest #profile-avatar {
+            border-color: #ADFF2F;
+            color: #ADFF2F;
+            font-family: sans-serif;
+        }
+        .neighborhood-rainforest.light-mode #profile-avatar {
+            border-color: #228B22;
+            color: #228B22;
+        }
+        .neighborhood-researchtriangle #profile-avatar {
+            border-color: #00FFFF;
+            color: #00FFFF;
+            font-family: sans-serif;
+        }
+        .neighborhood-researchtriangle.light-mode #profile-avatar {
+            border-color: #0000CD;
+            color: #0000CD;
+        }
+        .neighborhood-rodeodrive #profile-avatar {
+            border-color: #FFD700;
+            color: #FFD700;
+            font-family: sans-serif;
+        }
+        .neighborhood-rodeodrive.light-mode #profile-avatar {
+            border-color: #B8860B;
+            color: #B8860B;
+        }
+        .neighborhood-siliconvalley #profile-avatar {
+            border-color: #39FF14;
+            color: #39FF14;
+            font-family: sans-serif;
+        }
+        .neighborhood-siliconvalley.light-mode #profile-avatar {
+            border-color: #006400;
+            color: #006400;
+        }
+        .neighborhood-soho #profile-avatar {
+            border-color: #FF4500;
+            color: #FF4500;
+            font-family: sans-serif;
+        }
+        .neighborhood-soho.light-mode #profile-avatar {
+            border-color: #A52A2A;
+            color: #A52A2A;
+        }
+        .neighborhood-southbeach #profile-avatar {
+            border-color: #FF00FF;
+            color: #FF00FF;
+            font-family: sans-serif;
+        }
+        .neighborhood-southbeach.light-mode #profile-avatar {
+            border-color: #FF00FF;
+            color: #FF00FF;
+        }
+        .neighborhood-sunsetstrip #profile-avatar {
+            border-color: #FF1493;
+            color: #FF1493;
+            font-family: sans-serif;
+        }
+        .neighborhood-sunsetstrip.light-mode #profile-avatar {
+            border-color: #C71585;
+            color: #C71585;
+        }
+        .neighborhood-televisioncity #profile-avatar {
+            border-color: #FF4500;
+            color: #FF4500;
+            font-family: sans-serif;
+        }
+        .neighborhood-televisioncity.light-mode #profile-avatar {
+            border-color: #B22222;
+            color: #B22222;
+        }
+        .neighborhood-thetropics #profile-avatar {
+            border-color: #FFD700;
+            color: #FFD700;
+            font-family: sans-serif;
+        }
+        .neighborhood-thetropics.light-mode #profile-avatar {
+            border-color: #008B8B;
+            color: #008B8B;
+        }
+        .neighborhood-timessquare #profile-avatar {
+            border-color: #FF0000;
+            color: #FF0000;
+            font-family: sans-serif;
+        }
+        .neighborhood-timessquare.light-mode #profile-avatar {
+            border-color: #8B0000;
+            color: #8B0000;
+        }
+        .neighborhood-tokyo #profile-avatar {
+            border-color: #FF69B4;
+            color: #FF69B4;
+            font-family: sans-serif;
+        }
+        .neighborhood-tokyo.light-mode #profile-avatar {
+            border-color: #9932CC;
+            color: #9932CC;
+        }
+        .neighborhood-vienna #profile-avatar {
+            border-color: #FFD700;
+            color: #FFD700;
+            font-family: sans-serif;
+        }
+        .neighborhood-vienna.light-mode #profile-avatar {
+            border-color: #4B0082;
+            color: #4B0082;
+        }
+        .neighborhood-wallstreet #profile-avatar {
+            border-color: #FFD700;
+            color: #FFD700;
+            font-family: sans-serif;
+        }
+        .neighborhood-wallstreet.light-mode #profile-avatar {
+            border-color: #006400;
+            color: #006400;
+        }
+        .neighborhood-wellesley #profile-avatar {
+            border-color: #FFB6C1;
+            color: #FFB6C1;
+            font-family: sans-serif;
+        }
+        .neighborhood-wellesley.light-mode #profile-avatar {
+            border-color: #483D8B;
+            color: #483D8B;
+        }
+        .neighborhood-westhollywood #profile-avatar {
+            border-color: #FF69B4;
+            color: #FF69B4;
+            font-family: sans-serif;
+        }
+        .neighborhood-westhollywood.light-mode #profile-avatar {
+            border-color: #FF1493;
+            color: #FF1493;
+        }
+        .neighborhood-yosemite #profile-avatar {
+            border-color: #B0C4DE;
+            color: #B0C4DE;
+            font-family: sans-serif;
+        }
+        .neighborhood-yosemite.light-mode #profile-avatar {
+            border-color: #228B22;
+            color: #228B22;
+        }
+        .neighborhood-northpole #profile-avatar {
+            border-color: #F0F8FF;
+            color: #F0F8FF;
+            font-family: sans-serif;
+        }
+        .neighborhood-northpole.light-mode #profile-avatar {
+            border-color: #B22222;
+            color: #B22222;
+        }
+
+        /* Profile Avatar Link Wrapper */
+        #profile-avatar-link {
+            display: block;
+            width: 100%;
+            text-decoration: none;
+            color: inherit;
+            cursor: default;
+            pointer-events: none;
+        }
+        #profile-avatar-link[href]:not([href=""]) {
+            cursor: pointer;
+            pointer-events: auto;
+        }
+
+        /* Container for Profile Records */
+        .profile-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            margin: 0;
+        }
+
+        /* Individual Profile Record Box */
+        .profile-box {
+            border: 1px solid #fff;
+            padding: 10px;
+            background: #000;
+            color: #fff;
+            word-break: break-word;
+            transition: all 0.3s ease;
+            border-radius: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0;
+            border-top: none;
+            width: 100%;
+            box-sizing: border-box;
+            min-height: 38px;
+        }
+        .profile-box:first-child {
+            border-top: 1px solid #fff;
+        }
+        .profile-box.light-mode {
+            background: #fff;
+            color: #000;
+            border-color: #000;
+        }
+        .profile-box.light-mode:first-child {
+            border-top: 1px solid #000;
+        }
+        .neighborhood-area51 .profile-box {
+            border-color: #00ff00;
+            background: rgba(0, 0, 0, 0.8);
+            color: #00ff00;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .neighborhood-area51 .profile-box:first-child {
+            border-top: 1px solid #00ff00;
+        }
+        .neighborhood-area51.light-mode .profile-box {
+            border-color: #008000;
+            background: rgba(255, 255, 255, 0.9);
+            color: #008000;
+        }
+        .neighborhood-area51.light-mode .profile-box:first-child {
+            border-top: 1px solid #008000;
+        }
+        .neighborhood-athens .profile-box {
+            border-color: #c0c0c0;
+            background: rgba(47, 79, 79, 0.8);
+            color: #add8e6;
+            font-family: 'Georgia', serif;
+        }
+        .neighborhood-athens .profile-box:first-child {
+            border-top: 1px solid #c0c0c0;
+        }
+        .neighborhood-athens.light-mode .profile-box {
+            border-color: #ffd700;
+            background: rgba(245, 245, 220, 0.9);
+            color: #00008b;
+        }
+        .neighborhood-athens.light-mode .profile-box:first-child {
+            border-top: 1px solid #ffd700;
+        }
+        .neighborhood-augusta .profile-box {
+            border-color: #fff;
+            background: rgba(0, 100, 0, 0.8);
+            color: #fff;
+            font-family: sans-serif;
+        }
+        .neighborhood-augusta .profile-box:first-child {
+            border-top: 1px solid #fff;
+        }
+        .neighborhood-augusta.light-mode .profile-box {
+            border-color: #000;
+            background: rgba(144, 238, 144, 0.9);
+            color: #006400;
+        }
+        .neighborhood-augusta.light-mode .profile-box:first-child {
+            border-top: 1px solid #000;
+        }
+        .neighborhood-baja .profile-box {
+            border-color: #fff;
+            background: rgba(244, 164, 96, 0.8);
+            color: #ff4500;
+            font-family: sans-serif;
+        }
+        .neighborhood-baja .profile-box:first-child {
+            border-top: 1px solid #fff;
+        }
+        .neighborhood-baja.light-mode .profile-box {
+            border-color: #000;
+            background: rgba(210, 180, 140, 0.9);
+            color: #ff4500;
+        }
+        .neighborhood-baja.light-mode .profile-box:first-child {
+            border-top: 1px solid #000;
+        }
+        .neighborhood-bourbonstreet .profile-box {
+            border-color: #fff;
+            background: rgba(75, 0, 130, 0.8);
+            color: #ffff00;
+            font-family: sans-serif;
+        }
+        .neighborhood-bourbonstreet .profile-box:first-child {
+            border-top: 1px solid #fff;
+        }
+        .neighborhood-bourbonstreet.light-mode .profile-box {
+            border-color: #000;
+            background: rgba(230, 230, 250, 0.9);
+            color: #4b0082;
+        }
+        .neighborhood-bourbonstreet.light-mode .profile-box:first-child {
+            border-top: 1px solid #000;
+        }
+        .neighborhood-broadway .profile-box {
+            border-color: #fff;
+            background: rgba(0, 0, 0, 0.8);
+            color: #ff0000;
+            font-family: sans-serif;
+        }
+        .neighborhood-broadway .profile-box:first-child {
+            border-top: 1px solid #fff;
+        }
+        .neighborhood-broadway.light-mode .profile-box {
+            border-color: #000;
+            background: rgba(255, 253, 208, 0.9);
+            color: #8b0000;
+        }
+        .neighborhood-broadway.light-mode .profile-box:first-child {
+            border-top: 1px solid #000;
+        }
+        .neighborhood-capecanaveral .profile-box {
+            border-color: #00B7EB;
+            background: rgba(28, 37, 38, 0.8);
+            color: #00B7EB;
+            font-family: sans-serif;
+        }
+        .neighborhood-capecanaveral .profile-box:first-child {
+            border-top: 1px solid #00B7EB;
+        }
+        .neighborhood-capecanaveral.light-mode .profile-box {
+            border-color: #0047AB;
+            background: rgba(230, 243, 250, 0.9);
+            color: #0047AB;
+        }
+        .neighborhood-capecanaveral.light-mode .profile-box:first-child {
+            border-top: 1px solid #0047AB;
+        }
+        .neighborhood-capitolhill .profile-box {
+            border-color: #FFD700;
+            background: rgba(44, 53, 57, 0.8);
+            color: #FFD700;
+            font-family: sans-serif;
+        }
+        .neighborhood-capitolhill .profile-box:first-child {
+            border-top: 1px solid #FFD700;
+        }
+        .neighborhood-capitolhill.light-mode .profile-box {
+            border-color: #800000;
+            background: rgba(245, 246, 245, 0.9);
+            color: #800000;
+        }
+        .neighborhood-capitolhill.light-mode .profile-box:first-child {
+            border-top: 1px solid #800000;
+        }
+        .neighborhood-collegepark .profile-box {
+            border-color: #FFB6C1;
+            background: rgba(74, 47, 111, 0.8);
+            color: #FFB6C1;
+            font-family: sans-serif;
+        }
+        .neighborhood-collegepark .profile-box:first-child {
+            border-top: 1px solid #FFB6C1;
+        }
+        .neighborhood-collegepark.light-mode .profile-box {
+            border-color: #483D8B;
+            background: rgba(255, 245, 238, 0.9);
+            color: #483D8B;
+        }
+        .neighborhood-collegepark.light-mode .profile-box:first-child {
+            border-top: 1px solid #483D8B;
+        }
+        .neighborhood-colosseum .profile-box {
+            border-color: #FFFFFF;
+            background: rgba(139, 0, 0, 0.8);
+            color: #FFFFFF;
+            font-family: sans-serif;
+        }
+        .neighborhood-colosseum .profile-box:first-child {
+            border-top: 1px solid #FFFFFF;
+        }
+        .neighborhood-colosseum.light-mode .profile-box {
+            border-color: #8B0000;
+            background: rgba(255, 228, 196, 0.9);
+            color: #8B0000;
+        }
+        .neighborhood-colosseum.light-mode .profile-box:first-child {
+            border-top: 1px solid #8B0000;
+        }
+        .neighborhood-enchantedforest .profile-box {
+            border-color: #98FB98;
+            background: rgba(1, 50, 32, 0.8);
+            color: #98FB98;
+            font-family: sans-serif;
+        }
+        .neighborhood-enchantedforest .profile-box:first-child {
+            border-top: 1px solid #98FB98;
+        }
+        .neighborhood-enchantedforest.light-mode .profile-box {
+            border-color: #228B22;
+            background: rgba(240, 255, 240, 0.9);
+            color: #228B22;
+        }
+        .neighborhood-enchantedforest.light-mode .profile-box:first-child {
+            border-top: 1px solid #228B22;
+        }
+        .neighborhood-eureka .profile-box {
+            border-color: #FFCC00;
+            background: rgba(60, 47, 47, 0.8);
+            color: #FFCC00;
+            font-family: sans-serif;
+        }
+        .neighborhood-eureka .profile-box:first-child {
+            border-top: 1px solid #FFCC00;
+        }
+        .neighborhood-eureka.light-mode .profile-box {
+            border-color: #8B4513;
+            background: rgba(255, 248, 220, 0.9);
+            color: #8B4513;
+        }
+        .neighborhood-eureka.light-mode .profile-box:first-child {
+            border-top: 1px solid #8B4513;
+        }
+        .neighborhood-fashionavenue .profile-box {
+            border-color: #FF69B4;
+            background: rgba(28, 28, 28, 0.8);
+            color: #FF69B4;
+            font-family: sans-serif;
+        }
+        .neighborhood-fashionavenue .profile-box:first-child {
+            border-top: 1px solid #FF69B4;
+        }
+        .neighborhood-fashionavenue.light-mode .profile-box {
+            border-color: #C71585;
+            background: rgba(245, 245, 245, 0.9);
+            color: #C71585;
+        }
+        .neighborhood-fashionavenue.light-mode .profile-box:first-child {
+            border-top: 1px solid #C71585;
+        }
+        .neighborhood-heartland .profile-box {
+            border-color: #F5DEB3;
+            background: rgba(92, 64, 51, 0.8);
+            color: #F5DEB3;
+            font-family: sans-serif;
+        }
+        .neighborhood-heartland .profile-box:first-child {
+            border-top: 1px solid #F5DEB3;
+        }
+        .neighborhood-heartland.light-mode .profile-box {
+            border-color: #8B4513;
+            background: rgba(250, 235, 215, 0.9);
+            color: #8B4513;
+        }
+        .neighborhood-heartland.light-mode .profile-box:first-child {
+            border-top: 1px solid #8B4513;
+        }
+        .neighborhood-hollywood .profile-box {
+            border-color: #FFD700;
+            background: rgba(42, 31, 61, 0.8);
+            color: #FFD700;
+            font-family: sans-serif;
+        }
+        .neighborhood-hollywood .profile-box:first-child {
+            border-top: 1px solid #FFD700;
+        }
+        .neighborhood-hollywood.light-mode .profile-box {
+            border-color: #B22222;
+            background: rgba(255, 240, 245, 0.9);
+            color: #B22222;
+        }
+        .neighborhood-hollywood.light-mode .profile-box:first-child {
+            border-top: 1px solid #B22222;
+        }
+        .neighborhood-hotsprings .profile-box {
+            border-color: #00CED1;
+            background: rgba(0, 73, 83, 0.8);
+            color: #00CED1;
+            font-family: sans-serif;
+        }
+        .neighborhood-hotsprings .profile-box:first-child {
+            border-top: 1px solid #00CED1;
+        }
+        .neighborhood-hotsprings.light-mode .profile-box {
+            border-color: #008B8B;
+            background: rgba(224, 255, 255, 0.9);
+            color: #008B8B;
+        }
+        .neighborhood-hotsprings.light-mode .profile-box:first-child {
+            border-top: 1px solid #008B8B;
+        }
+        .neighborhood-madisonavenue .profile-box {
+            border-color: #FFA500;
+            background: rgba(51, 51, 51, 0.8);
+            color: #FFA500;
+            font-family: sans-serif;
+        }
+        .neighborhood-madisonavenue .profile-box:first-child {
+            border-top: 1px solid #FFA500;
+        }
+        .neighborhood-madisonavenue.light-mode .profile-box {
+            border-color: #D2691E;
+            background: rgba(240, 240, 240, 0.9);
+            color: #D2691E;
+        }
+        .neighborhood-madisonavenue.light-mode .profile-box:first-child {
+            border-top: 1px solid #D2691E;
+        }
+        .neighborhood-motorcity .profile-box {
+            border-color: #FF4500;
+            background: rgba(26, 36, 33, 0.8);
+            color: #FF4500;
+            font-family: sans-serif;
+        }
+        .neighborhood-motorcity .profile-box:first-child {
+            border-top: 1px solid #FF4500;
+        }
+        .neighborhood-motorcity.light-mode .profile-box {
+            border-color: #8B0000;
+            background: rgba(220, 220, 220, 0.9);
+            color: #8B0000;
+        }
+        .neighborhood-motorcity.light-mode .profile-box:first-child {
+            border-top: 1px solid #8B0000;
+        }
+        .neighborhood-napavalley .profile-box {
+            border-color: #F5F5DC;
+            background: rgba(74, 44, 42, 0.8);
+            color: #F5F5DC;
+            font-family: sans-serif;
+        }
+        .neighborhood-napavalley .profile-box:first-child {
+            border-top: 1px solid #F5F5DC;
+        }
+        .neighborhood-napavalley.light-mode .profile-box {
+            border-color: #800000;
+            background: rgba(255, 250, 205, 0.9);
+            color: #800000;
+        }
+        .neighborhood-napavalley.light-mode .profile-box:first-child {
+            border-top: 1px solid #800000;
+        }
+        .neighborhood-nashville .profile-box {
+            border-color: #FF8C00;
+            background: rgba(70, 44, 26, 0.8);
+            color: #FF8C00;
+            font-family: sans-serif;
+        }
+        .neighborhood-nashville .profile-box:first-child {
+            border-top: 1px solid #FF8C00;
+        }
+        .neighborhood-nashville.light-mode .profile-box {
+            border-color: #8B4500;
+            background: rgba(255, 228, 181, 0.9);
+            color: #8B4500;
+        }
+        .neighborhood-nashville.light-mode .profile-box:first-child {
+            border-top: 1px solid #8B4500;
+        }
+        .neighborhood-paris .profile-box {
+            border-color: #FFB6C1;
+            background: rgba(25, 25, 112, 0.8);
+            color: #FFB6C1;
+            font-family: sans-serif;
+        }
+        .neighborhood-paris .profile-box:first-child {
+            border-top: 1px solid #FFB6C1;
+        }
+        .neighborhood-paris.light-mode .profile-box {
+            border-color: #4682B4;
+            background: rgba(255, 240, 245, 0.9);
+            color: #4682B4;
+        }
+        .neighborhood-paris.light-mode .profile-box:first-child {
+            border-top: 1px solid #4682B4;
+        }
+        .neighborhood-pentagon .profile-box {
+            border-color: #B0C4DE;
+            background: rgba(47, 79, 79, 0.8);
+            color: #B0C4DE;
+            font-family: sans-serif;
+        }
+        .neighborhood-pentagon .profile-box:first-child {
+            border-top: 1px solid #B0C4DE;
+        }
+        .neighborhood-pentagon.light-mode .profile-box {
+            border-color: #2F4F4F;
+            background: rgba(245, 245, 245, 0.9);
+            color: #2F4F4F;
+        }
+        .neighborhood-pentagon.light-mode .profile-box:first-child {
+            border-top: 1px solid #2F4F4F;
+        }
+        .neighborhood-petsburgh .profile-box {
+            border-color: #FFDAB9;
+            background: rgba(60, 32, 5, 0.8);
+            color: #FFDAB9;
+            font-family: sans-serif;
+        }
+        .neighborhood-petsburgh .profile-box:first-child {
+            border-top: 1px solid #FFDAB9;
+        }
+        .neighborhood-petsburgh.light-mode .profile-box {
+            border-color: #8B4513;
+            background: rgba(255, 245, 238, 0.9);
+            color: #8B4513;
+        }
+        .neighborhood-petsburgh.light-mode .profile-box:first-child {
+            border-top: 1px solid #8B4513;
+        }
+        .neighborhood-picketfence .profile-box {
+            border-color: #F0F8FF;
+            background: rgba(72, 60, 50, 0.8);
+            color: #F0F8FF;
+            font-family: sans-serif;
+        }
+        .neighborhood-picketfence .profile-box:first-child {
+            border-top: 1px solid #F0F8FF;
+        }
+        .neighborhood-picketfence.light-mode .profile-box {
+            border-color: #556B2F;
+            background: rgba(245, 255, 250, 0.9);
+            color: #556B2F;
+        }
+        .neighborhood-picketfence.light-mode .profile-box:first-child {
+            border-top: 1px solid #556B2F;
+        }
+        .neighborhood-pipeline .profile-box {
+            border-color: #FF6347;
+            background: rgba(28, 37, 38, 0.8);
+            color: #FF6347;
+            font-family: sans-serif;
+        }
+        .neighborhood-pipeline .profile-box:first-child {
+            border-top: 1px solid #FF6347;
+        }
+        .neighborhood-pipeline.light-mode .profile-box {
+            border-color: #B22222;
+            background: rgba(230, 230, 230, 0.9);
+            color: #B22222;
+        }
+        .neighborhood-pipeline.light-mode .profile-box:first-child {
+            border-top: 1px solid #B22222;
+        }
+        .neighborhood-rainforest .profile-box {
+            border-color: #ADFF2F;
+            background: rgba(0, 66, 37, 0.8);
+            color: #ADFF2F;
+            font-family: sans-serif;
+        }
+        .neighborhood-rainforest .profile-box:first-child {
+            border-top: 1px solid #ADFF2F;
+        }
+        .neighborhood-rainforest.light-mode .profile-box {
+            border-color: #228B22;
+            background: rgba(240, 255, 240, 0.9);
+            color: #228B22;
+        }
+        .neighborhood-rainforest.light-mode .profile-box:first-child {
+            border-top: 1px solid #228B22;
+        }
+        .neighborhood-researchtriangle .profile-box {
+            border-color: #00FFFF;
+            background: rgba(37, 40, 80, 0.8);
+            color: #00FFFF;
+            font-family: sans-serif;
+        }
+        .neighborhood-researchtriangle .profile-box:first-child {
+            border-top: 1px solid #00FFFF;
+        }
+        .neighborhood-researchtriangle.light-mode .profile-box {
+            border-color: #0000CD;
+            background: rgba(240, 248, 255, 0.9);
+            color: #0000CD;
+        }
+        .neighborhood-researchtriangle.light-mode .profile-box:first-child {
+            border-top: 1px solid #0000CD;
+        }
+        .neighborhood-rodeodrive .profile-box {
+            border-color: #FFD700;
+            background: rgba(26, 26, 26, 0.8);
+            color: #FFD700;
+            font-family: sans-serif;
+        }
+        .neighborhood-rodeodrive .profile-box:first-child {
+            border-top: 1px solid #FFD700;
+        }
+        .neighborhood-rodeodrive.light-mode .profile-box {
+            border-color: #B8860B;
+            background: rgba(245, 245, 245, 0.9);
+            color: #B8860B;
+        }
+        .neighborhood-rodeodrive.light-mode .profile-box:first-child {
+            border-top: 1px solid #B8860B;
+        }
+        .neighborhood-siliconvalley .profile-box {
+            border-color: #39FF14;
+            background: rgba(10, 10, 35, 0.8);
+            color: #39FF14;
+            font-family: sans-serif;
+        }
+        .neighborhood-siliconvalley .profile-box:first-child {
+            border-top: 1px solid #39FF14;
+        }
+        .neighborhood-siliconvalley.light-mode .profile-box {
+            border-color: #006400;
+            background: rgba(245, 245, 245, 0.9);
+            color: #006400;
+        }
+        .neighborhood-siliconvalley.light-mode .profile-box:first-child {
+            border-top: 1px solid #006400;
+        }
+        .neighborhood-soho .profile-box {
+            border-color: #FF4500;
+            background: rgba(47, 47, 47, 0.8);
+            color: #FF4500;
+            font-family: sans-serif;
+        }
+        .neighborhood-soho .profile-box:first-child {
+            border-top: 1px solid #FF4500;
+        }
+        .neighborhood-soho.light-mode .profile-box {
+            border-color: #A52A2A;
+            background: rgba(255, 248, 220, 0.9);
+            color: #A52A2A;
+        }
+        .neighborhood-soho.light-mode .profile-box:first-child {
+            border-top: 1px solid #A52A2A;
+        }
+        .neighborhood-southbeach .profile-box {
+            border-color: #FF00FF;
+            background: rgba(0, 48, 135, 0.8);
+            color: #FF00FF;
+            font-family: sans-serif;
+        }
+        .neighborhood-southbeach .profile-box:first-child {
+            border-top: 1px solid #FF00FF;
+        }
+        .neighborhood-southbeach.light-mode .profile-box {
+            border-color: #FF00FF;
+            background: rgba(224, 255, 255, 0.9);
+            color: #FF00FF;
+        }
+        .neighborhood-southbeach.light-mode .profile-box:first-child {
+            border-top: 1px solid #FF00FF;
+        }
+        .neighborhood-sunsetstrip .profile-box {
+            border-color: #FF1493;
+            background: rgba(28, 15, 19, 0.8);
+            color: #FF1493;
+            font-family: sans-serif;
+        }
+        .neighborhood-sunsetstrip .profile-box:first-child {
+            border-top: 1px solid #FF1493;
+        }
+        .neighborhood-sunsetstrip.light-mode .profile-box {
+            border-color: #C71585;
+            background: rgba(255, 240, 245, 0.9);
+            color: #C71585;
+        }
+        .neighborhood-sunsetstrip.light-mode .profile-box:first-child {
+            border-top: 1px solid #C71585;
+        }
+        .neighborhood-televisioncity .profile-box {
+            border-color: #FF4500;
+            background: rgba(31, 31, 31, 0.8);
+            color: #FF4500;
+            font-family: sans-serif;
+        }
+        .neighborhood-televisioncity .profile-box:first-child {
+            border-top: 1px solid #FF4500;
+        }
+        .neighborhood-televisioncity.light-mode .profile-box {
+            border-color: #B22222;
+            background: rgba(245, 245, 245, 0.9);
+            color: #B22222;
+        }
+        .neighborhood-televisioncity.light-mode .profile-box:first-child {
+            border-top: 1px solid #B22222;
+        }
+        .neighborhood-thetropics .profile-box {
+            border-color: #FFD700;
+            background: rgba(0, 75, 73, 0.8);
+            color: #FFD700;
+            font-family: sans-serif;
+        }
+        .neighborhood-thetropics .profile-box:first-child {
+            border-top: 1px solid #FFD700;
+        }
+        .neighborhood-t
