@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GeoCities</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='50' font-size='80' text-anchor='middle' dominant-baseline='middle' fill='%23000'>G%3C/text%3E%3C/svg%3E" type="image/svg+xml">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Georgia&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="header">
+        <div class="header-title-box" onclick="showHomepage()" title="Go to Homepage">
+            <div class="header-title">G</div>
+        </div>
+        <div class="header-button-wrapper">
+            <button class="toggle-button" onclick="toggleTheme()">Light</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="homepage">
+            <div class="logo-box" id="homepage-avatar"></div>
+            <h2 id="homepage-geocities">GeoCities</h2>
+            <div class="search-container" id="home-search-container">
+                <input type="text" id="ens-query-home" class="search-input" placeholder="Enter ENS or Base name">
+                <button class="search-button" id="home-search-button" onclick="searchENS()">Search</button>
+            </div>
+            <div id="error-message-home" class="error-message"></div>
+        </div>
+
+        <div id="profile-page">
+            <div class="search-container" id="profile-search-container">
+                <input type="text" id="ens-query-profile" class="search-input" placeholder="Enter ENS or Base name">
+                <button class="search-button" id="profile-search-button" onclick="searchENS()">Search</button>
+            </div>
+            <div id="error-message-profile" class="error-message"></div>
+            <div id="success-message-profile" class="success-message"></div>
+            <select id="neighborhood-select" class="neighborhood-select" onchange="changeNeighborhood()">
+                <option value="geocities">GeoCities</option>
+                <option value="area51">Area51</option>
+                <option value="athens">Athens</option>
+                <option value="augusta">Augusta</option>
+                <option value="baja">Baja</option>
+                <option value="bourbonstreet">BourbonStreet</option>
+                <option value="broadway">Broadway</option>
+                <option value="capecanaveral">CapeCanaveral</option>
+                <option value="capitolhill">CapitolHill</option>
+                <option value="collegepark">CollegePark</option>
+                <option value="colosseum">Colosseum</option>
+                <option value="enchantedforest">EnchantedForest</option>
+                <option value="eureka">Eureka</option>
+                <option value="fashionavenue">FashionAvenue</option>
+                <option value="heartland">Heartland</option>
+                <option value="hollywood">Hollywood</option>
+                <option value="hotsprings">HotSprings</option>
+                <option value="madisonavenue">MadisonAvenue</option>
+                <option value="motorcity">MotorCity</option>
+                <option value="napavalley">NapaValley</option>
+                <option value="nashville">Nashville</option>
+                <option value="paris">Paris</option>
+                <option value="pentagon">Pentagon</option>
+                <option value="petsburgh">Petsburgh</option>
+                <option value="picketfence">PicketFence</option>
+                <option value="pipeline">Pipeline</option>
+                <option value="rainforest">RainForest</option>
+                <option value="researchtriangle">ResearchTriangle</option>
+                <option value="rodeodrive">RodeoDrive</option>
+                <option value="siliconvalley">SiliconValley</option>
+                <option value="soho">SoHo</option>
+                <option value="southbeach">SouthBeach</option>
+                <option value="sunsetstrip">SunsetStrip</option>
+                <option value="televisioncity">TelevisionCity</option>
+                <option value="thetropics">TheTropics</option>
+                <option value="timessquare">TimesSquare</option>
+                <option value="tokyo">Tokyo</option>
+                <option value="vienna">Vienna</option>
+                <option value="wallstreet">Wallstreet</option>
+                <option value="wellesley">Wellesley</option>
+                <option value="westhollywood">WestHollywood</option>
+                <option value="yosemite">Yosemite</option>
+                <option value="northpole">Northpole</option>
+            </select>
+            <div id="neighborhood-container" class="neighborhood-container neighborhood-geocities"></div>
+            <div id="register-button-container" class="register-button-container">
+                <button id="register-name-button" class="register-button"></button>
+                <button id="ipfs-button" class="ipfs-button" onclick="deployToIPFS()">Deploy to IPFS</button>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        GeoCities®️
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
