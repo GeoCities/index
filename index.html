@@ -1,1 +1,1702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GeoCities</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='50' font-size='80' text-anchor='middle' dominant-baseline='middle' fill='%23000'>G%3C/text%3E%3C/svg%3E" type="image/svg+xml">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Georgia&display=swap" rel="stylesheet">
+    <style>
+        /* Body Styles */
+        body {
+            font-family: sans-serif;
+            background: #000;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            padding-top: 60px;
+            transition: background 0.3s ease, color 0.3s ease;
+            position: relative;
+            padding-bottom: 60px;
+            box-sizing: border-box;
+        }
+        body.light-mode {
+            background: #fff;
+            color: #000;
+        }
 
+        /* Container Styles */
+        .container {
+            flex-direction: column;
+            display: flex;
+            align-items: center;
+            width: 90%;
+            max-width: 600px;
+            justify-content: flex-start;
+            flex-grow: 1;
+        }
+
+        /* Logo Box (Homepage Avatar) */
+        .logo-box {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 6em;
+            margin: 20px auto 0;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: border-color 0.3s ease, background-image 0.3s ease;
+            border-radius: 0;
+            overflow: hidden;
+            color: #fff;
+        }
+        .light-mode .logo-box {
+            border-color: #000;
+            color: #000;
+        }
+
+        /* Heading "GeoCities" below avatar */
+        h2#homepage-geocities {
+            margin: 0 auto 20px;
+            text-align: center;
+            display: block;
+            transition: color 0.3s ease, border-color 0.3s ease;
+            font-size: 1.2em;
+            border: 1px solid #fff;
+            border-top: none;
+            padding: 10px 0;
+            border-radius: 0;
+            width: 200px;
+        }
+        #homepage-geocities.light-mode {
+            border-color: #000;
+            color: #000;
+        }
+
+        /* Search Bar Container */
+        .search-container {
+            display: flex;
+            width: 100%;
+            margin-bottom: 20px;
+            height: 38px;
+        }
+
+        /* Search Input Field */
+        .search-input {
+            flex: 1;
+            padding: 10px;
+            background: #000;
+            color: #fff;
+            border: 1px solid #fff;
+            border-right: none;
+            border-radius: 0;
+            transition: all 0.3s ease;
+            height: 100%;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        .search-input.light-mode {
+            background: #fff;
+            color: #000;
+            border-color: #000;
+        }
+        .search-input::placeholder {
+            color: #aaa;
+        }
+        .search-input.light-mode::placeholder {
+            color: #555;
+        }
+        .search-input:focus {
+            font-size: 16px;
+            outline: none;
+        }
+
+        /* Search Button */
+        .search-button {
+            padding: 10px 15px;
+            background: #000;
+            color: #fff;
+            border: 1px solid #fff;
+            cursor: pointer;
+            border-radius: 0;
+            transition: all 0.3s ease;
+            height: 100%;
+            font-size: 0.8em;
+            box-sizing: border-box;
+        }
+        .search-button.light-mode {
+            background: #fff;
+            color: #000;
+            border-color: #000;
+        }
+
+        /* Profile Page Container */
+        #profile-page {
+            width: 100%;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        /* Neighborhood Dropdown */
+        .neighborhood-select {
+            width: 100%;
+            max-width: 200px;
+            height: 38px;
+            padding: 5px;
+            background: #000;
+            color: #fff;
+            border: 1px solid #fff;
+            border-radius: 0;
+            font-size: 0.9em;
+            font-family: sans-serif;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23fff' d='M10.293 3.293L6 7.586 1.707 3.293A1 1 0 00.293 4.707l5 5a1 1 0 001.414 0l5-5a1 1 0 10-1.414-1.414z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            padding-right: 30px;
+        }
+        .neighborhood-select.light-mode {
+            background-color: #fff;
+            color: #000;
+            border: 1px solid #000;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23000' d='M2 4h8L6 8z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+        }
+
+        /* Neighborhood Container */
+        .neighborhood-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .neighborhood-geocities {
+            background: #000;
+            transition: background 0.3s ease;
+        }
+        .neighborhood-geocities.light-mode {
+            background: #fff;
+        }
+        .neighborhood-area51 {
+            background: #000;
+            color: #00ff00;
+            font-family: 'Orbitron', sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-area51.light-mode {
+            background: linear-gradient(135deg, #e0e0e0 0%, #a0a0a0 100%);
+            color: #008000;
+        }
+        .neighborhood-athens {
+            background: #2f4f4f;
+            color: #add8e6;
+            font-family: 'Georgia', serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-athens.light-mode {
+            background: #f5f5dc;
+            color: #00008b;
+        }
+        .neighborhood-augusta {
+            background: #006400;
+            color: #fff;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-augusta.light-mode {
+            background Getting: #90ee90;
+            color: #006400;
+        }
+        .neighborhood-baja {
+            background: #f4a460;
+            color: #ff4500;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-baja.light-mode {
+            background: #d2b48c;
+            color: #ff4500;
+        }
+        .neighborhood-bourbonstreet {
+            background: #4b0082;
+            color: #ffff00;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-bourbonstreet.light-mode {
+            background: #e6e6fa;
+            color: #4b0082;
+        }
+        .neighborhood-broadway {
+            background: #000000;
+            color: #ff0000;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-broadway.light-mode {
+            background: #fffdd0;
+            color: #8b0000;
+        }
+
+        /* Profile Header Display */
+        #profile-header {
+            width: 100%;
+            height: 0;
+            padding-bottom: 33.33% !important;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: none;
+            border: 1px solid #fff;
+            box-sizing: border-box;
+            border-radius: 0;
+            overflow: hidden;
+            margin-bottom: 0;
+            transition: border-color 0.3s ease;
+        }
+        .light-mode #profile-header {
+            border-color: #000;
+        }
+        .neighborhood-area51 #profile-header {
+            border-color: #00ff00;
+        }
+        .neighborhood-area51.light-mode #profile-header {
+            border-color: #008000;
+        }
+        .neighborhood-athens #profile-header {
+            border-color: #c0c0c0;
+        }
+        .neighborhood-athens.light-mode #profile-header {
+            border-color: #ffd700;
+        }
+        .neighborhood-augusta #profile-header {
+            border-color: #fff;
+        }
+        .neighborhood-augusta.light-mode #profile-header {
+            border-color: #000;
+        }
+        .neighborhood-baja #profile-header {
+            border-color: #fff;
+        }
+        .neighborhood-baja.light-mode #profile-header {
+            border-color: #000;
+        }
+        .neighborhood-bourbonstreet #profile-header {
+            border-color: #fff;
+        }
+        .neighborhood-bourbonstreet.light-mode #profile-header {
+            border-color: #000;
+        }
+        .neighborhood-broadway #profile-header {
+            border-color: #fff;
+        }
+        .neighborhood-broadway.light-mode #profile-header {
+            border-color: #000;
+        }
+
+        /* Profile Header Link Wrapper */
+        #profile-header-link {
+            display: block;
+            width: 100%;
+            text-decoration: none;
+            color: inherit;
+            cursor: default;
+            pointer-events: none;
+        }
+        #profile-header-link[href]:not([href=""]) {
+            cursor: pointer;
+            pointer-events: auto;
+        }
+
+        /* Profile Avatar Display */
+        #profile-avatar {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1 / 1;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 10em;
+            border: 1px solid #fff;
+            box-sizing: border-box;
+            border-radius: 0;
+            overflow: hidden;
+            margin-bottom: 0;
+            color: #fff;
+            transition: border-color 0.3s ease, color 0.3s ease, background-image 0.3s ease;
+        }
+        .light-mode #profile-avatar {
+            border-color: #000;
+            color: #000;
+        }
+        .neighborhood-area51 #profile-avatar {
+            border-color: #00ff00;
+            color: #00ff00;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .neighborhood-area51.light-mode #profile-avatar {
+            border-color: #008000;
+            color: #008000;
+        }
+        .neighborhood-athens #profile-avatar {
+            border-color: #c0c0c0;
+            color: #add8e6;
+            font-family: 'Georgia', serif;
+        }
+        .neighborhood-athens.light-mode #profile-avatar {
+            border-color: #ffd700;
+            color: #00008b;
+        }
+        .neighborhood-augusta #profile-avatar {
+            border-color: #fff;
+            color: #fff;
+            font-family: sans-serif;
+        }
+        .neighborhood-augusta.light-mode #profile-avatar {
+            border-color: #000;
+            color: #006400;
+        }
+        .neighborhood-baja #profile-avatar {
+            border-color: #fff;
+            color: #ff4500;
+            font-family: sans-serif;
+        }
+        .neighborhood-baja.light-mode #profile-avatar {
+            border-color: #000;
+            color: #ff4500;
+        }
+        .neighborhood-bourbonstreet #profile-avatar {
+            border-color: #fff;
+            color: #ffff00;
+            font-family: sans-serif;
+        }
+        .neighborhood-bourbonstreet.light-mode #profile-avatar {
+            border-color: #000;
+            color: #4b0082;
+        }
+        .neighborhood-broadway #profile-avatar {
+            border-color: #fff;
+            color: #ff0000;
+            font-family: sans-serif;
+        }
+        .neighborhood-broadway.light-mode #profile-avatar {
+            border-color: #000;
+            color: #8b0000;
+        }
+
+        /* Profile Avatar Link Wrapper */
+        #profile-avatar-link {
+            display: block;
+            width: 100%;
+            text-decoration: none;
+            color: inherit;
+            cursor: default;
+            pointer-events: none;
+        }
+        #profile-avatar-link[href]:not([href=""]) {
+            cursor: pointer;
+            pointer-events: auto;
+        }
+
+        /* Container for Profile Records */
+        .profile-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            margin: 0;
+        }
+
+        /* Individual Profile Record Box */
+        .profile-box {
+            border: 1px solid #fff;
+            padding: 10px;
+            background: #000;
+            color: #fff;
+            word-break: break-word;
+            transition: all 0.3s ease;
+            border-radius: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0;
+            border-top: none;
+            width: 100%;
+            box-sizing: border-box;
+            min-height: 38px;
+        }
+        .profile-box:first-child {
+            border-top: 1px solid #fff;
+        }
+        .profile-box.light-mode {
+            background: #fff;
+            color: #000;
+            border-color: #000;
+        }
+        .profile-box.light-mode:first-child {
+            border-top: 1px solid #000;
+        }
+        .neighborhood-area51 .profile-box {
+            border-color: #00ff00;
+            background: rgba(0, 0, 0, 0.8);
+            color: #00ff00;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .neighborhood-area51 .profile-box:first-child {
+            border-top: 1px solid #00ff00;
+        }
+        .neighborhood-area51.light-mode .profile-box {
+            border-color: #008000;
+            background: rgba(255, 255, 255, 0.9);
+            color: #008000;
+        }
+        .neighborhood-area51.light-mode .profile-box:first-child {
+            border-top: 1px solid #008000;
+        }
+        .neighborhood-athens .profile-box {
+            border-color: #c0c0c0;
+            background: rgba(47, 79, 79, 0.8);
+            color: #add8e6;
+            font-family: 'Georgia', serif;
+        }
+        .neighborhood-athens .profile-box:first-child {
+            border-top: 1px solid #c0c0c0;
+        }
+        .neighborhood-athens.light-mode .profile-box {
+            border-color: #ffd700;
+            background: rgba(245, 245, 220, 0.9);
+            color: #00008b;
+        }
+        .neighborhood-athens.light-mode .profile-box:first-child {
+            border-top: 1px solid #ffd700;
+        }
+        .neighborhood-augusta .profile-box {
+            border-color: #fff;
+            background: rgba(0, 100, 0, 0.8);
+            color: #fff;
+            font-family: sans-serif;
+        }
+        .neighborhood-augusta .profile-box:first-child {
+            border-top: 1px solid #fff;
+        }
+        .neighborhood-augusta.light-mode .profile-box {
+            border-color: #000;
+            background: rgba(144, 238, 144, 0.9);
+            color: #006400;
+        }
+        .neighborhood-augusta.light-mode .profile-box:first-child {
+            border-top: 1px solid #000;
+        }
+        .neighborhood-baja .profile-box {
+            border-color: #fff;
+            background: rgba(244, 164, 96, 0.8);
+            color: #ff4500;
+            font-family: sans-serif;
+        }
+        .neighborhood-baja .profile-box:first-child {
+            border-top: 1px solid #fff;
+        }
+        .neighborhood-baja.light-mode .profile-box {
+            border-color: #000;
+            background: rgba(210, 180, 140, 0.9);
+            color: #ff4500;
+        }
+        .neighborhood-baja.light-mode .profile-box:first-child {
+            border-top: 1px solid #000;
+        }
+        .neighborhood-bourbonstreet .profile-box {
+            border-color: #fff;
+            background: rgba(75, 0, 130, 0.8);
+            color: #ffff00;
+            font-family: sans-serif;
+        }
+        .neighborhood-bourbonstreet .profile-box:first-child {
+            border-top: 1px solid #fff;
+        }
+        .neighborhood-bourbonstreet.light-mode .profile-box {
+            border-color: #000;
+            background: rgba(230, 230, 250, 0.9);
+            color: #4b0082;
+        }
+        .neighborhood-bourbonstreet.light-mode .profile-box:first-child {
+            border-top: 1px solid #000;
+        }
+        .neighborhood-broadway .profile-box {
+            border-color: #fff;
+            background: rgba(0, 0, 0, 0.8);
+            color: #ff0000;
+            font-family: sans-serif;
+        }
+        .neighborhood-broadway .profile-box:first-child {
+            border-top: 1px solid #fff;
+        }
+        .neighborhood-broadway.light-mode .profile-box {
+            border-color: #000;
+            background: rgba(255, 253, 208, 0.9);
+            color: #8b0000;
+        }
+        .neighborhood-broadway.light-mode .profile-box:first-child {
+            border-top: 1px solid #000;
+        }
+
+        /* Header part of Profile Box */
+        .profile-box-header {
+            font-weight: bold;
+            margin: 0;
+            color: #fff;
+            transition: color 0.3s ease;
+            flex: 0 0 100px;
+            min-width: 80px;
+            text-align: left;
+        }
+        .profile-box-header.light-mode {
+            color: #000;
+        }
+        .neighborhood-area51 .profile-box-header {
+            color: #00ff00;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .neighborhood-area51.light-mode .profile-box-header {
+            color: #008000;
+        }
+        .neighborhood-athens .profile-box-header {
+            color: #add8e6;
+            font-family: 'Georgia', serif;
+        }
+        .neighborhood-athens.light-mode .profile-box-header {
+            color: #00008b;
+        }
+        .neighborhood-augusta .profile-box-header {
+            color: #fff;
+            font-family: sans-serif;
+        }
+        .neighborhood-augusta.light-mode .profile-box-header {
+            color: #006400;
+        }
+        .neighborhood-baja .profile-box-header {
+            color: #ff4500;
+            font-family: sans-serif;
+        }
+        .neighborhood-baja.light-mode .profile-box-header {
+            color: #ff4500;
+        }
+        .neighborhood-bourbonstreet .profile-box-header {
+            color: #ffff00;
+            font-family: sans-serif;
+        }
+        .neighborhood-bourbonstreet.light-mode .profile-box-header {
+            color: #4b0082;
+        }
+        .neighborhood-broadway .profile-box-header {
+            color: #ff0000;
+            font-family: sans-serif;
+        }
+        .neighborhood-broadway.light-mode .profile-box-header {
+            color: #8b0000;
+        }
+
+        /* Value part of Profile Box */
+        .profile-box-value {
+            flex: 1;
+            text-align: left;
+            word-break: break-all;
+            color: #fff;
+            transition: color 0.3s ease;
+        }
+        .profile-box-value.light-mode {
+            color: #000;
+        }
+        .neighborhood-area51 .profile-box-value {
+            color: #00ff00;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .neighborhood-area51.light-mode .profile-box-value {
+            color: #008000;
+        }
+        .neighborhood-athens .profile-box-value {
+            color: #add8e6;
+            font-family: 'Georgia', serif;
+        }
+        .neighborhood-athens.light-mode .profile-box-value {
+            color: #00008b;
+        }
+        .neighborhood-augusta .profile-box-value {
+            color: #fff;
+            font-family: sans-serif;
+        }
+        .neighborhood-augusta.light-mode .profile-box-value {
+            color: #006400;
+        }
+        .neighborhood-baja .profile-box-value {
+            color: #ff4500;
+            font-family: sans-serif;
+        }
+        .neighborhood-baja.light-mode .profile-box-value {
+            color: #ff4500;
+        }
+        .neighborhood-bourbonstreet .profile-box-value {
+            color: #ffff00;
+            font-family: sans-serif;
+        }
+        .neighborhood-bourbonstreet.light-mode .profile-box-value {
+            color: #4b0082;
+        }
+        .neighborhood-broadway .profile-box-value {
+            color: #ff0000;
+            font-family: sans-serif;
+        }
+        .neighborhood-broadway.light-mode .profile-box-value {
+            color: #8b0000;
+        }
+        .profile-box-value a {
+            color: inherit;
+            text-decoration: underline;
+            transition: color 0.3s ease;
+        }
+        .profile-box-value a:hover {
+            text-decoration: none;
+        }
+
+        /* Error Message Styling */
+        .error-message {
+            color: red;
+            margin-top: 10px;
+            transition: color 0.3s ease;
+            display: none;
+            width: 100%;
+            text-align: center;
+            padding: 5px;
+            box-sizing: border-box;
+            min-height: 20px;
+        }
+
+        /* Success Message Styling */
+        .success-message {
+            color: #00ff00;
+            margin-top: 10px;
+            transition: color 0.3s ease;
+            display: none;
+            width: 100%;
+            text-align: center;
+            padding: 5px;
+            box-sizing: border-box;
+            min-height: 20px;
+        }
+        .success-message.light-mode {
+            color: #008000;
+        }
+
+        /* Theme Toggle Button */
+        .toggle-button {
+            padding: 10px 15px;
+            color: #fff;
+            border: 1px solid #fff;
+            cursor: pointer;
+            border-radius: 0;
+            transition: all 0.3s ease;
+            font-size: 0.8em;
+            min-width: 80px;
+            text-align: center;
+            height: 38px;
+            background: #000;
+            box-sizing: border-box;
+        }
+        .toggle-button.light-mode {
+            background: #fff;
+            color: #000;
+            border-color: #000;
+        }
+
+        /* Register Button Container */
+        .register-button-container {
+            width: 100%;
+            display: none;
+            flex-direction: row;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        /* Register and IPFS Buttons */
+        .register-button, .ipfs-button {
+            padding: 10px 15px;
+            color: #fff;
+            border: 1px solid #fff;
+            cursor: pointer;
+            border-radius: 0;
+            transition: all 0.3s ease;
+            font-size: 0.8em;
+            text-align: center;
+            height: 38px;
+            background: #000;
+            box-sizing: border-box;
+            display: inline-block;
+        }
+        .register-button.light-mode, .ipfs-button.light-mode {
+            background: #fff;
+            color: #000;
+            border-color: #000;
+        }
+        .neighborhood-area51 .register-button, .neighborhood-area51 .ipfs-button {
+            border-color: #00ff00;
+            color: #00ff00;
+            background: rgba(0, 0, 0, 0.8);
+        }
+        .neighborhood-area51.light-mode .register-button, .neighborhood-area51.light-mode .ipfs-button {
+            border-color: #008000;
+            color: #008000;
+            background: rgba(255, 255, 255, 0.9);
+        }
+        .neighborhood-athens .register-button, .neighborhood-athens .ipfs-button {
+            border-color: #c0c0c0;
+            color: #add8e6;
+            background: rgba(47, 79, 79, 0.8);
+        }
+        .neighborhood-athens.light-mode .register-button, .neighborhood-athens.light-mode .ipfs-button {
+            border-color: #ffd700;
+            color: #00008b;
+            background: rgba(245, 245, 220, 0.9);
+        }
+        .neighborhood-augusta .register-button, .neighborhood-augusta .ipfs-button {
+            border-color: #fff;
+            color: #fff;
+            background: rgba(0, 100, 0, 0.8);
+        }
+        .neighborhood-augusta.light-mode .register-button, .neighborhood-augusta.light-mode .ipfs-button {
+            border-color: #000;
+            color: #006400;
+            background: rgba(144, 238, 144, 0.9);
+        }
+        .neighborhood-baja .register-button, .neighborhood-baja .ipfs-button {
+            border-color: #fff;
+            color: #ff4500;
+            background: rgba(244, 164, 96, 0.8);
+        }
+        .neighborhood-baja.light-mode .register-button, .neighborhood-baja.light-mode .ipfs-button {
+            border-color: #000;
+            color: #ff4500;
+            background: rgba(210, 180, 140, 0.9);
+        }
+        .neighborhood-bourbonstreet .register-button, .neighborhood-bourbonstreet .ipfs-button {
+            border-color: #fff;
+            color: #ffff00;
+            background: rgba(75, 0, 130, 0.8);
+        }
+        .neighborhood-bourbonstreet.light-mode .register-button, .neighborhood-bourbonstreet.light-mode .ipfs-button {
+            border-color: #000;
+            color: #4b0082;
+            background: rgba(230, 230, 250, 0.9);
+        }
+        .neighborhood-broadway .register-button, .neighborhood-broadway .ipfs-button {
+            border-color: #fff;
+            color: #ff0000;
+            background: rgba(0, 0, 0, 0.8);
+        }
+        .neighborhood-broadway.light-mode .register-button, .neighborhood-broadway.light-mode .ipfs-button {
+            border-color: #000;
+            color: #8b0000;
+            background: rgba(255, 253, 208, 0.9);
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #000;
+            z-index: 10;
+            box-sizing: border-box;
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+        body.light-mode .header {
+            background: #fff;
+        }
+
+        /* Header Logo Box */
+        .header-title-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 38px;
+            width: 38px;
+            border: 1px solid #fff;
+            border-radius: 0;
+            transition: border-color 0.3s ease;
+            cursor: pointer;
+        }
+        .header-title-box.light-mode {
+            border-color: #000;
+        }
+
+        /* Header Logo Text */
+        .header-title {
+            color: #fff;
+            font-size: 1.2em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            font-weight: bold;
+            transition        transition: color 0.3s ease;
+        }
+        .header-title.light-mode {
+            color: #000;
+        }
+
+        /* Header Button Wrapper */
+        .header-button-wrapper {
+            display: flex;
+            align-items: center;
+            height: 38px;
+            box-sizing: border-box;
+        }
+
+        /* Footer Styles */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #000;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 0.8em;
+            box-sizing: border-box;
+            border-top: 1px solid #fff;
+            transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+            z-index: 10;
+        }
+        .footer.light-mode {
+            background: #fff;
+            color: #000;
+            border-top-color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-title-box" onclick="showHomepage()" title="Go to Homepage">
+            <div class="header-title">G</div>
+        </div>
+        <div class="header-button-wrapper">
+            <button class="toggle-button" onclick="toggleTheme()">Light</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="homepage">
+            <div class="logo-box" id="homepage-avatar"></div>
+            <h2 id="homepage-geocities">GeoCities</h2>
+            <div class="search-container" id="home-search-container">
+                <input type="text" id="ens-query-home" class="search-input" placeholder="Enter ENS or Base name">
+                <button class="search-button" id="home-search-button" onclick="searchENS()">Search</button>
+            </div>
+            <div id="error-message-home" class="error-message"></div>
+        </div>
+
+        <div id="profile-page">
+            <div class="search-container" id="profile-search-container">
+                <input type="text" id="ens-query-profile" class="search-input" placeholder="Enter ENS or Base name">
+                <button class="search-button" id="profile-search-button" onclick="searchENS()">Search</button>
+            </div>
+            <div id="error-message-profile" class="error-message"></div>
+            <div id="success-message-profile" class="success-message"></div>
+            <select id="neighborhood-select" class="neighborhood-select" onchange="changeNeighborhood()">
+                <option value="geocities">GeoCities</option>
+                <option value="area51">Area51</option>
+                <option value="athens">Athens</option>
+                <option value="augusta">Augusta</option>
+                <option value="baja">Baja</option>
+                <option value="bourbonstreet">BourbonStreet</option>
+                <option value="broadway">Broadway</option>
+            </select>
+            <div id="neighborhood-container" class="neighborhood-container neighborhood-geocities"></div>
+            <div id="register-button-container" class="register-button-container">
+                <button id="register-name-button" class="register-button"></button>
+                <button id="ipfs-button" class="ipfs-button" onclick="deployToIPFS()">Deploy to IPFS</button>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        GeoCities®️
+    </footer>
+
+    <script>
+        // DOM Element References
+        const homepage = document.getElementById('homepage');
+        const profilePage = document.getElementById('profile-page');
+        const ensInputHome = document.getElementById('ens-query-home');
+        const ensInputProfile = document.getElementById('ens-query-profile');
+        const profileRecords = document.getElementById('profile-records');
+        const errorMessageHome = document.getElementById('error-message-home');
+        const errorMessageProfile = document.getElementById('error-message-profile');
+        const successMessageProfile = document.getElementById('success-message-profile');
+        const homepageAvatar = document.getElementById('homepage-avatar');
+        const profileAvatar = document.getElementById('profile-avatar');
+        const profileHeader = document.getElementById('profile-header');
+        const profileAvatarLink = document.getElementById('profile-avatar-link');
+        const profileHeaderLink = document.getElementById('profile-header-link');
+        const pageBody = document.body;
+        const homeSearchButton = document.getElementById('home-search-button');
+        const profileSearchButton = document.getElementById('profile-search-button');
+        const themeBtn = document.querySelector('.toggle-button');
+        const headerLogo = document.querySelector('.header-title');
+        const headerBox = document.querySelector('.header-title-box');
+        const headerElement = document.querySelector('.header');
+        const geoCitiesTitle = document.getElementById('homepage-geocities');
+        const footerElement = document.querySelector('.footer');
+        const registerButtonContainer = document.getElementById('register-button-container');
+        const registerButton = document.getElementById('register-name-button');
+        const ipfsButton = document.getElementById('ipfs-button');
+        const neighborhoodSelect = document.getElementById('neighborhood-select');
+        const neighborhoodContainer = document.getElementById('neighborhood-container');
+
+        // State Variables
+        let lightMode = false;
+        let currentNeighborhood = 'geocities';
+        let currentEnsData = null;
+        let currentEnsName = '';
+
+        // Theme Toggling Function
+        function toggleTheme() {
+            lightMode = !lightMode;
+            pageBody.classList.toggle('light-mode', lightMode);
+            headerElement.classList.toggle('light-mode', lightMode);
+            footerElement.classList.toggle('light-mode', lightMode);
+            ensInputHome.classList.toggle('light-mode', lightMode);
+            ensInputProfile.classList.toggle('light-mode', lightMode);
+            homeSearchButton.classList.toggle('light-mode', lightMode);
+            profileSearchButton.classList.toggle('light-mode', lightMode);
+            themeBtn.classList.toggle('light-mode', lightMode);
+            headerLogo.classList.toggle('light-mode', lightMode);
+            headerBox.classList.toggle('light-mode', lightMode);
+            geoCitiesTitle.classList.toggle('light-mode', lightMode);
+            homepageAvatar.classList.toggle('light-mode', lightMode);
+            neighborhoodSelect.classList.toggle('light-mode', lightMode);
+            registerButton.classList.toggle('light-mode', lightMode);
+            ipfsButton.classList.toggle('light-mode', lightMode);
+            neighborhoodContainer.classList.toggle('light-mode', lightMode);
+
+            // Update profile content and background for current neighborhood
+            changeNeighborhood();
+
+            themeBtn.textContent = lightMode ? 'Dark' : 'Light';
+        }
+
+        // Set Profile Images (Avatar and Header)
+        async function setProfileImages(name, avatarElement, headerElement, isProfile = false, makeClickable = true) {
+            const avatarTarget = avatarElement;
+            const headerTarget = headerElement || null;
+            const avatarLink = isProfile ? profileAvatarLink : null;
+            const headerLink = isProfile ? profileHeaderLink : null;
+
+            // Reset avatar
+            avatarTarget.style.backgroundImage = 'none';
+            const initial = name ? name[0].toUpperCase() : 'G';
+            avatarTarget.textContent = initial;
+
+            // Reset header (if provided)
+            if (headerTarget) {
+                headerTarget.style.backgroundImage = 'none';
+                headerTarget.style.display = 'none';
+                if (headerLink) {
+                    headerLink.href = '';
+                    headerLink.style.cursor = 'default';
+                    headerLink.style.pointerEvents = 'none';
+                }
+            }
+
+            // Set avatar and header links
+            if (avatarLink && makeClickable && name && typeof name === 'string' && name.trim()) {
+                let normalizedName = name.trim().toLowerCase();
+                normalizedName = normalizedName.replace(/\.eth$/, '').replace(/\.base\.eth$/, '');
+                let limoUrl = name.endsWith('.base.eth')
+                    ? `https://${normalizedName}.base.eth.limo`
+                    : `https://${normalizedName}.eth.limo`;
+                avatarLink.href = limoUrl;
+                avatarLink.style.cursor = 'pointer';
+                avatarLink.style.pointerEvents = 'auto';
+                if (headerLink) {
+                    headerLink.href = limoUrl;
+                    headerLink.style.cursor = 'pointer';
+                    headerLink.style.pointerEvents = 'auto';
+                }
+            }
+
+            if (!name || !name.trim()) return;
+
+            let url = `https://api.web3.bio/profile/ens/${name}`;
+            if (name.endsWith('.base.eth')) {
+                url = `https://api.web3.bio/profile/basenames/${name}`;
+            }
+
+            try {
+                const response = await fetch(url);
+                let avatarUrl = null;
+                let headerUrl = null;
+                if (response.ok) {
+                    const data = await response.json();
+                    avatarUrl = data.avatar;
+                    headerUrl = data.header;
+                }
+
+                // Set avatar image
+                if (avatarUrl) {
+                    const img = new Image();
+                    img.src = avatarUrl;
+                    img.onload = () => {
+                        avatarTarget.style.backgroundImage = `url('${avatarUrl}')`;
+                        avatarTarget.textContent = '';
+                    };
+                    img.onerror = () => {
+                        avatarTarget.textContent = initial;
+                    };
+                } else {
+                    avatarTarget.textContent = initial;
+                }
+
+                // Set header image
+                if (headerUrl && headerTarget) {
+                    const img = new Image();
+                    img.src = headerUrl;
+                    img.onload = () => {
+                        headerTarget.style.backgroundImage = `url('${headerUrl}')`;
+                        headerTarget.style.display = 'block';
+                    };
+                    img.onerror = () => {
+                        headerTarget.style.display = 'none';
+                    };
+                } else if (headerTarget) {
+                    headerTarget.style.display = 'none';
+                }
+            } catch (err) {
+                avatarTarget.textContent = initial;
+                if (headerTarget) headerTarget.style.display = 'none';
+            }
+        }
+
+        // Set initial homepage avatar
+        setProfileImages('geocities.eth', homepageAvatar, null, false, false);
+
+        // Add Profile Record to DOM
+        function addProfileRecord(container, label, value, isFirst, isLink = false, linkUrl = '') {
+            const recordDiv = document.createElement('div');
+            recordDiv.classList.add('profile-box');
+            if (lightMode) recordDiv.classList.add('light-mode');
+
+            const headerElement = document.createElement('div');
+            headerElement.classList.add('profile-box-header');
+            if (lightMode) headerElement.classList.add('light-mode');
+            headerElement.textContent = label;
+
+            const valueContainer = document.createElement('div');
+            valueContainer.classList.add('profile-box-value');
+            if (lightMode) valueContainer.classList.add('light-mode');
+
+            if (isLink && linkUrl) {
+                const linkElement = document.createElement('a');
+                linkElement.href = linkUrl;
+                linkElement.target = '_blank';
+                linkElement.rel = 'noopener noreferrer';
+                linkElement.textContent = (typeof value === 'object' && value !== null) ? JSON.stringify(value) : value;
+                valueContainer.appendChild(linkElement);
+            } else {
+                valueContainer.textContent = (typeof value === 'object' && value !== null) ? JSON.stringify(value) : value;
+            }
+
+            recordDiv.appendChild(headerElement);
+            recordDiv.appendChild(valueContainer);
+            container.appendChild(recordDiv);
+        }
+
+        // Helper function to normalize URLs
+        function normalizeUrl(url) {
+            if (!url) return url;
+            // If the URL already has a protocol, return it as is
+            if (/^https?:\/\//i.test(url)) return url;
+            // If the URL is a valid domain or path, prepend https://
+            if (/^[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(\/.*)?$/.test(url)) return `https://${url}`;
+            // For other cases, return as is to avoid breaking non-URL values
+            return url;
+        }
+
+        // Generate Profile HTML
+        function generateProfileHtml(ensData, ensName, neighborhood) {
+            neighborhoodContainer.innerHTML = '';
+            neighborhoodContainer.className = `neighborhood-container neighborhood-${neighborhood}`;
+            if (lightMode) neighborhoodContainer.classList.add('light-mode');
+
+            // Create profile elements
+            const headerLink = document.createElement('a');
+            headerLink.id = 'profile-header-link';
+            headerLink.target = '_blank';
+            headerLink.rel = 'noopener noreferrer';
+
+            const headerDiv = document.createElement('div');
+            headerDiv.id = 'profile-header';
+            headerLink.appendChild(headerDiv);
+
+            const avatarLink = document.createElement('a');
+            avatarLink.id = 'profile-avatar-link';
+            avatarLink.target = '_blank';
+            avatarLink.rel = 'noopener noreferrer';
+
+            const avatarDiv = document.createElement('div');
+            avatarDiv.id = 'profile-avatar';
+            avatarLink.appendChild(avatarDiv);
+
+            const recordsDiv = document.createElement('div');
+            recordsDiv.id = 'profile-records';
+            recordsDiv.className = 'profile-container';
+
+            neighborhoodContainer.appendChild(headerLink);
+            neighborhoodContainer.appendChild(avatarLink);
+            neighborhoodContainer.appendChild(recordsDiv);
+
+            // Set profile images
+            const identityName = ensData?.identity || ensName;
+            setProfileImages(identityName, avatarDiv, headerDiv, true, true);
+
+            // Populate records
+            const specificOmissions = ['avatar', 'header', 'contenthash', 'contentHash', 'identity', 'address', 'displayName', 'description', 'email', 'location', 'status', 'createdAt', 'records', 'followers', 'platform', 'follower', 'following', 'social'];
+            const headerRenames = {
+                'email': 'Email',
+                'description': 'Bio',
+                'location': 'Location',
+                'status': 'Status',
+                'keywords': 'Tags',
+                'com.discord': 'Discord',
+                'com.twitter': 'Twitter',
+                'com.github': 'GitHub',
+                'org.telegram': 'Telegram'
+            };
+            const linkableRecords = ['Website', 'Twitter', 'GitHub', 'Discord', 'Telegram'];
+
+            let recordsMap = {
+                'address': null,
+                'identity': null,
+                'displayName': null,
+                'followers': null,
+                'following': null,
+                'location': null,
+                'status': null,
+                'description': null,
+                'website': null,
+                'email': null,
+                'createdAt': null
+            };
+            let otherRecords = [];
+
+            if (ensData.address) recordsMap['address'] = { label: 'Address', value: ensData.address };
+            if (ensData.identity) {
+                const isBase = ensData.identity.endsWith('.base.eth');
+                const displayLabel = isBase ? 'Base Name' : 'ENS';
+                recordsMap['identity'] = { label: displayLabel, value: ensData.identity };
+            }
+            if (ensData.displayName && ensData.displayName !== ensData.identity) {
+                recordsMap['displayName'] = { label: 'Name', value: ensData.displayName };
+            }
+            if (ensData.social?.follower != null) {
+                recordsMap['followers'] = { label: 'Followers', value: ensData.social.follower };
+            }
+            if (ensData.social?.following != null) {
+                recordsMap['following'] = { label: 'Following', value: ensData.social.following };
+            }
+            if (ensData.location) {
+                recordsMap['location'] = { label: 'Location', value: ensData.location };
+            }
+            if (ensData.status) {
+                recordsMap['status'] = { label: 'Status', value: ensData.status };
+            }
+            if (ensData.description) {
+                recordsMap['description'] = { label: 'Bio', value: ensData.description };
+            }
+            if (ensData.links?.website?.handle) {
+                recordsMap['website'] = { 
+                    label: 'Website', 
+                    value: ensData.links.website.handle, 
+                    isLink: true, 
+                    linkUrl: ensData.links.website.link || normalizeUrl(ensData.links.website.handle) 
+                };
+            }
+            if (ensData.email) {
+                recordsMap['email'] = { label: 'Email', value: ensData.email };
+            }
+            if (ensData.createdAt) {
+                let formattedDate = ensData.createdAt;
+                try {
+                    const date = new Date(ensData.createdAt);
+                    if (!isNaN(date.getTime())) { formattedDate = date.toLocaleDateString(); }
+                } catch (err) { }
+                recordsMap['createdAt'] = { label: 'Created', value: formattedDate };
+            }
+
+            function processValue(key, value, targetArray) {
+                if (value === null || value === undefined || value === '' || specificOmissions.includes(key)) return;
+
+                const label = headerRenames[key] || key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+
+                if (recordsMap[key] || targetArray.some(r => r.label === label)) return;
+
+                if (typeof value === 'object') {
+                    if (key === 'links') {
+                        Object.entries(value).forEach(([linkName, linkData]) => {
+                            if (linkName !== 'website' && linkData && linkData.handle && linkData.link) {
+                                const formattedLabel = headerRenames[linkName] || linkName.replace(/^./, c => c.toUpperCase());
+                                targetArray.push({ 
+                                    label: formattedLabel, 
+                                    value: linkData.handle, 
+                                    isLink: true, 
+                                    linkUrl: linkData.link 
+                                });
+                            }
+                        });
+                    }
+                    else if (key === 'records') {
+                        Object.entries(value).forEach(([recordKey, recordValue]) => {
+                            if (recordKey !== 'contenthash' && recordKey !== 'contentHash' && recordValue) {
+                                const recordLabel = headerRenames[recordKey] || recordKey.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+                                let isLink = linkableRecords.includes(recordLabel);
+                                let linkUrl = '';
+                                if (isLink) {
+                                    linkUrl = recordKey === 'com.twitter' ? `https://x.com/${recordValue}`
+                                        : recordKey === 'com.github' ? `https://github.com/${recordValue}`
+                                        : recordKey === 'com.discord' ? `https://discord.com/users/${recordValue}`
+                                        : recordKey === 'org.telegram' ? `https://t.me/${recordValue}`
+                                        : normalizeUrl(recordValue);
+                                }
+                                targetArray.push({ label: recordLabel, value: recordValue, isLink: isLink, linkUrl: linkUrl });
+                            }
+                        });
+                    }
+                } else {
+                    let isLink = linkableRecords.includes(label);
+                    let linkUrl = '';
+                    if (isLink) {
+                        linkUrl = key === 'com.twitter' ? `https://x.com/${value}`
+                            : key === 'com.github' ? `https://github.com/${value}`
+                            : key === 'com.discord' ? `https://discord.com/users/${value}`
+                            : key === 'org.telegram' ? `https://t.me/${value}`
+                            : normalizeUrl(value);
+                    }
+                    targetArray.push({ label: label, value: value, isLink: isLink, linkUrl: linkUrl });
+                }
+            }
+
+            Object.entries(ensData).forEach(([key, value]) => {
+                if (!Object.keys(recordsMap).includes(key)) {
+                    processValue(key, value, otherRecords);
+                }
+            });
+
+            let orderedRecords = [];
+            if (recordsMap['address']) orderedRecords.push(recordsMap['address']);
+            if (recordsMap['identity']) orderedRecords.push(recordsMap['identity']);
+            if (recordsMap['displayName']) orderedRecords.push(recordsMap['displayName']);
+            if (recordsMap['followers']) orderedRecords.push(recordsMap['followers']);
+            if (recordsMap['following']) orderedRecords.push(recordsMap['following']);
+            if (recordsMap['location']) orderedRecords.push(recordsMap['location']);
+            if (recordsMap['status']) orderedRecords.push(recordsMap['status']);
+            if (recordsMap['description']) orderedRecords.push(recordsMap['description']);
+            if (recordsMap['email']) orderedRecords.push(recordsMap['email']);
+            if (recordsMap['website']) orderedRecords.push(recordsMap['website']);
+            otherRecords.sort((a, b) => a.label.localeCompare(b.label));
+            orderedRecords = orderedRecords.concat(otherRecords);
+            if (recordsMap['createdAt']) orderedRecords.push(recordsMap['createdAt']);
+
+            if (orderedRecords.length === 0) {
+                addProfileRecord(recordsDiv, 'Status', 'No profile records found.', true);
+            } else {
+                orderedRecords.forEach((record, index) => {
+                    addProfileRecord(recordsDiv, record.label, record.value, index === 0, record.isLink, record.linkUrl);
+                });
+            }
+        }
+
+        // Display Unregistered Profile
+        function displayUnregisteredProfile(ensName, isBaseName) {
+            homepage.style.display = 'none';
+            profilePage.style.display = 'flex';
+            neighborhoodContainer.innerHTML = '';
+            neighborhoodContainer.className = `neighborhood-container neighborhood-${currentNeighborhood}`;
+            if (lightMode) neighborhoodContainer.classList.add('light-mode');
+            errorMessageProfile.style.display = 'none';
+            errorMessageHome.style.display = 'none';
+            successMessageProfile.style.display = 'none';
+
+            // Create profile elements
+            const headerLink = document.createElement('a');
+            headerLink.id = 'profile-header-link';
+            headerLink.target = '_blank';
+            headerLink.rel = 'noopener noreferrer';
+
+            const headerDiv = document.createElement('div');
+            headerDiv.id = 'profile-header';
+            headerLink.appendChild(headerDiv);
+
+            const avatarLink = document.createElement('a');
+            avatarLink.id = 'profile-avatar-link';
+            avatarLink.target = '_blank';
+            avatarLink.rel = 'noopener noreferrer';
+
+            const avatarDiv = document.createElement('div');
+            avatarDiv.id = 'profile-avatar';
+            avatarLink.appendChild(avatarDiv);
+
+            const recordsDiv = document.createElement('div');
+            recordsDiv.id = 'profile-records';
+            recordsDiv.className = 'profile-container';
+
+            neighborhoodContainer.appendChild(headerLink);
+            neighborhoodContainer.appendChild(avatarLink);
+            neighborhoodContainer.appendChild(recordsDiv);
+
+            setProfileImages(ensName, avatarDiv, headerDiv, true, true);
+
+            if (isBaseName) {
+                addProfileRecord(recordsDiv, 'Base Name', ensName, true);
+            } else {
+                addProfileRecord(recordsDiv, 'ENS', ensName, true);
+            }
+
+            addProfileRecord(recordsDiv, 'Status', 'Name not registered', false);
+
+            const buttonText = isBaseName ? 'Register Base Name' : 'Register ENS Name';
+            let registerUrl = '';
+
+            if (isBaseName) {
+                const baseNameOnly = ensName.replace(/\.base\.eth$/, '');
+                registerUrl = `https://www.base.org/names?claim=${baseNameOnly}`;
+            } else {
+                registerUrl = `https://app.ens.domains/${ensName}/register`;
+            }
+
+            registerButton.textContent = buttonText;
+            registerButton.onclick = () => window.open(registerUrl, '_blank');
+            registerButton.className = 'register-button';
+            if (lightMode) registerButton.classList.add('light-mode');
+            registerButtonContainer.style.display = 'flex';
+            registerButton.style.display = 'inline-block';
+            ipfsButton.style.display = 'none';
+        }
+
+        // Change Neighborhood
+        function changeNeighborhood() {
+            currentNeighborhood = neighborhoodSelect.value;
+            if (currentNeighborhood === 'area51') {
+                pageBody.style.background = lightMode ? 'linear-gradient(135deg, #e0e0e0 0%, #a0a0a0 100%)' : '#000';
+            } else if (currentNeighborhood === 'athens') {
+                pageBody.style.background = lightMode ? '#f5f5dc' : '#2f4f4f';
+            } else if (currentNeighborhood === 'augusta') {
+                pageBody.style.background = lightMode ? '#90ee90' : '#006400';
+            } else if (currentNeighborhood === 'baja') {
+                pageBody.style.background = lightMode ? '#d2b48c' : '#f4a460';
+            } else if (currentNeighborhood === 'bourbonstreet') {
+                pageBody.style.background = lightMode ? '#e6e6fa' : '#4b0082';
+            } else if (currentNeighborhood === 'broadway') {
+                pageBody.style.background = lightMode ? '#fffdd0' : '#000000';
+            } else {
+                pageBody.style.background = ''; // Let CSS handle GeoCities background
+            }
+
+            if (currentEnsData) {
+                generateProfileHtml(currentEnsData, currentEnsName, currentNeighborhood);
+                registerButtonContainer.style.display = 'flex';
+                registerButton.style.display = 'none';
+                ipfsButton.style.display = 'inline-block';
+            } else if (currentEnsName) {
+                displayUnregisteredProfile(currentEnsName, currentEnsName.endsWith('.base.eth'));
+            }
+        }
+
+        // Deploy to IPFS
+        async function deployToIPFS() {
+            if (!currentEnsData) return;
+
+            // Generate HTML for IPFS
+            const htmlContent = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${currentEnsName} - GeoCities Profile</title>
+    <style>
+        body {
+            font-family: ${currentNeighborhood === 'area51' ? "'Orbitron', sans-serif" : currentNeighborhood === 'athens' ? "'Georgia', serif" : 'sans-serif'};
+            background: ${currentNeighborhood === 'area51' ? '#000' : currentNeighborhood === 'athens' ? '#2f4f4f' : currentNeighborhood === 'augusta' ? '#006400' : currentNeighborhood === 'baja' ? '#f4a460' : currentNeighborhood === 'bourbonstreet' ? '#4b0082' : currentNeighborhood === 'broadway' ? '#000000' : '#000'};
+            color: ${currentNeighborhood === 'area51' ? '#00ff00' : currentNeighborhood === 'athens' ? '#add8e6' : currentNeighborhood === 'augusta' ? '#fff' : currentNeighborhood === 'baja' ? '#ff4500' : currentNeighborhood === 'bourbonstreet' ? '#ffff00' : currentNeighborhood === 'broadway' ? '#ff0000' : '#fff'};
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .profile-container {
+            width: 90%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .profile-header {
+            width: 100%;
+            height: 0;
+            padding-bottom: 33.33%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border: 1px solid ${currentNeighborhood === 'area51' ? '#00ff00' : currentNeighborhood === 'athens' ? '#c0c0c0' : currentNeighborhood === 'augusta' ? '#fff' : currentNeighborhood === 'baja' ? '#fff' : currentNeighborhood === 'bourbonstreet' ? '#fff' : currentNeighborhood === 'broadway' ? '#fff' : '#fff'};
+            box-sizing: border-box;
+        }
+        .profile-avatar {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 10em;
+            border: 1px solid ${currentNeighborhood === 'area51' ? '#00ff00' : currentNeighborhood === 'athens' ? '#c0c0c0' : currentNeighborhood === 'augusta' ? '#fff' : currentNeighborhood === 'baja' ? '#fff' : currentNeighborhood === 'bourbonstreet' ? '#fff' : currentNeighborhood === 'broadway' ? '#fff' : '#fff'};
+            box-sizing: border-box;
+            color: ${currentNeighborhood === 'area51' ? '#00ff00' : currentNeighborhood === 'athens' ? '#add8e6' : currentNeighborhood === 'augusta' ? '#fff' : currentNeighborhood === 'baja' ? '#ff4500' : currentNeighborhood === 'bourbonstreet' ? '#ffff00' : currentNeighborhood === 'broadway' ? '#ff0000' : '#fff'};
+        }
+        .profile-box {
+            border: 1px solid ${currentNeighborhood === 'area51' ? '#00ff00' : currentNeighborhood === 'athens' ? '#c0c0c0' : currentNeighborhood === 'augusta' ? '#fff' : currentNeighborhood === 'baja' ? '#fff' : currentNeighborhood === 'bourbonstreet' ? '#fff' : currentNeighborhood === 'broadway' ? '#fff' : '#fff'};
+            padding: 10px;
+            background: ${currentNeighborhood === 'area51' ? 'rgba(0, 0, 0, 0.8)' : currentNeighborhood === 'athens' ? 'rgba(47, 79, 79, 0.8)' : currentNeighborhood === 'augusta' ? 'rgba(0, 100, 0, 0.8)' : currentNeighborhood === 'baja' ? 'rgba(244, 164, 96, 0.8)' : currentNeighborhood === 'bourbonstreet' ? 'rgba(75, 0, 130, 0.8)' : currentNeighborhood === 'broadway' ? 'rgba(0, 0, 0, 0.8)' : '#000'};
+            color: ${currentNeighborhood === 'area51' ? '#00ff00' : currentNeighborhood === 'athens' ? '#add8e6' : currentNeighborhood === 'augusta' ? '#fff' : currentNeighborhood === 'baja' ? '#ff4500' : currentNeighborhood === 'bourbonstreet' ? '#ffff00' : currentNeighborhood === 'broadway' ? '#ff0000' : '#fff'};
+            word-break: break-word;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-top: none;
+            width: 100%;
+            box-sizing: border-box;
+            min-height: 38px;
+        }
+        .profile-box:first-child {
+            border-top: 1px solid ${currentNeighborhood === 'area51' ? '#00ff00' : currentNeighborhood === 'athens' ? '#c0c0c0' : currentNeighborhood === 'augusta' ? '#fff' : currentNeighborhood === 'baja' ? '#fff' : currentNeighborhood === 'bourbonstreet' ? '#fff' : currentNeighborhood === 'broadway' ? '#fff' : '#fff'};
+        }
+        .profile-box-header {
+            font-weight: bold;
+            color: ${currentNeighborhood === 'area51' ? '#00ff00' : currentNeighborhood === 'athens' ? '#add8e6' : currentNeighborhood === 'augusta' ? '#fff' : currentNeighborhood === 'baja' ? '#ff4500' : currentNeighborhood === 'bourbonstreet' ? '#ffff00' : currentNeighborhood === 'broadway' ? '#ff0000' : '#fff'};
+            flex: 0 0 100px;
+            min-width: 80px;
+            text-align: left;
+        }
+        .profile-box-value {
+            flex: 1;
+            text-align: left;
+            word-break: break-all;
+            color: ${currentNeighborhood === 'area51' ? '#00ff00' : currentNeighborhood === 'athens' ? '#add8e6' : currentNeighborhood === 'augusta' ? '#fff' : currentNeighborhood === 'baja' ? '#ff4500' : currentNeighborhood === 'bourbonstreet' ? '#ffff00' : currentNeighborhood === 'broadway' ? '#ff0000' : '#fff'};
+        }
+        .profile-box-value a {
+            color: inherit;
+            text-decoration: underline;
+        }
+        .profile-box-value a:hover {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <a href="${profileHeaderLink.href}" target="_blank" rel="noopener noreferrer">
+            <div class="profile-header" style="background-image: url('${profileHeader.style.backgroundImage ? profileHeader.style.backgroundImage.slice(5, -2) : ''}'); display: ${profileHeader.style.display};"></div>
+        </a>
+        <a href="${profileAvatarLink.href}" target="_blank" rel="noopener noreferrer">
+            <div class="profile-avatar" style="background-image: url('${profileAvatar.style.backgroundImage ? profileAvatar.style.backgroundImage.slice(5, -2) : ''}');">${profileAvatar.textContent}</div>
+        </a>
+        <div class="profile-records">
+            ${Array.from(document.querySelectorAll('.profile-box')).map(box => `
+                <div class="profile-box">
+                    <div class="profile-box-header">${box.querySelector('.profile-box-header').textContent}</div>
+                    <div class="profile-box-value">${box.querySelector('.profile-box-value').innerHTML}</div>
+                </div>
+            `).join('')}
+        </div>
+    </div>
+</body>
+</html>
+            `;
+
+            try {
+                const formData = new FormData();
+                formData.append('file', new Blob([htmlContent], { type: 'text/html' }), `${currentEnsName}.html`);
+
+                const response = await fetch('https://ipfs.infura.io:5001/api/v0/add', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) throw new Error('IPFS upload failed');
+
+                const data = await response.json();
+                const ipfsUrl = `https://ipfs.io/ipfs/${data.Hash}`;
+
+                successMessageProfile.textContent = `Profile deployed to IPFS: ${ipfsUrl}`;
+                successMessageProfile.style.display = 'block';
+                errorMessageProfile.style.display = 'none';
+
+                setTimeout(() => {
+                    successMessageProfile.style.display = 'none';
+                }, 5000);
+            } catch (err) {
+                errorMessageProfile.textContent = `IPFS upload error: ${err.message}`;
+                errorMessageProfile.style.display = 'block';
+                successMessageProfile.style.display = 'none';
+            }
+        }
+
+        // Main Search Function
+        async function searchENS() {
+            const isOnProfilePage = profilePage.style.display === 'flex';
+            const queryInput = isOnProfilePage ? ensInputProfile : ensInputHome;
+            const currentErrorMessageElement = isOnProfilePage ? errorMessageProfile : errorMessageHome;
+            const query = queryInput.value.trim().toLowerCase();
+
+            currentErrorMessageElement.style.display = 'none';
+            successMessageProfile.style.display = 'none';
+            neighborhoodContainer.innerHTML = '';
+            registerButtonContainer.style.display = 'none';
+            currentEnsData = null;
+            currentEnsName = '';
+
+            if (!query) {
+                displayError('Please enter an ENS or Base name.', isOnProfilePage);
+                return;
+            }
+            if (/\s/.test(query)) {
+                displayError('Name cannot contain spaces.', isOnProfilePage);
+                return;
+            }
+            const ensName = (query.endsWith('.eth') || query.endsWith('.base.eth')) ? query : `${query}.eth`;
+
+            let url = `https://api.web3.bio/profile/ens/${ensName}`;
+            let isBaseName = false;
+            if (ensName.endsWith('.base.eth')) {
+                url = `https://api.web3.bio/profile/basenames/${ensName}`;
+                isBaseName = true;
+            }
+
+            try {
+                const response = await fetch(url);
+
+                if (!response.ok) {
+                    if (response.status === 404) {
+                        currentEnsName = ensName;
+                        displayUnregisteredProfile(ensName, isBaseName);
+                    } else {
+                        let errorText = `Error: ${response.statusText}`;
+                        try {
+                            const errorData = await response.json();
+                            errorText = errorData?.message || errorData?.error || `Error ${response.status}: ${response.statusText}`;
+                            if (errorText.toLowerCase().includes("invalid name")) {
+                                errorText = `Invalid name format: ${ensName}`;
+                            } else if (response.status >= 500) {
+                                errorText = "Server error. Please try again later.";
+                            }
+                        } catch (e) { }
+                        displayError(errorText, isOnProfilePage);
+                    }
+                    return;
+                }
+
+                const data = await response.json();
+                currentEnsData = data;
+                currentEnsName = ensName;
+                displayProfile(data, ensName);
+            } catch (err) {
+                let errorMsg = "Network error. Please check your connection.";
+                if (err instanceof TypeError) { errorMsg = "Network error or CORS issue. Check console."; }
+                else { errorMsg = `Unexpected error: ${err.message}`; }
+                displayError(errorMsg, isOnProfilePage);
+            }
+        }
+
+        // Display Error Messages
+        function displayError(message, onProfilePage) {
+            const targetErrorElement = onProfilePage ? errorMessageProfile : errorMessageHome;
+            targetErrorElement.textContent = message;
+            targetErrorElement.style.display = 'block';
+            successMessageProfile.style.display = 'none';
+
+            if (onProfilePage) {
+                neighborhoodContainer.innerHTML = '';
+                registerButtonContainer.style.display = 'none';
+            }
+        }
+
+        // Display Registered Profile Data
+        function displayProfile(ensData, searchedName) {
+            homepage.style.display = 'none';
+            profilePage.style.display = 'flex';
+            errorMessageProfile.style.display = 'none';
+            errorMessageHome.style.display = 'none';
+            successMessageProfile.style.display = 'none';
+            neighborhoodSelect.value = currentNeighborhood;
+
+            generateProfileHtml(ensData, searchedName, currentNeighborhood);
+            registerButtonContainer.style.display = 'flex';
+            registerButton.style.display = 'none';
+            ipfsButton.style.display = 'inline-block';
+        }
+
+        // Show Homepage View
+        function showHomepage() {
+            profilePage.style.display = 'none';
+            homepage.style.display = 'block';
+            ensInputHome.value = '';
+            ensInputProfile.value = '';
+            errorMessageHome.style.display = 'none';
+            errorMessageProfile.style.display = 'none';
+            successMessageProfile.style.display = 'none';
+            neighborhoodContainer.innerHTML = '';
+            currentEnsData = null;
+            currentEnsName = '';
+            currentNeighborhood = 'geocities';
+            neighborhoodSelect.value = currentNeighborhood;
+            pageBody.style.background = ''; // Let CSS handle GeoCities background
+            registerButtonContainer.style.display = 'none';
+        }
+
+        // Event Listeners
+        ensInputHome.addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); searchENS(); } });
+        ensInputProfile.addEventListener('keypress', (e) => { if (e.key === 'Enter') { e.preventDefault(); searchENS(); } });
+
+        // Initial Setup
+        neighborhoodContainer.innerHTML = '';
+        registerButtonContainer.style.display = 'none';
+    </script>
+</body>
+</html>
