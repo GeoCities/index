@@ -185,7 +185,7 @@
             align-items: center;
         }
         .neighborhood-geocities {
-            background: #vest: none;
+            background: #000;
             transition: background 0.3s ease;
         }
         .neighborhood-geocities.light-mode {
@@ -249,7 +249,17 @@
         }
         .neighborhood-broadway.light-mode {
             background: #fffdd0;
-            color: #8b0000; /* Changed from #ffff00 to #8b0000 for better readability */
+            color: #8b0000;
+        }
+        .neighborhood-capecanaveral {
+            background: #1C2526;
+            color: #00B7EB;
+            font-family: sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .neighborhood-capecanaveral.light-mode {
+            background: #E6F3FA;
+            color: #0047AB;
         }
 
         /* Profile Header Display */
@@ -306,6 +316,12 @@
         }
         .neighborhood-broadway.light-mode #profile-header {
             border-color: #000;
+        }
+        .neighborhood-capecanaveral #profile-header {
+            border-color: #00B7EB;
+        }
+        .neighborhood-capecanaveral.light-mode #profile-header {
+            border-color: #0047AB;
         }
 
         /* Profile Header Link Wrapper */
@@ -382,7 +398,7 @@
             border-color: #000;
             color: #ff4500;
         }
-        .neighborhood-bourbonstreet #profileavatar {
+        .neighborhood-bourbonstreet #profile-avatar {
             border-color: #fff;
             color: #ffff00;
             font-family: sans-serif;
@@ -398,7 +414,16 @@
         }
         .neighborhood-broadway.light-mode #profile-avatar {
             border-color: #000;
-            color: #8b0000; /* Changed from #ffff00 to #8b0000 */
+            color: #8b0000;
+        }
+        .neighborhood-capecanaveral #profile-avatar {
+            border-color: #00B7EB;
+            color: #00B7EB;
+            font-family: sans-serif;
+        }
+        .neighborhood-capecanaveral.light-mode #profile-avatar {
+            border-color: #0047AB;
+            color: #0047AB;
         }
 
         /* Profile Avatar Link Wrapper */
@@ -550,10 +575,27 @@
         .neighborhood-broadway.light-mode .profile-box {
             border-color: #000;
             background: rgba(255, 253, 208, 0.9);
-            color: #8b0000; /* Changed from #ffff00 to #8b0000 */
+            color: #8b0000;
         }
         .neighborhood-broadway.light-mode .profile-box:first-child {
             border-top: 1px solid #000;
+        }
+        .neighborhood-capecanaveral .profile-box {
+            border-color: #00B7EB;
+            background: rgba(28, 37, 38, 0.8);
+            color: #00B7EB;
+            font-family: sans-serif;
+        }
+        .neighborhood-capecanaveral .profile-box:first-child {
+            border-top: 1px solid #00B7EB;
+        }
+        .neighborhood-capecanaveral.light-mode .profile-box {
+            border-color: #0047AB;
+            background: rgba(230, 243, 250, 0.9);
+            color: #0047AB;
+        }
+        .neighborhood-capecanaveral.light-mode .profile-box:first-child {
+            border-top: 1px solid #0047AB;
         }
 
         /* Header part of Profile Box */
@@ -609,7 +651,14 @@
             font-family: sans-serif;
         }
         .neighborhood-broadway.light-mode .profile-box-header {
-            color: #8b0000; /* Changed from #ffff00 to #8b0000 */
+            color: #8b0000;
+        }
+        .neighborhood-capecanaveral .profile-box-header {
+            color: #00B7EB;
+            font-family: sans-serif;
+        }
+        .neighborhood-capecanaveral.light-mode .profile-box-header {
+            color: #0047AB;
         }
 
         /* Value part of Profile Box */
@@ -663,7 +712,14 @@
             font-family: sans-serif;
         }
         .neighborhood-broadway.light-mode .profile-box-value {
-            color: #8b0000; /* Changed from #ffff00 to #8b0000 */
+            color: #8b0000;
+        }
+        .neighborhood-capecanaveral .profile-box-value {
+            color: #00B7EB;
+            font-family: sans-serif;
+        }
+        .neighborhood-capecanaveral.light-mode .profile-box-value {
+            color: #0047AB;
         }
         .profile-box-value a {
             color: inherit;
@@ -716,7 +772,7 @@
             text-align: center;
             height: 38px;
             background: #000;
-            box-sizing: border-box
+            box-sizing: border-box;
         }
         .toggle-button.light-mode {
             background: #fff;
@@ -811,8 +867,18 @@
         }
         .neighborhood-broadway.light-mode .register-button, .neighborhood-broadway.light-mode .ipfs-button {
             border-color: #000;
-            color: #8b0000; /* Changed from #ffff00 to #8b0000 */
+            color: #8b0000;
             background: rgba(255, 253, 208, 0.9);
+        }
+        .neighborhood-capecanaveral .register-button, .neighborhood-capecanaveral .ipfs-button {
+            border-color: #00B7EB;
+            color: #00B7EB;
+            background: rgba(28, 37, 38, 0.8);
+        }
+        .neighborhood-capecanaveral.light-mode .register-button, .neighborhood-capecanaveral.light-mode .ipfs-button {
+            border-color: #0047AB;
+            color: #0047AB;
+            background: rgba(230, 243, 250, 0.9);
         }
 
         /* Header */
@@ -934,6 +1000,7 @@
                 <option value="baja">Baja</option>
                 <option value="bourbonstreet">BourbonStreet</option>
                 <option value="broadway">Broadway</option>
+                <option value="capecanaveral">CapeCanaveral</option>
             </select>
             <div id="neighborhood-container" class="neighborhood-container neighborhood-geocities"></div>
             <div id="register-button-container" class="register-button-container">
@@ -1085,7 +1152,7 @@
                     const img = new Image();
                     img.src = headerUrl;
                     img.onload = () => {
-                        headerTarget.style.backgroundImage = `url(${headerUrl})`;
+                        headerTarget.style.backgroundImage = `url('${headerUrl}')`;
                         headerTarget.style.display = 'block';
                     };
                     img.onerror = () => {
@@ -1226,11 +1293,7 @@
                 recordsMap['description'] = { label: 'Bio', value: ensData.description };
             }
             if (ensData.links?.website?.handle) {
-                let websiteUrl = ensData.links.website.handle;
-                if (!websiteUrl.match(/^https?:\/\//)) {
-                    websiteUrl = `https://${websiteUrl}`;
-                }
-                recordsMap['website'] = { label: 'Website', value: ensData.links.website.handle, isLink: true, linkUrl: websiteUrl };
+                recordsMap['website'] = { label: 'Website', value: ensData.links.website.handle, isLink: true, linkUrl: ensData.links.website.handle };
             }
             if (ensData.email) {
                 recordsMap['email'] = { label: 'Email', value: ensData.email };
@@ -1256,21 +1319,11 @@
                         Object.entries(value).forEach(([linkName, linkData]) => {
                             if (linkName !== 'website' && linkData && linkData.handle) {
                                 const formattedLabel = headerRenames[linkName] || linkName.replace(/^./, c => c.toUpperCase());
-                                let linkUrl = '';
-                                if (linkName === 'com.twitter') {
-                                    linkUrl = `https://x.com/${linkData.handle.replace(/^@/, '')}`;
-                                } else if (linkName === 'com.github') {
-                                    linkUrl = `https://github.com/${linkData.handle}`;
-                                } else if (linkName === 'com.discord') {
-                                    linkUrl = `https://discord.com/users/${linkData.handle}`;
-                                } else if (linkName === 'org.telegram') {
-                                    linkUrl = `https://t.me/${linkData.handle.replace(/^@/, '')}`;
-                                } else {
-                                    linkUrl = linkData.handle;
-                                    if (!linkUrl.match(/^https?:\/\//)) {
-                                        linkUrl = `https://${linkUrl}`;
-                                    }
-                                }
+                                const linkUrl = linkName === 'com.twitter' ? `https://x.com/${linkData.handle}`
+                                    : linkName === 'com.github' ? `https://github.com/${linkData.handle}`
+                                    : linkName === 'com.discord' ? `https://discord.com/users/${linkData.handle}`
+                                    : linkName === 'org.telegram' ? `https://t.me/${linkData.handle}`
+                                    : linkData.handle;
                                 targetArray.push({ label: formattedLabel, value: linkData.handle, isLink: true, linkUrl: linkUrl });
                             }
                         });
@@ -1282,20 +1335,11 @@
                                 let isLink = linkableRecords.includes(recordLabel);
                                 let linkUrl = '';
                                 if (isLink) {
-                                    if (recordKey === 'com.twitter') {
-                                        linkUrl = `https://x.com/${recordValue.replace(/^@/, '')}`;
-                                    } else if (recordKey === 'com.github') {
-                                        linkUrl = `https://github.com/${recordValue}`;
-                                    } else if (recordKey === 'com.discord') {
-                                        linkUrl = `https://discord.com/users/${recordValue}`;
-                                    } else if (recordKey === 'org.telegram') {
-                                        linkUrl = `https://t.me/${recordValue.replace(/^@/, '')}`;
-                                    } else {
-                                        linkUrl = recordValue;
-                                        if (!linkUrl.match(/^https?:\/\//)) {
-                                            linkUrl = `https://${linkUrl}`;
-                                        }
-                                    }
+                                    linkUrl = recordKey === 'com.twitter' ? `https://x.com/${recordValue}`
+                                        : recordKey === 'com.github' ? `https://github.com/${recordValue}`
+                                        : recordKey === 'com.discord' ? `https://discord.com/users/${recordValue}`
+                                        : recordKey === 'org.telegram' ? `https://t.me/${recordValue}`
+                                        : recordValue;
                                 }
                                 targetArray.push({ label: recordLabel, value: recordValue, isLink: isLink, linkUrl: linkUrl });
                             }
@@ -1305,20 +1349,11 @@
                     let isLink = linkableRecords.includes(label);
                     let linkUrl = '';
                     if (isLink) {
-                        if (key === 'com.twitter') {
-                            linkUrl = `https://x.com/${value.replace(/^@/, '')}`;
-                        } else if (key === 'com.github') {
-                            linkUrl = `https://github.com/${value}`;
-                        } else if (key === 'com.discord') {
-                            linkUrl = `https://discord.com/users/${value}`;
-                        } else if (key === 'org.telegram') {
-                            linkUrl = `https://t.me/${value.replace(/^@/, '')}`;
-                        } else {
-                            linkUrl = value;
-                            if (!linkUrl.match(/^https?:\/\//)) {
-                                linkUrl = `https://${linkUrl}`;
-                            }
-                        }
+                        linkUrl = key === 'com.twitter' ? `https://x.com/${value}`
+                            : key === 'com.github' ? `https://github.com/${value}`
+                            : key === 'com.discord' ? `https://discord.com/users/${value}`
+                            : key === 'org.telegram' ? `https://t.me/${value}`
+                            : value;
                     }
                     targetArray.push({ label: label, value: value, isLink: isLink, linkUrl: linkUrl });
                 }
@@ -1436,6 +1471,8 @@
                 pageBody.style.background = lightMode ? '#e6e6fa' : '#4b0082';
             } else if (currentNeighborhood === 'broadway') {
                 pageBody.style.background = lightMode ? '#fffdd0' : '#000000';
+            } else if (currentNeighborhood === 'capecanaveral') {
+                pageBody.style.background = lightMode ? '#E6F3FA' : '#1C2526';
             } else {
                 pageBody.style.background = ''; // Let CSS handle GeoCities background
             }
@@ -1465,8 +1502,8 @@
     <style>
         body {
             font-family: ${currentNeighborhood === 'area51' ? "'Orbitron', sans-serif" : currentNeighborhood === 'athens' ? "'Georgia', serif" : 'sans-serif'};
-            background: ${currentNeighborhood === 'area51' ? '#000' : currentNeighborhood === 'athens' ? '#2f4f4f' : currentNeighborhood === 'augusta' ? '#006400' : currentNeighborhood === 'baja' ? '#f4a460' : currentNeighborhood === 'bourbonstreet' ? '#4b0082' : currentNeighborhood === 'broadway' ? '#000000' : '#000'};
-            color: ${currentNeighborhood === 'area51' ? '#00ff00' : currentNeighborhood === 'athens' ? '#add8e6' : currentNeighborhood === 'augusta' ? '#fff' : currentNeighborhood === 'baja' ? '#ff4500' : currentNeighborhood === 'bourbonstreet' ? '#ffff00' : currentNeighborhood === 'broadway' ? '#ff0000' : '#fff'};
+            background: ${currentNeighborhood === 'area51' ? '#000' : currentNeighborhood === 'athens' ? '#2f4f4f' : currentNeighborhood === 'augusta' ? '#006400' : currentNeighborhood === 'baja' ? '#f4a460' : currentNeighborhood === 'bourbonstreet' ? '#4b0082' : currentNeighborhood === 'broadway' ? '#000000' : currentNeighborhood === 'capecanaveral' ? '#1C2526' : '#000'};
+            color: ${currentNeighborhood === 'area51' ? '#00ff00' : currentNeighborhood === 'athens' ? '#add8e6' : currentNeighborhood === 'augusta' ? '#fff' : currentNeighborhood === 'baja' ? '#ff4500' : currentNeighborhood === 'bourbonstreet' ? '#ffff00' : currentNeighborhood === 'broadway' ? '#ff0000' : currentNeighborhood === 'capecanaveral' ? '#00B7EB' : '#fff'};
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -1489,7 +1526,7 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            border: 1px solid ${currentNeighborhood === 'area51' ? '#00ff00' : currentNeighborhood === 'athens' ? '#c0c0c0' : currentNeighborhood === 'augusta' ? '#fff' : currentNeighborhood === 'baja' ? '#fff' : currentNeighborhood === 'bourbonstreet' ? '#fff' : currentNeighborhood === 'broadway' ? '#fff' : '#fff'};
+            border: 1px solid ${currentNeighborhood === 'area51' ? '#00ff00' : currentNeighborhood === 'athens' ? '#c0c0c0' : currentNeighborhood === 'augusta' ? '#fff' : currentNeighborhood === 'baja' ? '#fff' : currentNeighborhood === 'bourbonstreet' ? '#fff' : currentNeighborhood === 'broadway' ? '#fff' : currentNeighborhood === 'capecanaveral' ? '#00B7EB' : '#fff'};
             box-sizing: border-box;
         }
         .profile-avatar {
@@ -1502,15 +1539,15 @@
             justify-content: center;
             align-items: center;
             font-size: 10em;
-            border: 1px solid ${currentNeighborhood === 'area51' ? '#00ff00' : currentNeighborhood === 'athens' ? '#c0c0c0' : currentNeighborhood === 'augusta' ? '#fff' : currentNeighborhood === 'baja' ? '#fff' : currentNeighborhood === 'bourbonstreet' ? '#fff' : currentNeighborhood === 'broadway' ? '#fff' : '#fff'};
+            border: 1px solid ${currentNeighborhood === 'area51' ? '#00ff00' : currentNeighborhood === 'athens' ? '#c0c0c0' : currentNeighborhood === 'augusta' ? '#fff' : currentNeighborhood === 'baja' ? '#fff' : currentNeighborhood === 'bourbonstreet' ? '#fff' : currentNeighborhood === 'broadway' ? '#fff' : currentNeighborhood === 'capecanaveral' ? '#00B7EB' : '#fff'};
             box-sizing: border-box;
-            color: ${currentNeighborhood === 'area51' ? '#00ff00' : currentNeighborhood === 'athens' ? '#add8e6' : currentNeighborhood === 'augusta' ? '#fff' : currentNeighborhood === 'baja' ? '#ff4500' : currentNeighborhood === 'bourbonstreet' ? '#ffff00' : currentNeighborhood === 'broadway' ? '#ff0000' : '#fff'};
+            color: ${currentNeighborhood === 'area51' ? '#00ff00' : currentNeighborhood === 'athens' ? '#add8e6' : currentNeighborhood === 'augusta' ? '#fff' : currentNeighborhood === 'baja' ? '#ff4500' : currentNeighborhood === 'bourbonstreet' ? '#ffff00' : currentNeighborhood === 'broadway' ? '#ff0000' : currentNeighborhood === 'capecanaveral' ? '#00B7EB' : '#fff'};
         }
         .profile-box {
-            border: 1px solid ${currentNeighborhood === 'area51' ? '#00ff00' : currentNeighborhood === 'athens' ? '#c0c0c0' : currentNeighborhood === 'augusta' ? '#fff' : currentNeighborhood === 'baja' ? '#fff' : currentNeighborhood === 'bourbonstreet' ? '#fff' : currentNeighborhood === 'broadway' ? '#fff' : '#fff'};
+            border: 1px solid ${currentNeighborhood === 'area51' ? '#00ff00' : currentNeighborhood === 'athens' ? '#c0c0c0' : currentNeighborhood === 'augusta' ? '#fff' : currentNeighborhood === 'baja' ? '#fff' : currentNeighborhood === 'bourbonstreet' ? '#fff' : currentNeighborhood === 'broadway' ? '#fff' : currentNeighborhood === 'capecanaveral' ? '#00B7EB' : '#fff'};
             padding: 10px;
-            background: ${currentNeighborhood === 'area51' ? 'rgba(0, 0, 0, 0.8)' : currentNeighborhood === 'athens' ? 'rgba(47, 79, 79, 0.8)' : currentNeighborhood === 'augusta' ? 'rgba(0, 100, 0, 0.8)' : currentNeighborhood === 'baja' ? 'rgba(244, 164, 96, 0.8)' : currentNeighborhood === 'bourbonstreet' ? 'rgba(75, 0, 130, 0.8)' : currentNeighborhood === 'broadway' ? 'rgba(0, 0, 0, 0.8)' : '#000'};
-            color: ${currentNeighborhood === 'area51' ? '#00ff00' : currentNeighborhood === 'athens' ? '#add8e6' : currentNeighborhood === 'augusta' ? '#fff' : currentNeighborhood === 'baja' ? '#ff4500' : currentNeighborhood === 'bourbonstreet' ? '#ffff00' : currentNeighborhood === 'broadway' ? '#ff0000' : '#fff'};
+            background: ${currentNeighborhood === 'area51' ? 'rgba(0, 0, 0, 0.8)' : currentNeighborhood === 'athens' ? 'rgba(47, 79, 79, 0.8)' : currentNeighborhood === 'augusta' ? 'rgba(0, 100, 0, 0.8)' : currentNeighborhood === 'baja' ? 'rgba(244, 164, 96, 0.8)' : currentNeighborhood === 'bourbonstreet' ? 'rgba(75, 0, 130, 0.8)' : currentNeighborhood === 'broadway' ? 'rgba(0, 0, 0, 0.8)' : currentNeighborhood === 'capecanaveral' ? 'rgba(28, 37, 38, 0.8)' : '#000'};
+            color: ${currentNeighborhood === 'area51' ? '#00ff00' : currentNeighborhood === 'athens' ? '#add8e6' : currentNeighborhood === 'augusta' ? '#fff' : currentNeighborhood === 'baja' ? '#ff4500' : currentNeighborhood === 'bourbonstreet' ? '#ffff00' : currentNeighborhood === 'broadway' ? '#ff0000' : currentNeighborhood === 'capecanaveral' ? '#00B7EB' : '#fff'};
             word-break: break-word;
             display: flex;
             align-items: center;
@@ -1521,12 +1558,12 @@
             min-height: 38px;
         }
         .profile-box:first-child {
-            border-top: 1px solid ${currentNeighborhood === 'area51' ? '#00ff00' : currentNeighborhood === 'athens' ? '#c0c0c0' : currentNeighborhood === 'augusta' ? '#fff' : currentNeighborhood === 'baja' ? '#fff' : currentNeighborhood === 'bourbonstreet' ? '#fff' : currentNeighborhood === 'broadway' ? '#fff' : '#fff'};
+            border-top: 1px solid ${currentNeighborhood === 'area51' ? '#00ff00' : currentNeighborhood === 'athens' ? '#c0c0c0' : currentNeighborhood === 'augusta' ? '#fff' : currentNeighborhood === 'baja' ? '#fff' : currentNeighborhood === 'bourbonstreet' ? '#fff' : currentNeighborhood === 'broadway' ? '#fff' : currentNeighborhood === 'capecanaveral' ? '#00B7EB' : '#fff'};
         }
         .profile-box-header {
             font-weight: bold;
-            color: ${currentNeighborhood === 'area51' ? '#00ff00' : currentNeighborhood === 'athens' ? '#add8e6' : currentNeighborhood === 'augusta' ? '#fff' : currentNeighborhood === 'baja' ? '#ff4500' : currentNeighborhood === 'bourbonstreet' ? '#ffff00' : currentNeighborhood === 'broadway' ? '#ff0000' : '#fff'};
-            flex: 0 0 100px;
+            color: ${currentNeighborhood === 'area51' ? '#00ff00' : currentNeighborhood === 'athens' ? '#add8e6' : currentNeighborhood === 'augusta' ? '#fff' : currentNeighborhood === 'baja' ? '#ff4500' : currentNeighborhood === 'bourbonstreet' ? '#ffff00' : currentNeighborhood === 'broadway' ? '#ff0000' : currentNeighborhood === 'capecanaveral' ? '#00B7EB' : '#fff'};
+            sflex: 0 0 100px;
             min-width: 80px;
             text-align: left;
         }
@@ -1534,7 +1571,7 @@
             flex: 1;
             text-align: left;
             word-break: break-all;
-            color: ${currentNeighborhood === 'area51' ? '#00ff00' : currentNeighborhood === 'athens' ? '#add8e6' : currentNeighborhood === 'augusta' ? '#fff' : currentNeighborhood === 'baja' ? '#ff4500' : currentNeighborhood === 'bourbonstreet' ? '#ffff00' : currentNeighborhood === 'broadway' ? '#ff0000' : '#fff'};
+            color: ${currentNeighborhood === 'area51' ? '#00ff00' : currentNeighborhood === 'athens' ? '#add8e6' : currentNeighborhood === 'augusta' ? '#fff' : currentNeighborhood === 'baja' ? '#ff4500' : currentNeighborhood === 'bourbonstreet' ? '#ffff00' : currentNeighborhood === 'broadway' ? '#ff0000' : currentNeighborhood === 'capecanaveral' ? '#00B7EB' : '#fff'};
         }
         .profile-box-value a {
             color: inherit;
