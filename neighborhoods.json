@@ -1,0 +1,1001 @@
+[
+    {
+        "id": "geocities",
+        "name": "GeoCities",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#000000",
+            "text": "#FFFFFF",
+            "border": "#FFFFFF",
+            "boxBackground": "rgba(0, 0, 0, 0.8)"
+        },
+        "light": {
+            "background": "#FFFFFF",
+            "text": "#000000",
+            "border": "#000000",
+            "boxBackground": "rgba(255, 255, 255, 0.9)"
+        },
+        "effects": {
+            "profileBox": null,
+            "profileBoxHover": null
+        }
+    },
+    {
+        "id": "area51",
+        "name": "Area51",
+        "font": "'Orbitron', sans-serif",
+        "dark": {
+            "background": "#0A0A0A",
+            "text": "#00FF00",
+            "border": "#00FF00",
+            "boxBackground": "rgba(10, 10, 10, 0.8)"
+        },
+        "light": {
+            "background": "#E0E0E0",
+            "text": "#008000",
+            "border": "#008000",
+            "boxBackground": "rgba(224, 224, 224, 0.9)"
+        },
+        "effects": {
+            "profileBox": {
+                "type": "box-shadow",
+                "value": "0 0 10px #00FF00, 0 0 20px #00FF00"
+            },
+            "profileBoxHover": null
+        }
+    },
+    {
+        "id": "athens",
+        "name": "Athens",
+        "font": "'Georgia', serif",
+        "dark": {
+            "background": "#2F4F4F",
+            "text": "#ADD8E6",
+            "border": "#ADD8E6",
+            "boxBackground": "rgba(47, 79, 79, 0.8)"
+        },
+        "light": {
+            "background": "#F5F5DC",
+            "text": "#00008B",
+            "border": "#00008B",
+            "boxBackground": "rgba(245, 245, 220, 0.9)"
+        },
+        "effects": {
+            "profileBox": null,
+            "profileBoxHover": null
+        }
+    },
+    {
+        "id": "augusta",
+        "name": "Augusta",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#006400",
+            "text": "#FFFFFF",
+            "border": "#FFFFFF",
+            "boxBackground": "rgba(0, 100, 0, 0.8)"
+        },
+        "light": {
+            "background": "#90EE90",
+            "text": "#006400",
+            "border": "#006400",
+            "boxBackground": "rgba(144, 238, 144, 0.9)"
+        },
+        "effects": {
+            "profileBox": {
+                "type": "background-image",
+                "value": "linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%)"
+            },
+            "profileBoxHover": null
+        }
+    },
+    {
+        "id": "baja",
+        "name": "Baja",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#F4A460",
+            "text": "#FF4500",
+            "border": "#FF4500",
+            "boxBackground": "rgba(244, 164, 96, 0.8)"
+        },
+        "light": {
+            "background": "#D2B48C",
+            "text": "#FF4500",
+            "border": "#FF4500",
+            "boxBackground": "rgba(210, 180, 140, 0.9)"
+        },
+        "effects": {
+            "profileBox": null,
+            "profileBoxHover": {
+                "type": "transform",
+                "value": "scale(1.02)"
+            }
+        }
+    },
+    {
+        "id": "bourbonstreet",
+        "name": "BourbonStreet",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#4B0082",
+            "text": "#FFFF00",
+            "border": "#FFFF00",
+            "boxBackground": "rgba(75, 0, 130, 0.8)"
+        },
+        "light": {
+            "background": "#E6E6FA",
+            "text": "#4B0082",
+            "border": "#4B0082",
+            "boxBackground": "rgba(230, 230, 250, 0.9)"
+        },
+        "effects": {
+            "profileBox": {
+                "type": "animation",
+                "value": "fadeIn 1s"
+            },
+            "profileBoxHover": null
+        }
+    },
+    {
+        "id": "broadway",
+        "name": "Broadway",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#1C2526",
+            "text": "#FF4040",
+            "border": "#FF4040",
+            "boxBackground": "rgba(28, 37, 38, 0.8)"
+        },
+        "light": {
+            "background": "#FFFDD0",
+            "text": "#8B0000",
+            "border": "#8B0000",
+            "boxBackground": "rgba(255, 253, 208, 0.9)"
+        },
+        "effects": {
+            "profileBox": null,
+            "profileBoxHover": {
+                "type": "box-shadow",
+                "value": "0 0 15px rgba(255, 215, 0, 0.5)"
+            }
+        }
+    },
+    {
+        "id": "capecanaveral",
+        "name": "CapeCanaveral",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#001F3F",
+            "text": "#00B7EB",
+            "border": "#00B7EB",
+            "boxBackground": "rgba(0, 31, 63, 0.8)"
+        },
+        "light": {
+            "background": "#E6F3FA",
+            "text": "#003087",
+            "border": "#003087",
+            "boxBackground": "rgba(230, 243, 250, 0.9)"
+        },
+        "effects": {
+            "profileBox": {
+                "type": "background",
+                "value": "linear-gradient(to right, #001F3F, #00B7EB)"
+            },
+            "profileBoxHover": null
+        }
+    },
+    {
+        "id": "capitolhill",
+        "name": "CapitolHill",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#3C2F2F",
+            "text": "#FFD700",
+            "border": "#FFD700",
+            "boxBackground": "rgba(60, 47, 47, 0.8)"
+        },
+        "light": {
+            "background": "#F5F5F5",
+            "text": "#8B0000",
+            "border": "#8B0000",
+            "boxBackground": "rgba(245, 245, 245, 0.9)"
+        },
+        "effects": {
+            "profileBox": null,
+            "profileBoxHover": null
+        }
+    },
+    {
+        "id": "collegepark",
+        "name": "CollegePark",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#2E1E0F",
+            "text": "#FFA500",
+            "border": "#FFA500",
+            "boxBackground": "rgba(46, 30, 15, 0.8)"
+        },
+        "light": {
+            "background": "#FFF8DC",
+            "text": "#8B4513",
+            "border": "#8B4513",
+            "boxBackground": "rgba(255, 248, 220, 0.9)"
+        },
+        "effects": {
+            "profileBox": {
+                "type": "box-shadow",
+                "value": "5px 5px 10px rgba(0,0,0,0.2)"
+            },
+            "profileBoxHover": null
+        }
+    },
+    {
+        "id": "colosseum",
+        "name": "Colosseum",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#4A2C2A",
+            "text": "#FFFFFF",
+            "border": "#FFFFFF",
+            "boxBackground": "rgba(74, 44, 42, 0.8)"
+        },
+        "light": {
+            "background": "#FFE4C4",
+            "text": "#A52A2A",
+            "border": "#A52A2A",
+            "boxBackground": "rgba(255, 228, 196, 0.9)"
+        },
+        "effects": {
+            "profileBox": null,
+            "profileBoxHover": {
+                "type": "transform",
+                "value": "scale(1.05)"
+            }
+        }
+    },
+    {
+        "id": "enchantedforest",
+        "name": "EnchantedForest",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#2E2E2E",
+            "text": "#FF69B4",
+            "border": "#FF69B4",
+            "boxBackground": "rgba(46, 46, 46, 0.8)"
+        },
+        "light": {
+            "background": "#F0FFF0",
+            "text": "#C71585",
+            "border": "#C71585",
+            "boxBackground": "rgba(240, 255, 240, 0.9)"
+        },
+        "effects": {
+            "profileBox": {
+                "type": "animation",
+                "value": "sparkle 2s infinite"
+            },
+            "profileBoxHover": null
+        }
+    },
+    {
+        "id": "eureka",
+        "name": "Eureka",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#1A2421",
+            "text": "#FFDAB9",
+            "border": "#FFDAB9",
+            "boxBackground": "rgba(26, 36, 33, 0.8)"
+        },
+        "light": {
+            "background": "#F5FFFA",
+            "text": "#2F4F4F",
+            "border": "#2F4F4F",
+            "boxBackground": "rgba(245, 255, 250, 0.9)"
+        },
+        "effects": {
+            "profileBox": null,
+            "profileBoxHover": null
+        }
+    },
+    {
+        "id": "fashionavenue",
+        "name": "FashionAvenue",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#1C1C1C",
+            "text": "#FF00FF",
+            "border": "#FF00FF",
+            "boxBackground": "rgba(28, 28, 28, 0.8)"
+        },
+        "light": {
+            "background": "#FFF0F5",
+            "text": "#C71585",
+            "border": "#C71585",
+            "boxBackground": "rgba(255, 240, 245, 0.9)"
+        },
+        "effects": {
+            "profileBox": null,
+            "profileBoxHover": {
+                "type": "background",
+                "value": "linear-gradient(45deg, #FF00FF, #FFF)"
+            }
+        }
+    },
+    {
+        "id": "heartland",
+        "name": "Heartland",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#3F2A1D",
+            "text": "#F5DEB3",
+            "border": "#F5DEB3",
+            "boxBackground": "rgba(63, 42, 29, 0.8)"
+        },
+        "light": {
+            "background": "#FAF0E6",
+            "text": "#8B4513",
+            "border": "#8B4513",
+            "boxBackground": "rgba(250, 240, 230, 0.9)"
+        },
+        "effects": {
+            "profileBox": null,
+            "profileBoxHover": null
+        }
+    },
+    {
+        "id": "hollywood",
+        "name": "Hollywood",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#0F0F0F",
+            "text": "#FFD700",
+            "border": "#FFD700",
+            "boxBackground": "rgba(15, 15, 15, 0.8)"
+        },
+        "light": {
+            "background": "#F5F5F5",
+            "text": "#B8860B",
+            "border": "#B8860B",
+            "boxBackground": "rgba(245, 245, 245, 0.9)"
+        },
+        "effects": {
+            "profileBox": {
+                "type": "animation",
+                "value": "cinematicFade 1.5s"
+            },
+            "profileBoxHover": null
+        }
+    },
+    {
+        "id": "hotsprings",
+        "name": "HotSprings",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#2F4F4F",
+            "text": "#98FB98",
+            "border": "#98FB98",
+            "boxBackground": "rgba(47, 79, 79, 0.8)"
+        },
+        "light": {
+            "background": "#F0FFF0",
+            "text": "#228B22",
+            "border": "#228B22",
+            "boxBackground": "rgba(240, 255, 240, 0.9)"
+        },
+        "effects": {
+            "profileBox": null,
+            "profileBoxHover": {
+                "type": "animation",
+                "value": "pulse 1s"
+            }
+        }
+    },
+    {
+        "id": "madisonavenue",
+        "name": "MadisonAvenue",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#1B263B",
+            "text": "#FF4500",
+            "border": "#FF4500",
+            "boxBackground": "rgba(27, 38, 59, 0.8)"
+        },
+        "light": {
+            "background": "#F0F8FF",
+            "text": "#DC143C",
+            "border": "#DC143C",
+            "boxBackground": "rgba(240, 248, 255, 0.9)"
+        },
+        "effects": {
+            "profileBox": null,
+            "profileBoxHover": {
+                "type": "background",
+                "value": "rgba(255, 69, 0, 0.2)"
+            }
+        }
+    },
+    {
+        "id": "motorcity",
+        "name": "MotorCity",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#2C2C2C",
+            "text": "#FF0000",
+            "border": "#FF0000",
+            "boxBackground": "rgba(44, 44, 44, 0.8)"
+        },
+        "light": {
+            "background": "#F5F5F5",
+            "text": "#8B0000",
+            "border": "#8B0000",
+            "boxBackground": "rgba(245, 245, 245, 0.9)"
+        },
+        "effects": {
+            "profileBox": null,
+            "profileBoxHover": {
+                "type": "transform",
+                "value": "translateX(5px)"
+            }
+        }
+    },
+    {
+        "id": "napavalley",
+        "name": "NapaValley",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#4A2C2A",
+            "text": "#FFE4B5",
+            "border": "#FFE4B5",
+            "boxBackground": "rgba(74, 44, 42, 0.8)"
+        },
+        "light": {
+            "background": "#FFF5EE",
+            "text": "#8B0000",
+            "border": "#8B0000",
+            "boxBackground": "rgba(255, 245, 238, 0.9)"
+        },
+        "effects": {
+            "profileBox": null,
+            "profileBoxHover": null
+        }
+    },
+    {
+        "id": "nashville",
+        "name": "Nashville",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#3C2F2F",
+            "text": "#DEB887",
+            "border": "#DEB887",
+            "boxBackground": "rgba(60, 47, 47, 0.8)"
+        },
+        "light": {
+            "background": "#FAEBD7",
+            "text": "#8B4513",
+            "border": "#8B4513",
+            "boxBackground": "rgba(250, 235, 215, 0.9)"
+        },
+        "effects": {
+            "profileBox": {
+                "type": "animation",
+                "value": "fadeIn 1s"
+            },
+            "profileBoxHover": null
+        }
+    },
+    {
+        "id": "paris",
+        "name": "Paris",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#2E1E2E",
+            "text": "#FFB6C1",
+            "border": "#FFB6C1",
+            "boxBackground": "rgba(46, 30, 46, 0.8)"
+        },
+        "light": {
+            "background": "#FFF0F5",
+            "text": "#C71585",
+            "border": "#C71585",
+            "boxBackground": "rgba(255, 240, 245, 0.9)"
+        },
+        "effects": {
+            "profileBox": null,
+            "profileBoxHover": {
+                "type": "animation",
+                "value": "heartbeat 1.5s"
+            }
+        }
+    },
+    {
+        "id": "pentagon",
+        "name": "Pentagon",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#1A2421",
+            "text": "#B0C4DE",
+            "border": "#B0C4DE",
+            "boxBackground": "rgba(26, 36, 33, 0.8)"
+        },
+        "light": {
+            "background": "#F5FFFA",
+            "text": "#2F4F4F",
+            "border": "#2F4F4F",
+            "boxBackground": "rgba(245, 255, 250, 0.9)"
+        },
+        "effects": {
+            "profileBox": null,
+            "profileBoxHover": null
+        }
+    },
+    {
+        "id": "petsburgh",
+        "name": "Petsburgh",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#3F2A1D",
+            "text": "#FFDAB9",
+            "border": "#FFDAB9",
+            "boxBackground": "rgba(63, 42, 29, 0.8)"
+        },
+        "light": {
+            "background": "#FAF0E6",
+            "text": "#8B4513",
+            "border": "#8B4513",
+            "boxBackground": "rgba(250, 240, 230, 0.9)"
+        },
+        "effects": {
+            "profileBox": null,
+            "profileBoxHover": {
+                "type": "background",
+                "value": "linear-gradient(45deg, #FFDAB9, #8B4513)"
+            }
+        }
+    },
+    {
+        "id": "picketfence",
+        "name": "PicketFence",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#2F4F4F",
+            "text": "#F5F5DC",
+            "border": "#F5F5DC",
+            "boxBackground": "rgba(47, 79, 79, 0.8)"
+        },
+        "light": {
+            "background": "#F0FFF0",
+            "text": "#228B22",
+            "border": "#228B22",
+            "boxBackground": "rgba(240, 255, 240, 0.9)"
+        },
+        "effects": {
+            "profileBox": null,
+            "profileBoxHover": null
+        }
+    },
+    {
+        "id": "pipeline",
+        "name": "Pipeline",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#1C2526",
+            "text": "#FF4500",
+            "border": "#FF4500",
+            "boxBackground": "rgba(28, 37, 38, 0.8)"
+        },
+        "light": {
+            "background": "#FFFDD0",
+            "text": "#DC143C",
+            "border": "#DC143C",
+            "boxBackground": "rgba(255, 253, 208, 0.9)"
+        },
+        "effects": {
+            "profileBox": null,
+            "profileBoxHover": {
+                "type": "transform",
+                "value": "rotate(2deg)"
+            }
+        }
+    },
+    {
+        "id": "rainforest",
+        "name": "RainForest",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#1A3C34",
+            "text": "#98FB98",
+            "border": "#98FB98",
+            "boxBackground": "rgba(26, 60, 52, 0.8)"
+        },
+        "light": {
+            "background": "#F0FFF0",
+            "text": "#228B22",
+            "border": "#228B22",
+            "boxBackground": "rgba(240, 255, 240, 0.9)"
+        },
+        "effects": {
+            "profileBox": {
+                "type": "animation",
+                "value": "rustle 2s"
+            },
+            "profileBoxHover": null
+        }
+    },
+    {
+        "id": "researchtriangle",
+        "name": "ResearchTriangle",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#001F3F",
+            "text": "#00CED1",
+            "border": "#00CED1",
+            "boxBackground": "rgba(0, 31, 63, 0.8)"
+        },
+        "light": {
+            "background": "#E6F3FA",
+            "text": "#003087",
+            "border": "#003087",
+            "boxBackground": "rgba(230, 243, 250, 0.9)"
+        },
+        "effects": {
+            "profileBox": null,
+            "profileBoxHover": null
+        }
+    },
+    {
+        "id": "rodeodrive",
+        "name": "RodeoDrive",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#1C1C1C",
+            "text": "#FFD700",
+            "border": "#FFD700",
+            "boxBackground": "rgba(28, 28, 28, 0.8)"
+        },
+        "light": {
+            "background": "#FFF0F5",
+            "text": "#B8860B",
+            "border": "#B8860B",
+            "boxBackground": "rgba(255, 240, 245, 0.9)"
+        },
+        "effects": {
+            "profileBox": {
+                "type": "animation",
+                "value": "shine 2s infinite"
+            },
+            "profileBoxHover": null
+        }
+    },
+    {
+        "id": "siliconvalley",
+        "name": "SiliconValley",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#0A0A0A",
+            "text": "#00FF7F",
+            "border": "#00FF7F",
+            "boxBackground": "rgba(10, 10, 10, 0.8)"
+        },
+        "light": {
+            "background": "#E0E0E0",
+            "text": "#008000",
+            "border": "#008000",
+            "boxBackground": "rgba(224, 224, 224, 0.9)"
+        },
+        "effects": {
+            "profileBox": {
+                "type": "background",
+                "value": "linear-gradient(to bottom, #0A0A0A, #00FF7F)"
+            },
+            "profileBoxHover": null
+        }
+    },
+    {
+        "id": "soho",
+        "name": "SoHo",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#2E1E2E",
+            "text": "#FF69B4",
+            "border": "#FF69B4",
+            "boxBackground": "rgba(46, 30, 46, 0.8)"
+        },
+        "light": {
+            "background": "#FFF0F5",
+            "text": "#C71585",
+            "border": "#C71585",
+            "boxBackground": "rgba(255, 240, 245, 0.9)"
+        },
+        "effects": {
+            "profileBox": null,
+            "profileBoxHover": {
+                "type": "background",
+                "value": "radial-gradient(#FF69B4, #2E1E2E)"
+            }
+        }
+    },
+    {
+        "id": "southbeach",
+        "name": "SouthBeach",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#1B263B",
+            "text": "#FFDAB9",
+            "border": "#FFDAB9",
+            "boxBackground": "rgba(27, 38, 59, 0.8)"
+        },
+        "light": {
+            "background": "#F0F8FF",
+            "text": "#2F4F4F",
+            "border": "#2F4F4F",
+            "boxBackground": "rgba(240, 248, 255, 0.9)"
+        },
+        "effects": {
+            "profileBox": {
+                "type": "animation",
+                "value": "wave 2s"
+            },
+            "profileBoxHover": null
+        }
+    },
+    {
+        "id": "sunsetstrip",
+        "name": "SunsetStrip",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#1C2526",
+            "text": "#FF00FF",
+            "border": "#FF00FF",
+            "boxBackground": "rgba(28, 37, 38, 0.8)"
+        },
+        "light": {
+            "background": "#FFFDD0",
+            "text": "#C71585",
+            "border": "#C71585",
+            "boxBackground": "rgba(255, 253, 208, 0.9)"
+        },
+        "effects": {
+            "profileBox": {
+                "type": "animation",
+                "value": "pulse 1.5s infinite"
+            },
+            "profileBoxHover": null
+        }
+    },
+    {
+        "id": "televisioncity",
+        "name": "TelevisionCity",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#0F0F0F",
+            "text": "#FF4500",
+            "border": "#FF4500",
+            "boxBackground": "rgba(15, 15, 15, 0.8)"
+        },
+        "light": {
+            "background": "#F5F5F5",
+            "text": "#DC143C",
+            "border": "#DC143C",
+            "boxBackground": "rgba(245, 245, 245, 0.9)"
+        },
+        "effects": {
+            "profileBox": null,
+            "profileBoxHover": {
+                "type": "opacity",
+                "value": "0.7"
+            }
+        }
+    },
+    {
+        "id": "thetropics",
+        "name": "TheTropics",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#1A3C34",
+            "text": "#FFDAB9",
+            "border": "#FFDAB9",
+            "boxBackground": "rgba(26, 60, 52, 0.8)"
+        },
+        "light": {
+            "background": "#FFF5EE",
+            "text": "#228B22",
+            "border": "#228B22",
+            "boxBackground": "rgba(255, 245, 238, 0.9)"
+        },
+        "effects": {
+            "profileBox": {
+                "type": "box-shadow",
+                "value": "0 0 10px #FFDAB9"
+            },
+            "profileBoxHover": null
+        }
+    },
+    {
+        "id": "timessquare",
+        "name": "TimesSquare",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#1C1C1C",
+            "text": "#00FF7F",
+            "border": "#00FF7F",
+            "boxBackground": "rgba(28, 28, 28, 0.8)"
+        },
+        "light": {
+            "background": "#F0FFF0",
+            "text": "#008000",
+            "border": "#008000",
+            "boxBackground": "rgba(240, 255, 240, 0.9)"
+        },
+        "effects": {
+            "profileBox": {
+                "type": "animation",
+                "value": "flicker 0.5s"
+            },
+            "profileBoxHover": null
+        }
+    },
+    {
+        "id": "tokyo",
+        "name": "Tokyo",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#2C2C2C",
+            "text": "#FF69B4",
+            "border": "#FF69B4",
+            "boxBackground": "rgba(44, 44, 44, 0.8)"
+        },
+        "light": {
+            "background": "#F5F5F5",
+            "text": "#C71585",
+            "border": "#C71585",
+            "boxBackground": "rgba(245, 245, 245, 0.9)"
+        },
+        "effects": {
+            "profileBox": {
+                "type": "animation",
+                "value": "petalFall 3s"
+            },
+            "profileBoxHover": null
+        }
+    },
+    {
+        "id": "vienna",
+        "name": "Vienna",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#3C2F2F",
+            "text": "#FFD700",
+            "border": "#FFD700",
+            "boxBackground": "rgba(60, 47, 47, 0.8)"
+        },
+        "light": {
+            "background": "#FAEBD7",
+            "text": "#8B0000",
+            "border": "#8B0000",
+            "boxBackground": "rgba(250, 235, 215, 0.9)"
+        },
+        "effects": {
+            "profileBox": null,
+            "profileBoxHover": null
+        }
+    },
+    {
+        "id": "wallstreet",
+        "name": "Wallstreet",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#1A2421",
+            "text": "#FFD700",
+            "border": "#FFD700",
+            "boxBackground": "rgba(26, 36, 33, 0.8)"
+        },
+        "light": {
+            "background": "#F5FFFA",
+            "text": "#2F4F4F",
+            "border": "#2F4F4F",
+            "boxBackground": "rgba(245, 255, 250, 0.9)"
+        },
+        "effects": {
+            "profileBox": {
+                "type": "animation",
+                "value": "ticker 5s linear infinite"
+            },
+            "profileBoxHover": null
+        }
+    },
+    {
+        "id": "wellesley",
+        "name": "Wellesley",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#2E1E2E",
+            "text": "#FFB6C1",
+            "border": "#FFB6C1",
+            "boxBackground": "rgba(46, 30, 46, 0.8)"
+        },
+        "light": {
+            "background": "#FFF0F5",
+            "text": "#C71585",
+            "border": "#C71585",
+            "boxBackground": "rgba(255, 240, 245, 0.9)"
+        },
+        "effects": {
+            "profileBox": null,
+            "profileBoxHover": null
+        }
+    },
+    {
+        "id": "westhollywood",
+        "name": "WestHollywood",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#1C2526",
+            "text": "#FF69B4",
+            "border": "#FF69B4",
+            "boxBackground": "rgba(28, 37, 38, 0.8)"
+        },
+        "light": {
+            "background": "#FFFDD0",
+            "text": "#C71585",
+            "border": "#C71585",
+            "boxBackground": "rgba(255, 253, 208, 0.9)"
+        },
+        "effects": {
+            "profileBox": {
+                "type": "background",
+                "value": "linear-gradient(45deg, red, orange, yellow, green, blue)"
+            },
+            "profileBoxHover": null
+        }
+    },
+    {
+        "id": "yosemite",
+        "name": "Yosemite",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#1A3C34",
+            "text": "#F5DEB3",
+            "border": "#F5DEB3",
+            "boxBackground": "rgba(26, 60, 52, 0.8)"
+        },
+        "light": {
+            "background": "#FFF5EE",
+            "text": "#228B22",
+            "border": "#228B22",
+            "boxBackground": "rgba(255, 245, 238, 0.9)"
+        },
+        "effects": {
+            "profileBox": {
+                "type": "box-shadow",
+                "value": "5px 5px 10px rgba(0,0,0,0.3)"
+            },
+            "profileBoxHover": null
+        }
+    },
+    {
+        "id": "northpole",
+        "name": "Northpole",
+        "font": "sans-serif",
+        "dark": {
+            "background": "#2F4F4F",
+            "text": "#FF4040",
+            "border": "#FF4040",
+            "boxBackground": "rgba(47, 79, 79, 0.8)"
+        },
+        "light": {
+            "background": "#F0FFF0",
+            "text": "#DC143C",
+            "border": "#DC143C",
+            "boxBackground": "rgba(240, 255, 240, 0.9)"
+        },
+        "effects": {
+            "profileBox": {
+                "type": "animation",
+                "value": "snowfall 5s"
+            },
+            "profileBoxHover": null
+        }
+    }
+]
