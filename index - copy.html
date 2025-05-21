@@ -1,0 +1,2281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GeoCities</title>
+    <link rel="icon" id="favicon" href="" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Georgia&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #fff;
+            --background-color: #000;
+            --border-color: #fff;
+            --font-main: sans-serif;
+            --container-width: 90%;
+            --max-width: 1200px;
+        }
+
+        /* Light mode variables */
+        [data-theme="light"] {
+            --primary-color: #000;
+            --background-color: #fff;
+            --border-color: #000;
+        }
+
+        /* Base styles */
+        body {
+            font-family: var(--font-main);
+            background: var(--background-color);
+            color: var(--primary-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px 0 80px; /* Increased bottom padding to account for footer */
+            transition: background 0.3s ease, color 0.3s ease;
+            box-sizing: border-box;
+            position: relative;
+            width: 100%;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+
+        /* Navigation Bar */
+        .nav-bar {
+            position: relative;
+            height: 80px;
+            background: var(--background-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 1;
+            transition: all 0.3s ease;
+            width: var(--container-width);
+            max-width: var(--max-width);
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            border: none; /* Remove border */
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--primary-color);
+            width: 80px;
+            height: 80px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-sizing: border-box;
+            padding: 0;
+        }
+
+        .nav-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+            display: block;
+            margin: 0;
+        }
+
+        /* Container */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: var(--container-width);
+            max-width: var(--max-width);
+            flex-grow: 1;
+            margin: 0 auto;
+        }
+
+        /* Homepage Title */
+        h1#homepage-geocities {
+            margin: 100px 0 20px 0;
+            text-align: center;
+            font-size: 5em;
+            font-weight: bold;
+            transition: color 0.3s ease;
+            width: fit-content;
+        }
+
+        /* Search Components */
+        .search-container {
+            display: flex;
+            width: 450px; /* Approximate width to match "GeoCities" at 5em */
+            margin: 20px auto;
+            height: 38px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 10px;
+            background: var(--background-color);
+            color: var(--primary-color);
+            border: 1px solid var(--border-color);
+            border-right: none;
+            height: 100%;
+            box-sizing: border-box;
+            font-size: 0.9em;
+            min-width: 0;
+            transition: all 0.3s ease;
+        }
+
+        .search-input::placeholder {
+            color: var(--primary-color);
+            opacity: 1;
+        }
+
+        .search-button {
+            padding: 8px 15px;
+            background: var(--background-color);
+            color: var(--primary-color);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            height: 100%;
+            font-size: 0.9em;
+            box-sizing: border-box;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        /* Profile Page */
+        #profile-page {
+            width: 100%;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+            margin-bottom: 60px; /* Add margin to prevent content from being hidden behind footer */
+            animation: fadeIn 0.3s ease;
+            overflow-y: auto; /* Enable vertical scrolling if needed */
+        }
+
+        .profile-container {
+            width: 420px;
+            max-width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px; /* Increased to ensure space for footer */
+            padding-bottom: 20px;
+        }
+
+        .profile-header-image {
+            width: 100%;
+            height: 0;
+            padding-bottom: 33.33%; /* Creates a 3:1 ratio rectangle */
+            border: 1px solid var(--border-color);
+            box-sizing: border-box;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 0;
+        }
+
+        .profile-header-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: block;
+        }
+
+        .profile-records {
+            width: 100%;
+            border: 1px solid var(--border-color);
+            box-sizing: border-box;
+            background-color: var(--background-color);
+        }
+
+        .profile-record {
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .profile-record:last-child {
+            border-bottom: none;
+        }
+
+        .record-label {
+            font-weight: bold;
+            min-width: 100px;
+            padding-right: 10px;
+        }
+
+        .record-value {
+            flex: 1;
+            word-break: break-word;
+        }
+
+        /* Loading Spinner */
+        .loading-spinner {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border-color);
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Theme Toggle */
+        #theme-toggle {
+            padding: 8px 15px;
+            background: var(--background-color);
+            color: var(--primary-color);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9em;
+        }
+
+        /* Footer */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 38px;
+            background: var(--background-color);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .footer a {
+            color: inherit;
+            text-decoration: none; /* Remove underline from footer link */
+            font-size: 0.9em;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer a:hover {
+            opacity: 0.8;
+        }
+
+        /* Style customization functionality */
+        const stylePanel = document.querySelector('.style-panel');
+        const bgColorPicker = document.getElementById('bg-color');
+        const textColorPicker = document.getElementById('text-color');
+        const borderColorPicker = document.getElementById('border-color');
+        const effectSelect = document.getElementById('effect-select');
+
+        /* Add these styles to your existing CSS */
+        .style-panel {
+            display: none;
+            width: 420px;
+            max-width: 100%;
+            margin: 20px auto;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            background-color: var(--background-color);
+            color: var(--primary-color);
+            box-sizing: border-box;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .style-section {
+            flex: 0 0 105px;
+            width: 105px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .color-button,
+        .effect-select {
+            width: 105px;
+            height: 38px;
+            position: relative;
+            border: 1px solid var(--border-color);
+            background: var(--background-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+        }
+
+        .color-picker {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            opacity: 0;
+        }
+
+        .button-text {
+            position: absolute;
+            color: var(--primary-color);
+            font-size: 0.9em;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .effect-select {
+            width: 100%;
+            height: 38px;
+            padding: 0 30px 0 10px;
+            background: var(--background-color);
+            color: var(--primary-color);
+            border: 1px solid var(--border-color);
+            box-sizing: border-box;
+            font-size: 0.9em;
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='currentColor' d='M2 4h8L6 8z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            line-height: 36px;
+            text-align: center;
+            text-align-last: center;
+            -moz-text-align-last: center;
+            -webkit-text-align-last: center;
+            margin: 0;
+            display: block;
+            border-radius: 0;
+        }
+
+        /* Remove any default browser styling */
+        .effect-select::-ms-expand {
+            display: none;
+        }
+
+        /* Ensure the dropdown options also have straight corners */
+        .effect-select option {
+            text-align: center;
+            border-radius: 0;
+        }
+
+        /* Show style panel on profile page */
+        #profile-page .style-panel {
+            display: flex;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .style-panel {
+                width: 100%;
+                max-width: 420px;
+                padding: 15px;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .style-panel {
+                width: 100%;
+                padding: 10px;
+                margin: 10px;
+                justify-content: center;
+            }
+            
+            .style-section {
+                flex: 0 0 105px;
+                width: 105px;
+            }
+            
+            .color-button,
+            .effect-select {
+                width: 105px;
+            }
+        }
+
+        /* Update these elements to use CSS variables */
+        .nav-bar,
+        .profile-records,
+        .footer,
+        .search-container,
+        .search-input,
+        .search-button,
+        #theme-toggle,
+        .profile-record,
+        .profile-header-image,
+        .style-panel,
+        .color-picker,
+        .effect-select {
+            background-color: var(--background-color);
+            color: var(--primary-color);
+            border-color: var(--border-color);
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* Add these styles to your CSS section */
+        .profile-record a {
+            color: inherit;
+            text-decoration: underline;
+            transition: opacity 0.3s ease;
+        }
+
+        .profile-record a:hover {
+            opacity: 0.8;
+        }
+
+        /* Update the footer link style to match */
+        .footer a {
+            color: inherit;
+            text-decoration: none; /* Remove underline from footer link */
+            font-size: 0.9em;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer a:hover {
+            opacity: 0.8;
+        }
+
+        /* Add responsive styles for homepage and profile page elements */
+        const styleSheet = document.createElement('style');
+        styleSheet.textContent = `
+            /* Homepage responsive styles */
+            #homepage-geocities {
+                margin: 100px 0 20px 0;
+                text-align: center;
+                font-size: 5em;
+                font-weight: bold;
+                transition: color 0.3s ease;
+                width: fit-content;
+                padding: 0 20px;
+            }
+
+            .search-container {
+                display: flex;
+                width: 450px;
+                margin: 20px auto;
+                height: 38px;
+                padding: 0 20px;
+                box-sizing: border-box;
+            }
+
+            /* Profile page responsive styles */
+            .profile-container {
+                width: 420px;
+                max-width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin-bottom: 20px;
+                padding-bottom: 20px;
+                box-sizing: border-box;
+            }
+
+            .profile-header-image {
+                width: 100%;
+                height: 0;
+                padding-bottom: 33.33%;
+                border: 1px solid var(--border-color);
+                box-sizing: border-box;
+                overflow: hidden;
+                position: relative;
+                margin-bottom: 0;
+            }
+
+            .profile-records {
+                width: 100%;
+                border: 1px solid var(--border-color);
+                box-sizing: border-box;
+                background-color: var(--background-color);
+            }
+
+            /* Responsive adjustments */
+            @media (max-width: 768px) {
+                #homepage-geocities {
+                    font-size: 3.5em;
+                    margin: 60px 0 20px 0;
+                }
+
+                .search-container {
+                    width: 100%;
+                    max-width: 450px;
+                }
+            }
+
+            @media (max-width: 480px) {
+                #homepage-geocities {
+                    font-size: 2.5em;
+                    margin: 40px 0 20px 0;
+                }
+
+                .search-container {
+                    width: 100%;
+                    padding: 0 15px;
+                }
+
+                .search-input {
+                    font-size: 0.9em;
+                }
+
+                .search-button {
+                    font-size: 0.9em;
+                    padding: 8px 12px;
+                }
+
+                .profile-container {
+                    width: 100%;
+                    padding: 0 15px;
+                }
+
+                .profile-header-image {
+                    padding-bottom: 33.33%;
+                }
+
+                .profile-record {
+                    padding: 12px;
+                }
+
+                .record-label {
+                    min-width: 80px;
+                    font-size: 0.9em;
+                }
+
+                .record-value {
+                    font-size: 0.9em;
+                }
+
+                .style-panel {
+                    width: 100%;
+                    padding: 10px;
+                    margin: 10px;
+                }
+                
+                .style-section {
+                    flex: 0 0 105px;
+                    width: 105px;
+                }
+                
+                .color-button,
+                .effect-select {
+                    width: 105px;
+                }
+            }
+
+            /* Ensure all elements use border-box */
+            * {
+                box-sizing: border-box;
+            }
+
+            /* Add new breakpoint for very small screens */
+            @media (max-width: 360px) {
+                .style-panel {
+                    padding: 8px;
+                    margin: 8px;
+                    gap: 8px;
+                }
+                
+                .style-section {
+                    flex: 0 0 90px;
+                    width: 90px;
+                }
+                
+                .color-button,
+                .effect-select {
+                    width: 90px;
+                    height: 34px;
+                    font-size: 0.85em;
+                }
+
+                .button-text {
+                    font-size: 0.85em;
+                }
+
+                .effect-select {
+                    padding: 0 25px 0 8px;
+                    line-height: 32px;
+                }
+            }
+
+            /* Add breakpoint for extremely small screens */
+            @media (max-width: 320px) {
+                .style-panel {
+                    padding: 6px;
+                    margin: 6px;
+                    gap: 6px;
+                }
+                
+                .style-section {
+                    flex: 0 0 80px;
+                    width: 80px;
+                }
+                
+                .color-button,
+                .effect-select {
+                    width: 80px;
+                    height: 32px;
+                    font-size: 0.8em;
+                }
+
+                .button-text {
+                    font-size: 0.8em;
+                }
+
+                .effect-select {
+                    padding: 0 22px 0 6px;
+                    line-height: 30px;
+                }
+            }
+        `;
+        document.head.appendChild(styleSheet);
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <a href="#" class="nav-logo">
+            <img id="nav-logo-img" src="" alt="GeoCities Logo">
+        </a>
+        <button id="theme-toggle">Light</button>
+    </nav>
+    <div class="container">
+        <h1 id="homepage-geocities">GeoCities</h1>
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Enter ENS or Basename">
+            <button class="search-button">Search</button>
+        </div>
+    </div>
+    <div class="loading-spinner"></div>
+    <div class="error-message"></div>
+    <div id="profile-page">
+        <div class="profile-container">
+            <div class="profile-header-image">
+                <!-- Header image will be inserted here -->
+            </div>
+            <div class="profile-records">
+                <!-- ENS records will be inserted here -->
+            </div>
+        </div>
+        <!-- Add this right after the search-container div in the profile page -->
+        <div class="style-panel">
+            <div class="style-section">
+                <div class="color-button">
+                    <input type="color" id="bg-color" class="color-picker" title="Background">
+                    <span class="button-text">Background</span>
+                </div>
+            </div>
+            <div class="style-section">
+                <div class="color-button">
+                    <input type="color" id="text-color" class="color-picker" title="Text">
+                    <span class="button-text">Text</span>
+                </div>
+            </div>
+            <div class="style-section">
+                <div class="color-button">
+                    <input type="color" id="border-color" class="color-picker" title="Border">
+                    <span class="button-text">Border</span>
+                </div>
+            </div>
+            <div class="style-section">
+                <select id="effect-select" class="effect-select">
+                    <option value="none">Effect</option>
+                    <option value="glow">Glow</option>
+                    <option value="snow">Snow</option>
+                    <option value="stars">Stars</option>
+                    <option value="rainbow">Rainbow</option>
+                    <option value="matrix">Matrix</option>
+                    <option value="fireflies">Fireflies</option>
+                    <option value="confetti">Confetti</option>
+                    <option value="neon">Neon</option>
+                    <option value="vaporware">Vaporware</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <a href="https://geocities.eth.link" target="_blank" rel="noopener noreferrer">GeoCities</a>
+    </footer>
+
+    <script>
+        // At the start of the script section
+        const API_BASE_URL = 'https://api.web3.bio';
+        const DEFAULT_AVATAR = 'https://raw.githubusercontent.com/GeoCities/Ads/main/Ads/Nyan%20Cat%20-%20GeoCities.gif';
+
+        // Style customization constants
+        const stylePanel = document.querySelector('.style-panel');
+        const bgColorPicker = document.getElementById('bg-color');
+        const textColorPicker = document.getElementById('text-color');
+        const borderColorPicker = document.getElementById('border-color');
+        const effectSelect = document.getElementById('effect-select');
+        const themeToggle = document.getElementById('theme-toggle');
+
+        // Utility functions
+        function showLoading() {
+            document.querySelector('.loading-spinner').style.display = 'block';
+        }
+
+        function hideLoading() {
+            document.querySelector('.loading-spinner').style.display = 'none';
+        }
+
+        function showError(message) {
+            const errorElement = document.querySelector('.error-message');
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+        }
+
+        function hideError() {
+            document.querySelector('.error-message').style.display = 'none';
+        }
+
+        function createDefaultAvatar(letter) {
+            // Create a canvas to generate a simple avatar with first letter using current theme colors
+            const canvas = document.createElement('canvas');
+            canvas.width = 200;
+            canvas.height = 200;
+            const ctx = canvas.getContext('2d');
+            
+            // Get current theme colors from CSS variables
+            const computedStyle = getComputedStyle(document.documentElement);
+            const bgColor = computedStyle.getPropertyValue('--background-color').trim() || '#000000';
+            const textColor = computedStyle.getPropertyValue('--primary-color').trim() || '#ffffff';
+            const borderColor = computedStyle.getPropertyValue('--border-color').trim() || '#ffffff';
+            
+            // Draw background using theme background color
+            ctx.fillStyle = bgColor;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw border using theme border color
+            ctx.strokeStyle = borderColor;
+            ctx.lineWidth = 1;
+            ctx.strokeRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw letter using theme text color
+            ctx.fillStyle = textColor;
+            ctx.font = 'bold 100px sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(letter ? letter.toUpperCase() : '?', canvas.width / 2, canvas.height / 2);
+            
+            // Return data URL
+            return canvas.toDataURL('image/png');
+        }
+
+        function setAvatar(avatarUrl) {
+            const navLogo = document.getElementById('nav-logo-img');
+            const favicon = document.getElementById('favicon');
+            
+            // Use raw GitHub URL instead of blob URL
+            const url = avatarUrl || DEFAULT_AVATAR;
+            navLogo.src = url;
+            favicon.href = url;
+            
+            // Debug logging
+            console.log('Setting avatar to:', url);
+        }
+
+        // Style customization functions
+        function initializeColorPickers() {
+            const isLight = document.body.dataset.theme === 'light';
+            
+            // Set default colors based on current theme
+            if (isLight) {
+                bgColorPicker.value = '#ffffff';
+                textColorPicker.value = '#000000';
+                borderColorPicker.value = '#000000';
+            } else {
+                bgColorPicker.value = '#000000';
+                textColorPicker.value = '#ffffff';
+                borderColorPicker.value = '#ffffff';
+            }
+            
+            // Apply initial colors
+            applyCustomStyles();
+        }
+
+        function rgbToHex(rgb) {
+            const rgbMatch = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*[\d.]+)?\)$/);
+            if (rgbMatch) {
+                const r = parseInt(rgbMatch[1]);
+                const g = parseInt(rgbMatch[2]);
+                const b = parseInt(rgbMatch[3]);
+                return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+            }
+            return '#000000';
+        }
+
+        function applyCustomStyles() {
+            // Get the current effect
+            const currentEffect = effectSelect.value;
+            
+            // Apply to body
+            document.body.style.backgroundColor = bgColorPicker.value;
+            document.body.style.color = textColorPicker.value;
+            
+            // Update CSS variables
+            document.documentElement.style.setProperty('--primary-color', textColorPicker.value);
+            document.documentElement.style.setProperty('--background-color', bgColorPicker.value);
+            document.documentElement.style.setProperty('--border-color', borderColorPicker.value);
+            
+            // Keep vaporware effect if active
+            const isVaporwareActive = currentEffect === 'vaporware';
+            
+            // Apply to all themed elements
+            const themedElements = [
+                '.profile-records',
+                '.footer',
+                '.search-container',
+                '.search-input',
+                '.search-button',
+                '#theme-toggle',
+                '.profile-record',
+                '.profile-header-image',
+                '.style-panel',
+                '.color-button',
+                '.effect-select',
+                '.button-text'
+            ];
+            
+            // Apply navbar styling separately to respect vaporware effect
+            if (!isVaporwareActive) {
+                const navBar = document.querySelector('.nav-bar');
+                if (navBar) {
+                    navBar.style.backgroundColor = bgColorPicker.value;
+                    navBar.style.color = textColorPicker.value;
+                    navBar.style.borderColor = borderColorPicker.value;
+                }
+            }
+            
+            themedElements.forEach(selector => {
+                const elements = document.querySelectorAll(selector);
+                elements.forEach(el => {
+                    el.style.backgroundColor = bgColorPicker.value;
+                    el.style.color = textColorPicker.value;
+                    el.style.borderColor = borderColorPicker.value;
+                    
+                    // Ensure all links within the element inherit the text color
+                    const links = el.querySelectorAll('a');
+                    links.forEach(link => {
+                        link.style.color = textColorPicker.value;
+                    });
+                });
+            });
+            
+            // Only regenerate default avatars on profile pages
+            const profilePage = document.getElementById('profile-page');
+            if (profilePage && profilePage.style.display === 'flex') {
+                // Check if we're using a default avatar by looking at the src
+                const navLogo = document.getElementById('nav-logo-img');
+                if (navLogo && navLogo.src && navLogo.src.startsWith('data:image/png;base64,')) {
+                    // This is a default avatar, regenerate it with the new colors
+                    // Get current name from profile records
+                    const nameElement = document.querySelector('.profile-record .record-value');
+                    if (nameElement && nameElement.textContent) {
+                        const name = nameElement.textContent;
+                        const firstLetter = name.charAt(0);
+                        const newAvatar = createDefaultAvatar(firstLetter);
+                        setAvatar(newAvatar);
+                    }
+                }
+                // If it's not a default avatar (doesn't start with data:image), leave it alone
+            }
+            
+            // Re-apply glow or neon effect to update with new border color
+            if (currentEffect === 'glow') {
+                applyGlowEffect();
+            } else if (currentEffect === 'neon') {
+                applyNeonEffect();
+            }
+        }
+
+        function handleEffectChange() {
+            // Remove ALL existing effects first
+            removeSnowEffect();
+            removeGlowEffect();
+            removeStarsEffect();
+            removeRainbowEffect();
+            removeMatrixEffect();
+            removeFirefliesEffect();
+            removeConfettiEffect();
+            removeNeonEffect();
+            removeVaporwareEffect();
+            
+            // Apply selected effect
+            switch(effectSelect.value) {
+                case 'glow':
+                    applyGlowEffect();
+                    break;
+                case 'snow':
+                    addSnowEffect();
+                    break;
+                case 'stars':
+                    applyStarsEffect();
+                    break;
+                case 'rainbow':
+                    applyRainbowEffect();
+                    break;
+                case 'matrix':
+                    applyMatrixEffect();
+                    break;
+                case 'fireflies':
+                    applyFirefliesEffect();
+                    break;
+                case 'confetti':
+                    applyConfettiEffect();
+                    break;
+                case 'neon':
+                    applyNeonEffect();
+                    break;
+                case 'vaporware':
+                    applyVaporwareEffect();
+                    break;
+            }
+        }
+
+        // Effect functions
+        function applyGlowEffect() {
+            const borderedElements = document.querySelectorAll(
+                '.nav-logo, .search-input, .search-button, #theme-toggle, ' +
+                '.profile-records, .profile-record, .profile-header-image, .footer, ' +
+                '.color-button, .effect-select' // Added style panel elements
+            );
+            borderedElements.forEach(el => {
+                el.style.boxShadow = `0 0 5px ${borderColorPicker.value}, 0 0 10px ${borderColorPicker.value}`;
+                el.style.animation = 'glowPulse 2s infinite';
+            });
+        }
+
+        function removeGlowEffect() {
+            const borderedElements = document.querySelectorAll(
+                '.nav-logo, .search-input, .search-button, #theme-toggle, ' +
+                '.profile-records, .profile-record, .profile-header-image, .footer, ' +
+                '.color-button, .effect-select, .style-panel' // Added style panel elements
+            );
+            borderedElements.forEach(el => {
+                el.style.boxShadow = 'none';
+                el.style.animation = 'none';
+            });
+        }
+
+        function removeSnowEffect() {
+            const snowContainer = document.getElementById('snow-container');
+            if (snowContainer) {
+                snowContainer.remove();
+            }
+        }
+
+        // Add these new effect functions
+        function applyStarsEffect() {
+            const starsContainer = document.createElement('div');
+            starsContainer.id = 'stars-container';
+            starsContainer.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                pointer-events: none;
+                z-index: 50;
+                overflow: hidden;
+            `;
+            
+            const starColors = ['#ffffff', '#ffff00', '#00ffff', '#ff00ff'];
+            
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                const size = Math.random() * 2 + 1;
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                const animDuration = Math.random() * 3 + 2;
+                const animDelay = Math.random() * 2;
+                const color = starColors[Math.floor(Math.random() * starColors.length)];
+                
+                star.style.cssText = `
+                    position: absolute;
+                    width: ${size}px;
+                    height: ${size}px;
+                    background: ${color};
+                    border-radius: 50%;
+                    left: ${left}%;
+                    top: ${top}%;
+                    opacity: ${Math.random() * 0.8 + 0.2};
+                    pointer-events: none;
+                    animation: starTwinkle ${animDuration}s ease-in-out infinite;
+                    animation-delay: -${animDelay}s;
+                `;
+                
+                starsContainer.appendChild(star);
+            }
+            
+            document.body.appendChild(starsContainer);
+        }
+
+        function applyRainbowEffect() {
+            const elements = document.querySelectorAll('.nav-logo, .search-input, .search-button, #theme-toggle, .profile-records, .profile-record, .profile-header-image, .footer, .color-button, .effect-select');
+            elements.forEach(el => {
+                el.style.animation = 'rainbowBorder 3s linear infinite';
+            });
+            
+            const styleSheet = document.createElement('style');
+            styleSheet.textContent = `
+                @keyframes rainbowBorder {
+                    0% { border-color: #ff0000; }
+                    16.666% { border-color: #ff8000; }
+                    33.333% { border-color: #ffff00; }
+                    50% { border-color: #00ff00; }
+                    66.666% { border-color: #0000ff; }
+                    83.333% { border-color: #8000ff; }
+                    100% { border-color: #ff0000; }
+                }
+            `;
+            document.head.appendChild(styleSheet);
+        }
+
+        function applyMatrixEffect() {
+            const matrixContainer = document.createElement('div');
+            matrixContainer.id = 'matrix-container';
+            matrixContainer.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                pointer-events: none;
+                z-index: 40;
+                overflow: hidden;
+                opacity: 0.15;
+            `;
+            
+            // Japanese characters mixed with digits
+            const characters = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789';
+            // Reduce number of columns for a lighter rain effect
+            const columns = Math.floor(window.innerWidth / 30); // Increased spacing between columns
+            
+            for (let i = 0; i < columns; i++) {
+                const column = document.createElement('div');
+                // Vary the speed more between columns for a more natural rain effect
+                const duration = Math.random() * 4 + 7.92; // More variation in speed
+                column.style.cssText = `
+                    position: absolute;
+                    top: -100px;
+                    left: ${i * 30}px;
+                    color: #00ff00;
+                    font-family: monospace;
+                    font-size: 18px;
+                    line-height: 18px;
+                    animation: matrixFall ${duration}s linear infinite;
+                    animation-delay: -${Math.random() * 8}s; // Increased delay variation
+                    text-shadow: 0 0 8px #00ff00, 0 0 15px #00ff00, 0 0 20px #00ff00;
+                `;
+                
+                // Create a longer string of characters for each column
+                let text = '';
+                const length = 35;
+                for (let j = 0; j < length; j++) {
+                    const char = characters[Math.floor(Math.random() * characters.length)];
+                    // Only make the first 1-2 characters bright white with enhanced glow
+                    if (j < 2 && Math.random() > 0.5) {
+                        text += `<span style="color: #ffffff; text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 30px #ffffff;">${char}</span><br>`;
+                    } else {
+                        text += `${char}<br>`;
+                    }
+                }
+                column.innerHTML = text;
+                matrixContainer.appendChild(column);
+            }
+            
+            // Add the matrix fall animation with smoother movement
+            const matrixStyle = document.createElement('style');
+            matrixStyle.textContent = `
+                @keyframes matrixFall {
+                    0% {
+                        transform: translateY(-100%);
+                        opacity: 0;
+                    }
+                    10% {
+                        opacity: 1;
+                    }
+                    90% {
+                        opacity: 1;
+                    }
+                    100% {
+                        transform: translateY(100%);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(matrixStyle);
+            
+            document.body.appendChild(matrixContainer);
+        }
+
+        // Add removal functions for new effects
+        function removeStarsEffect() {
+            const starsContainer = document.getElementById('stars-container');
+            if (starsContainer) {
+                starsContainer.remove();
+            }
+        }
+
+        function removeRainbowEffect() {
+            const elements = document.querySelectorAll('.nav-logo, .search-input, .search-button, #theme-toggle, .profile-records, .profile-record, .profile-header-image, .footer, .color-button, .effect-select');
+            elements.forEach(el => {
+                el.style.animation = '';
+            });
+        }
+
+        function removeMatrixEffect() {
+            const matrixContainer = document.getElementById('matrix-container');
+            if (matrixContainer) {
+                matrixContainer.remove();
+            }
+        }
+
+        // Add new effect functions
+        function applyFirefliesEffect() {
+            const firefliesContainer = document.createElement('div');
+            firefliesContainer.id = 'fireflies-container';
+            firefliesContainer.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                pointer-events: none;
+                z-index: 40;
+                overflow: hidden;
+            `;
+            
+            for (let i = 0; i < 30; i++) {
+                const firefly = document.createElement('div');
+                const size = Math.random() * 4 + 2;
+                firefly.style.cssText = `
+                    position: absolute;
+                    width: ${size}px;
+                    height: ${size}px;
+                    background: #ffff00;
+                    border-radius: 50%;
+                    box-shadow: 0 0 ${size * 2}px #ffff00;
+                    animation: fireflyFloat ${Math.random() * 4 + 3}s ease-in-out infinite;
+                    left: ${Math.random() * 100}%;
+                    top: ${Math.random() * 100}%;
+                    opacity: ${Math.random() * 0.6 + 0.4};
+                `;
+                firefliesContainer.appendChild(firefly);
+            }
+            
+            const fireflyStyle = document.createElement('style');
+            fireflyStyle.textContent = `
+                @keyframes fireflyFloat {
+                    0%, 100% { transform: translate(0, 0); }
+                    25% { transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px); }
+                    50% { transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px); }
+                    75% { transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px); }
+                }
+            `;
+            document.head.appendChild(fireflyStyle);
+            document.body.appendChild(firefliesContainer);
+        }
+
+        function applyConfettiEffect() {
+            const confettiContainer = document.createElement('div');
+            confettiContainer.id = 'confetti-container';
+            confettiContainer.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                pointer-events: none;
+                z-index: 40;
+                overflow: hidden;
+            `;
+            
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+            
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                const size = Math.random() * 10 + 5;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.cssText = `
+                    position: absolute;
+                    width: ${size}px;
+                    height: ${size}px;
+                    background: ${color};
+                    left: ${Math.random() * 100}%;
+                    top: -${size}px;
+                    animation: confettiFall ${Math.random() * 3 + 2}s linear infinite;
+                    animation-delay: -${Math.random() * 5}s;
+                    transform: rotate(${Math.random() * 360}deg);
+                `;
+                confettiContainer.appendChild(confetti);
+            }
+            
+            const confettiStyle = document.createElement('style');
+            confettiStyle.textContent = `
+                @keyframes confettiFall {
+                    0% { transform: translateY(0) rotate(0deg); }
+                    100% { transform: translateY(100vh) rotate(360deg); }
+                }
+            `;
+            document.head.appendChild(confettiStyle);
+            document.body.appendChild(confettiContainer);
+        }
+
+        function applyNeonEffect() {
+            const elements = document.querySelectorAll('.nav-logo, .search-input, .search-button, #theme-toggle, .profile-records, .profile-record, .profile-header-image, .footer, .color-button, .effect-select');
+            elements.forEach(el => {
+                el.style.textShadow = `0 0 5px ${borderColorPicker.value}, 0 0 10px ${borderColorPicker.value}`;
+                el.style.boxShadow = `0 0 5px ${borderColorPicker.value}, 0 0 10px ${borderColorPicker.value}`;
+                el.style.animation = 'neonPulse 1.5s ease-in-out infinite';
+            });
+            
+            const neonStyle = document.createElement('style');
+            neonStyle.textContent = `
+                @keyframes neonPulse {
+                    0%, 100% { opacity: 1; }
+                    50% { opacity: 0.8; }
+                }
+            `;
+            document.head.appendChild(neonStyle);
+        }
+
+        function applyVaporwareEffect() {
+            // Apply static gradient to body
+            document.body.style.background = 'linear-gradient(45deg, #ff00ff, #00ffff)';
+            document.body.style.backgroundSize = '100% 100%';
+            
+            // Make nav bar transparent to show gradient underneath
+            const navBar = document.querySelector('.nav-bar');
+            if (navBar) {
+                navBar.style.backgroundColor = 'transparent';
+                navBar.style.borderColor = '#ffffff';
+            }
+        }
+
+        function removeVaporwareEffect() {
+            document.body.style.background = '';
+            document.body.style.backgroundSize = '';
+            
+            // Restore nav bar
+            const navBar = document.querySelector('.nav-bar');
+            if (navBar) {
+                navBar.style.backgroundColor = '';
+                navBar.style.borderColor = '';
+            }
+        }
+
+        // Add removal functions for new effects
+        function removeFirefliesEffect() {
+            const container = document.getElementById('fireflies-container');
+            if (container) container.remove();
+        }
+
+        function removeConfettiEffect() {
+            const container = document.getElementById('confetti-container');
+            if (container) container.remove();
+        }
+
+        function removeNeonEffect() {
+            const elements = document.querySelectorAll('.nav-logo, .search-input, .search-button, #theme-toggle, .profile-records, .profile-record, .profile-header-image, .footer, .color-button, .effect-select');
+            elements.forEach(el => {
+                el.style.textShadow = '';
+                el.style.boxShadow = '';
+                el.style.animation = '';
+            });
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeGeoCitiesAvatar();
+            
+            // Add search event listeners
+            const searchInput = document.querySelector('.search-input');
+            const searchButton = document.querySelector('.search-button');
+
+            searchButton.addEventListener('click', () => {
+                const query = searchInput.value.trim();
+                if (query) {
+                    fetchProfile(query);
+                }
+            });
+
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    const query = searchInput.value.trim();
+                    if (query) {
+                        fetchProfile(query);
+                    }
+                }
+            });
+
+            // Single, consolidated theme toggle handler
+            themeToggle.addEventListener('click', () => {
+                const isLight = document.body.dataset.theme === 'light';
+                
+                // Update theme
+                document.body.dataset.theme = isLight ? '' : 'light';
+                themeToggle.textContent = isLight ? 'Light' : 'Dark';
+                
+                // Reset color pickers to default theme colors
+                if (isLight) {
+                    // Switching to dark mode
+                    bgColorPicker.value = '#000000';
+                    textColorPicker.value = '#ffffff';
+                    borderColorPicker.value = '#ffffff';
+                } else {
+                    // Switching to light mode
+                    bgColorPicker.value = '#ffffff';
+                    textColorPicker.value = '#000000';
+                    borderColorPicker.value = '#000000';
+                }
+                
+                // Reset effect select
+                effectSelect.value = 'none';
+                
+                // Remove any active effects
+                removeSnowEffect();
+                removeGlowEffect();
+                removeStarsEffect();
+                removeRainbowEffect();
+                removeMatrixEffect();
+                removeFirefliesEffect();
+                removeConfettiEffect();
+                removeNeonEffect();
+                removeVaporwareEffect();
+                
+                // Apply the new colors to all elements
+                applyCustomStyles();
+                
+                // Update CSS variables
+                document.documentElement.style.setProperty('--primary-color', textColorPicker.value);
+                document.documentElement.style.setProperty('--background-color', bgColorPicker.value);
+                document.documentElement.style.setProperty('--border-color', borderColorPicker.value);
+            });
+
+            // Add style customization event listeners
+            bgColorPicker.addEventListener('input', applyCustomStyles);
+            textColorPicker.addEventListener('input', applyCustomStyles);
+            borderColorPicker.addEventListener('input', applyCustomStyles);
+            effectSelect.addEventListener('change', handleEffectChange);
+        });
+
+        // Add the fetchProfile function
+        async function fetchProfile(query) {
+            try {
+                showLoading();
+                hideError();
+                
+                // Remove any existing register button container
+                const existingRegisterContainer = document.querySelector('.register-container');
+                if (existingRegisterContainer) {
+                    existingRegisterContainer.remove();
+                }
+                
+                // Remove any existing download button container
+                const existingDownloadContainer = document.querySelector('.download-website-container');
+                if (existingDownloadContainer) {
+                    existingDownloadContainer.remove();
+                }
+                
+                // Format the query
+                query = query.trim().toLowerCase();
+                if (!query) {
+                    throw new Error('Please enter a name to search.');
+                }
+                if (/\s/.test(query)) {
+                    throw new Error('Name cannot contain spaces.');
+                }
+
+                const ensName = (query.endsWith('.eth') || query.endsWith('.base.eth')) ? query : `${query}.eth`;
+                
+                // Determine the correct API endpoint
+                let url = `${API_BASE_URL}/profile/ens/${ensName}`;
+                if (ensName.endsWith('.base.eth')) {
+                    url = `${API_BASE_URL}/profile/basenames/${ensName}`;
+                }
+
+                try {
+                    const response = await fetch(url);
+                    if (response.ok) {
+                        const data = await response.json();
+                        displayProfile(data, ensName);
+                    } else if (response.status === 404) {
+                        displayUnregisteredProfile(ensName);
+                    } else {
+                        let errorText = `Error: ${response.statusText}`;
+                        try {
+                            const errorData = await response.json();
+                            errorText = errorData?.message || errorData?.error || `Error ${response.status}: ${response.statusText}`;
+                            if (errorText.toLowerCase().includes("invalid name")) {
+                                errorText = `Invalid name format: ${ensName}`;
+                            } else if (response.status >= 500) {
+                                errorText = "Server error. Please try again later.";
+                            }
+                        } catch (e) {}
+                        throw new Error(errorText);
+                    }
+                } catch (error) {
+                    if (error.message.includes('Profile not found')) {
+                        displayUnregisteredProfile(ensName);
+                    } else {
+                        throw error;
+                    }
+                }
+            } catch (error) {
+                showError(error.message);
+                document.getElementById('profile-page').style.display = 'none';
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Initialize the page with GeoCities avatar
+        async function initializeGeoCitiesAvatar() {
+            try {
+                // First set the default avatar in case the fetch fails
+                setAvatar(DEFAULT_AVATAR);
+                
+                const response = await fetch(`${API_BASE_URL}/profile/ens/geocities.eth`);
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.avatar) {
+                        setAvatar(data.avatar);
+                    }
+                }
+            } catch (error) {
+                console.error('Error fetching GeoCities avatar:', error);
+            }
+        }
+
+        // Add these functions after fetchProfile
+        function displayProfile(data, ensName) {
+            // Hide homepage elements
+            document.querySelector('.container').style.display = 'none';
+            document.querySelector('#homepage-geocities').style.display = 'none';
+            
+            // Show profile page
+            const profilePage = document.getElementById('profile-page');
+            profilePage.style.display = 'flex';
+            
+            // Move search container to profile page
+            const searchContainer = document.querySelector('.search-container');
+            searchContainer.style.margin = '10px auto 20px';
+            profilePage.insertBefore(searchContainer, profilePage.firstChild);
+            
+            // Move style panel right after search container
+            stylePanel.style.margin = '10px auto 20px';
+            profilePage.insertBefore(stylePanel, document.querySelector('.profile-container'));
+            
+            // Set avatar
+            if (data.avatar) {
+                setAvatar(data.avatar);
+            } else {
+                // Use the first letter of ENS name for default avatar
+                const firstLetter = ensName.charAt(0);
+                const defaultAvatar = createDefaultAvatar(firstLetter);
+                setAvatar(defaultAvatar);
+            }
+            
+            // Set header image if available, otherwise hide it
+            const headerContainer = document.querySelector('.profile-header-image');
+            headerContainer.innerHTML = ''; // Clear previous content
+            
+            if (data.header) {
+                const headerImg = document.createElement('img');
+                headerImg.src = data.header;
+                headerImg.alt = `${ensName} header`;
+                headerContainer.appendChild(headerImg);
+                headerContainer.style.display = 'block';
+            } else {
+                headerContainer.style.display = 'none';
+            }
+            
+            // Clear existing records
+            const recordsContainer = document.querySelector('.profile-records');
+            recordsContainer.innerHTML = '';
+            
+            // Define header renames for better display
+            const headerRenames = {
+                'email': 'Email',
+                'description': 'Bio',
+                'location': 'Location',
+                'status': 'Status',
+                'keywords': 'Tags',
+                'com.discord': 'Discord',
+                'com.twitter': 'Twitter',
+                'com.github': 'GitHub',
+                'org.telegram': 'Telegram'
+            };
+            
+            const linkableRecords = ['Website', 'Twitter', 'GitHub', 'Discord', 'Telegram', 'Farcaster'];
+            
+            // Create a map for ordered records
+            let recordsMap = {
+                'identity': null,
+                'displayName': null,
+                'followers': null,
+                'following': null,
+                'location': null,
+                'status': null,
+                'description': null,
+                'website': null,
+                'email': null,
+                'createdAt': null
+            };
+            
+            let otherRecords = [];
+            
+            // Populate the records map
+            if (ensName) {
+                const isBase = ensName.endsWith('.base.eth');
+                const displayLabel = isBase ? 'Basename' : 'ENS';
+                recordsMap['identity'] = { label: displayLabel, value: ensName };
+            }
+            if (data.displayName && data.displayName !== ensName) {
+                recordsMap['displayName'] = { label: 'Name', value: data.displayName };
+            }
+            
+            // Always show followers/following even if 0 or null
+            recordsMap['followers'] = { 
+                label: 'Followers', 
+                value: data.social?.follower !== undefined ? data.social.follower : 0 
+            };
+            
+            recordsMap['following'] = { 
+                label: 'Following', 
+                value: data.social?.following !== undefined ? data.social.following : 0 
+            };
+            
+            if (data.location) {
+                recordsMap['location'] = { label: 'Location', value: data.location };
+            }
+            if (data.status) {
+                recordsMap['status'] = { label: 'Status', value: data.status };
+            }
+            if (data.description) {
+                recordsMap['description'] = { label: 'Bio', value: data.description };
+            }
+            if (data.links?.website?.handle) {
+                recordsMap['website'] = { 
+                    label: 'Website', 
+                    value: data.links.website.handle, 
+                    isLink: true, 
+                    linkUrl: data.links.website.link || normalizeUrl(data.links.website.handle) 
+                };
+            }
+            if (data.email) {
+                recordsMap['email'] = { label: 'Email', value: data.email };
+            }
+            if (data.createdAt) {
+                let formattedDate = data.createdAt;
+                try {
+                    const date = new Date(data.createdAt);
+                    if (!isNaN(date.getTime())) { 
+                        formattedDate = date.toLocaleDateString('en-US', {
+                            month: '2-digit',
+                            day: '2-digit',
+                            year: 'numeric'
+                        });
+                    }
+                } catch (err) { }
+                recordsMap['createdAt'] = { label: 'Created', value: formattedDate };
+            }
+            
+            // Process all links from profile.links
+            if (data.links && typeof data.links === 'object') {
+                Object.entries(data.links).forEach(([platform, linkData]) => {
+                    if (platform !== 'website' && linkData.handle) {
+                        let label = '';
+                        if (linkData.sources && linkData.sources.length > 0) {
+                            label = linkData.sources[0].charAt(0).toUpperCase() + linkData.sources[0].slice(1);
+                        } else {
+                            label = platform.charAt(0).toUpperCase() + platform.slice(1);
+                        }
+                        
+                        otherRecords.push({
+                            label: label,
+                            value: linkData.handle,
+                            isLink: true,
+                            linkUrl: linkData.link || normalizeUrl(linkData.handle)
+                        });
+                    }
+                });
+            }
+            
+            // Process all other fields
+            Object.entries(data).forEach(([key, value]) => {
+                if (!Object.keys(recordsMap).includes(key) && key !== 'links' && key !== 'address') {
+                    processValue(key, value, otherRecords);
+                }
+            });
+            
+            // Create ordered records array
+            let orderedRecords = [];
+            if (recordsMap['identity']) orderedRecords.push(recordsMap['identity']);
+            if (recordsMap['displayName']) orderedRecords.push(recordsMap['displayName']);
+            if (recordsMap['followers']) orderedRecords.push(recordsMap['followers']);
+            if (recordsMap['following']) orderedRecords.push(recordsMap['following']);
+            if (recordsMap['location']) orderedRecords.push(recordsMap['location']);
+            if (recordsMap['status']) orderedRecords.push(recordsMap['status']);
+            if (recordsMap['description']) orderedRecords.push(recordsMap['description']);
+            if (recordsMap['email']) orderedRecords.push(recordsMap['email']);
+            if (recordsMap['website']) orderedRecords.push(recordsMap['website']);
+            
+            // Sort other records alphabetically
+            otherRecords.sort((a, b) => a.label.localeCompare(b.label));
+            orderedRecords = orderedRecords.concat(otherRecords);
+            
+            // Add "Created" as the last record if it exists
+            if (recordsMap['createdAt']) {
+                orderedRecords = orderedRecords.filter(record => record.label !== 'Created');
+                orderedRecords.push(recordsMap['createdAt']);
+            }
+            
+            // Add all records to the container
+            orderedRecords.forEach(record => {
+                if (record) {
+                    if (record.isLink) {
+                        addRecord(record.label, `<a href="${record.linkUrl}" target="_blank" rel="noopener noreferrer">${record.value}</a>`);
+                    } else {
+                        addRecord(record.label, record.value);
+                    }
+                }
+            });
+            
+            // If no records were added, show a message
+            if (recordsContainer.children.length === 0) {
+                addRecord('Status', 'No records found');
+            }
+            
+            // Show style panel
+            document.querySelector('.style-panel').style.display = 'flex';
+            
+            // Remove any existing download button container
+            const existingDownloadContainer = document.querySelector('.download-website-container');
+            if (existingDownloadContainer) {
+                existingDownloadContainer.remove();
+            }
+
+            // Create download button container
+            const downloadContainer = document.createElement('div');
+            downloadContainer.className = 'download-website-container';
+            downloadContainer.style.cssText = `
+                width: var(--container-width);
+                max-width: var(--max-width);
+                display: flex;
+                justify-content: center;
+                margin: 20px auto;
+            `;
+
+            // Create download button with theme toggle styling
+            const downloadButton = document.createElement('button');
+            downloadButton.textContent = 'Download Website';
+            downloadButton.className = 'download-website-button';
+            downloadButton.style.cssText = `
+                padding: 8px 15px;
+                background: var(--background-color);
+                color: var(--primary-color);
+                border: 1px solid var(--border-color);
+                cursor: pointer;
+                transition: all 0.3s ease;
+                font-size: 0.9em;
+                text-decoration: none;
+                text-align: center;
+            `;
+
+            // Add hover effect
+            downloadButton.addEventListener('mouseover', () => {
+                downloadButton.style.opacity = '0.8';
+            });
+            downloadButton.addEventListener('mouseout', () => {
+                downloadButton.style.opacity = '1';
+            });
+
+            // Add button to container
+            downloadContainer.appendChild(downloadButton);
+
+            // Insert the download button container after the profile records
+            recordsContainer.parentNode.insertBefore(downloadContainer, recordsContainer.nextSibling);
+            
+            // Initialize color pickers
+            initializeColorPickers();
+            
+            // Remove any existing click handlers from the nav logo
+            setupNavLogoClickHandler();
+
+            // Add the download functionality using an IIFE for isolation
+            downloadButton.addEventListener('click', (function() {
+                // Closure to isolate variables and prevent global namespace pollution
+                return function() {
+                    try {
+                        // Get current styling
+                        const bgColor = getComputedStyle(document.documentElement).getPropertyValue('--background-color').trim();
+                        const textColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim();
+                        const borderColor = getComputedStyle(document.documentElement).getPropertyValue('--border-color').trim();
+                        
+                        // Get profile data
+                        const profileRecords = document.querySelector('.profile-records').cloneNode(true);
+                        const headerImage = document.querySelector('.profile-header-image img');
+                        const avatarImage = document.getElementById('nav-logo-img');
+                        const profileNameElement = document.querySelector('.profile-record .record-value');
+                        const profileName = profileNameElement ? profileNameElement.textContent : 'GeoCities Profile';
+                        
+                        // Create HTML content
+                        let htmlContent = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>${profileName} - GeoCities</title>
+    <link rel="icon" href="${avatarImage.src}" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Georgia&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: ${textColor};
+            --background-color: ${bgColor};
+            --border-color: ${borderColor};
+            --font-main: sans-serif;
+            --container-width: 90%;
+            --max-width: 1200px;
+        }
+        
+        body {
+            font-family: var(--font-main);
+            background: var(--background-color);
+            color: var(--primary-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px 0 80px;
+            box-sizing: border-box;
+            position: relative;
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        .nav-bar {
+            position: relative;
+            height: 80px;
+            background: var(--background-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 1;
+            width: var(--container-width);
+            max-width: var(--max-width);
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--primary-color);
+            width: 80px;
+            height: 80px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-sizing: border-box;
+            padding: 0;
+        }
+
+        .nav-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+            display: block;
+            margin: 0;
+        }
+
+        .profile-container {
+            width: var(--container-width);
+            max-width: 420px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 35px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+        }
+
+        .profile-header-image {
+            width: 100%;
+            height: 0;
+            padding-bottom: 33.33%;
+            border: 1px solid var(--border-color);
+            box-sizing: border-box;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 0;
+            ${!headerImage ? 'display: none;' : ''}
+        }
+
+        .profile-header-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: block;
+        }
+
+        .profile-records {
+            width: 100%;
+            border: 1px solid var(--border-color);
+            box-sizing: border-box;
+            background-color: var(--background-color);
+        }
+
+        .profile-record {
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .profile-record:last-child {
+            border-bottom: none;
+        }
+
+        .record-label {
+            font-weight: bold;
+            min-width: 100px;
+            padding-right: 10px;
+        }
+
+        .record-value {
+            flex: 1;
+            word-break: break-word;
+        }
+
+        .profile-record a {
+            color: inherit;
+            text-decoration: underline;
+            transition: opacity 0.3s ease;
+        }
+
+        .profile-record a:hover {
+            opacity: 0.8;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 38px;
+            background: var(--background-color);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .footer a {
+            color: inherit;
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer a:hover {
+            opacity: 0.8;
+        }
+
+        @media (max-width: 480px) {
+            .profile-record {
+                padding: 12px;
+            }
+
+            .record-label {
+                min-width: 80px;
+                font-size: 0.9em;
+            }
+
+            .record-value {
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <a href="#" class="nav-logo" onclick="window.location.reload()">
+            <img src="${avatarImage.src}" alt="${profileName} Avatar">
+        </a>
+    </nav>
+    <div class="profile-container">`;
+
+                        // Add header image if it exists
+                        if (headerImage) {
+                            htmlContent += `
+        <div class="profile-header-image">
+            <img src="${headerImage.src}" alt="${profileName} header">
+        </div>`;
+                        }
+
+                        // Add profile records
+                        htmlContent += `
+        <div class="profile-records">
+            ${profileRecords.innerHTML}
+        </div>
+    </div>
+    <footer class="footer">
+        <a href="https://geocities.eth.link" target="_blank" rel="noopener noreferrer">GeoCities</a>
+    </footer>
+</body>
+</html>`;
+
+                        // Create download link
+                        const downloadLink = document.createElement('a');
+                        downloadLink.setAttribute('href', 'data:text/html;charset=utf-8,' + encodeURIComponent(htmlContent));
+                        downloadLink.setAttribute('download', `${profileName.replace(/\s+/g, '-').toLowerCase()}-geocities.html`);
+                        
+                        // Trigger download
+                        document.body.appendChild(downloadLink);
+                        downloadLink.click();
+                        document.body.removeChild(downloadLink);
+                        
+                    } catch (error) {
+                        console.error('Error generating download:', error);
+                        // Show a discreet error message without affecting the main site
+                        const errorToast = document.createElement('div');
+                        errorToast.textContent = 'Error downloading website. Please try again.';
+                        errorToast.style.cssText = `
+                            position: fixed;
+                            bottom: 50px;
+                            left: 50%;
+                            transform: translateX(-50%);
+                            background: rgba(255, 0, 0, 0.7);
+                            color: white;
+                            padding: 10px 20px;
+                            border-radius: 5px;
+                            z-index: 2000;
+                        `;
+                        document.body.appendChild(errorToast);
+                        setTimeout(() => {
+                            errorToast.style.opacity = '0';
+                            errorToast.style.transition = 'opacity 0.5s ease';
+                            setTimeout(() => document.body.removeChild(errorToast), 500);
+                        }, 3000);
+                    }
+                };
+            })());
+        }
+
+        // Helper function to normalize URLs
+        function normalizeUrl(url) {
+            if (!url) return '';
+            url = url.trim();
+            if (!/^https?:\/\//i.test(url)) {
+                return 'https://' + url;
+            }
+            return url;
+        }
+
+        // Helper function to process values
+        function processValue(key, value, targetArray) {
+            if (value === null || value === undefined || value === '') return;
+            
+            // Skip certain fields
+            const specificOmissions = ['avatar', 'header', 'contenthash', 'contentHash', 'identity', 'address', 'displayName', 'description', 'email', 'location', 'status', 'createdAt', 'records', 'followers', 'platform', 'follower', 'following', 'social', 'links'];
+            if (specificOmissions.includes(key)) return;
+            
+            if (typeof value === 'object' && !Array.isArray(value)) {
+                Object.entries(value).forEach(([subKey, subValue]) => {
+                    processValue(`${key}.${subKey}`, subValue, targetArray);
+                });
+            } else if (Array.isArray(value)) {
+                value.forEach((item, index) => {
+                    processValue(`${key}[${index}]`, item, targetArray);
+                });
+            } else {
+                let label = headerRenames[key] || key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1').trim();
+                
+                // Handle special platform links
+                let isLink = linkableRecords.includes(label);
+                let linkUrl = '';
+                if (isLink) {
+                    linkUrl = key === 'com.twitter' ? `https://x.com/${value}`
+                        : key === 'com.github' ? `https://github.com/${value}`
+                        : key === 'com.discord' ? `https://discord.com/users/${value}`
+                        : key === 'org.telegram' ? `https://t.me/${value}`
+                        : normalizeUrl(value);
+                }
+                targetArray.push({ label: label, value: value, isLink: isLink, linkUrl: linkUrl });
+            }
+        }
+
+        function displayUnregisteredProfile(ensName) {
+            // Hide homepage elements
+            document.querySelector('.container').style.display = 'none';
+            document.querySelector('#homepage-geocities').style.display = 'none';
+            
+            // Show profile page
+            const profilePage = document.getElementById('profile-page');
+            profilePage.style.display = 'flex';
+            
+            // Set default avatar - use first letter of name
+            const firstLetter = ensName.charAt(0);
+            const defaultAvatar = createDefaultAvatar(firstLetter);
+            setAvatar(defaultAvatar);
+            
+            // Move search container to top of profile page
+            const searchContainer = document.querySelector('.search-container');
+            searchContainer.style.margin = '10px auto 20px';
+            profilePage.insertBefore(searchContainer, profilePage.firstChild);
+            
+            // Move style panel after search container
+            const stylePanel = document.querySelector('.style-panel');
+            stylePanel.style.margin = '10px auto 20px';
+            profilePage.insertBefore(stylePanel, document.querySelector('.profile-container'));
+            
+            // Clear existing records
+            const recordsContainer = document.querySelector('.profile-records');
+            recordsContainer.innerHTML = '';
+            
+            // Hide header image for unregistered names
+            const headerContainer = document.querySelector('.profile-header-image');
+            headerContainer.style.display = 'none';
+            
+            // Add name record with correct label
+            const isBase = ensName.endsWith('.base.eth');
+            addRecord(isBase ? 'Basename' : 'ENS', ensName);
+            
+            // Add unregistered message
+            addRecord('Status', 'This name is not registered');
+            
+            // Remove any existing register button container
+            const existingRegisterContainer = document.querySelector('.register-container');
+            if (existingRegisterContainer) {
+                existingRegisterContainer.remove();
+            }
+            
+            // Add register button with appropriate link
+            const registerUrl = isBase 
+                ? `https://www.base.org/names?claim=${ensName.replace('.base.eth', '')}`
+                : `https://app.ens.domains/name/${ensName}/register`;
+            
+            // Create register button container
+            const registerContainer = document.createElement('div');
+            registerContainer.className = 'register-container';
+            registerContainer.style.cssText = `
+                width: var(--container-width);
+                max-width: var(--max-width);
+                display: flex;
+                justify-content: center;
+                margin: 20px auto;
+            `;
+            
+            // Create register button with theme toggle styling
+            const registerButton = document.createElement('a');
+            registerButton.href = registerUrl;
+            registerButton.target = '_blank';
+            registerButton.rel = 'noopener noreferrer';
+            registerButton.textContent = `Register ${isBase ? 'Basename' : 'ENS'}`;
+            registerButton.style.cssText = `
+                padding: 8px 15px;
+                background: var(--background-color);
+                color: var(--primary-color);
+                border: 1px solid var(--border-color);
+                cursor: pointer;
+                transition: all 0.3s ease;
+                font-size: 0.9em;
+                text-decoration: none;
+                text-align: center;
+            `;
+            
+            // Add hover effect
+            registerButton.addEventListener('mouseover', () => {
+                registerButton.style.opacity = '0.8';
+            });
+            registerButton.addEventListener('mouseout', () => {
+                registerButton.style.opacity = '1';
+            });
+            
+            // Add button to container
+            registerContainer.appendChild(registerButton);
+            
+            // Insert the register button container after the profile records
+            recordsContainer.parentNode.insertBefore(registerContainer, recordsContainer.nextSibling);
+            
+            // Initialize color pickers
+            initializeColorPickers();
+            
+            // Remove any existing click handlers from the nav logo
+            setupNavLogoClickHandler();
+        }
+
+        function addRecord(label, value) {
+            const recordsContainer = document.querySelector('.profile-records');
+            const recordDiv = document.createElement('div');
+            recordDiv.className = 'profile-record';
+            
+            const labelSpan = document.createElement('span');
+            labelSpan.className = 'record-label';
+            labelSpan.textContent = label;
+            
+            const valueSpan = document.createElement('span');
+            valueSpan.className = 'record-value';
+            valueSpan.innerHTML = value;
+            
+            // Ensure any links in the value span inherit the text color
+            const links = valueSpan.querySelectorAll('a');
+            links.forEach(link => {
+                link.style.color = textColorPicker.value;
+            });
+            
+            recordDiv.appendChild(labelSpan);
+            recordDiv.appendChild(valueSpan);
+            recordsContainer.appendChild(recordDiv);
+        }
+
+        function addSnowEffect() {
+            // Only add if it doesn't exist yet
+            if (!document.getElementById('snow-container')) {
+                const snowContainer = document.createElement('div');
+                snowContainer.id = 'snow-container';
+                snowContainer.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    pointer-events: none;
+                    z-index: 50;
+                    overflow: hidden;
+                `;
+                
+                // Create multiple snowflakes
+                for (let i = 0; i < 50; i++) {
+                    const snowflake = document.createElement('div');
+                    const size = Math.random() * 5 + 2;
+                    const startingLeft = Math.random() * 100;
+                    const animDuration = Math.random() * 10 + 5;
+                    const animDelay = Math.random() * 5;
+                    
+                    snowflake.style.cssText = `
+                        position: absolute;
+                        width: ${size}px;
+                        height: ${size}px;
+                        background: white;
+                        border-radius: 50%;
+                        top: -${size}px;
+                        left: ${startingLeft}%;
+                        opacity: ${Math.random() * 0.6 + 0.4};
+                        pointer-events: none;
+                        animation: snowFall ${animDuration}s linear infinite;
+                        animation-delay: -${animDelay}s;
+                    `;
+                    
+                    snowContainer.appendChild(snowflake);
+                }
+                
+                document.body.appendChild(snowContainer);
+            }
+        }
+
+        // Add the missing snow animation keyframes
+        const styleSheet = document.createElement('style');
+        styleSheet.textContent = `
+            @keyframes snowFall {
+                0% {
+                    transform: translateY(-100vh);
+                }
+                100% {
+                    transform: translateY(100vh);
+                }
+            }
+        `;
+        document.head.appendChild(styleSheet);
+
+        // Remove any existing click handlers from the nav logo
+        function setupNavLogoClickHandler() {
+            const navLogo = document.querySelector('.nav-logo');
+            // Remove any existing click handlers
+            const newNavLogo = navLogo.cloneNode(true);
+            navLogo.parentNode.replaceChild(newNavLogo, navLogo);
+            
+            // Add the click handler
+            newNavLogo.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Reset theme to default dark mode
+                document.body.dataset.theme = '';
+                themeToggle.textContent = 'Light';
+                
+                // Hide profile page and style panel
+                document.getElementById('profile-page').style.display = 'none';
+                document.querySelector('.style-panel').style.display = 'none';
+                
+                // Show homepage container
+                document.querySelector('.container').style.display = 'flex';
+                document.querySelector('#homepage-geocities').style.display = 'block';
+                
+                // Move search container back to homepage and clear input
+                document.querySelector('.container').appendChild(document.querySelector('.search-container'));
+                document.querySelector('.search-input').value = '';
+                
+                // Clear any error messages
+                hideError();
+                
+                // Reset the avatar to GeoCities logo
+                initializeGeoCitiesAvatar();
+                
+                // Remove ALL effects
+                removeSnowEffect();
+                removeGlowEffect();
+                removeStarsEffect();
+                removeRainbowEffect();
+                removeMatrixEffect();
+                removeFirefliesEffect();
+                removeConfettiEffect();
+                removeNeonEffect();
+                removeVaporwareEffect();
+                
+                // Reset color pickers to default dark theme
+                bgColorPicker.value = '#000000';
+                textColorPicker.value = '#ffffff';
+                borderColorPicker.value = '#ffffff';
+                
+                // Reset effect select
+                effectSelect.value = 'none';
+                
+                // Apply the reset styles
+                applyCustomStyles();
+            });
+        }
+    </script>
+</body>
+</html> 
