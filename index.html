@@ -3,6 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self' 'unsafe-inline';
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        font-src 'self' https://fonts.gstatic.com;
+        img-src 'self' https: data:;
+        connect-src 'self' https://api.web3.bio https://raw.githubusercontent.com;
+        object-src 'none';
+        base-uri 'self';
+        form-action 'none';
+        frame-ancestors 'none';
+    ">
     <title>GeoCities</title>
     <link rel="icon" id="favicon" href="" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Georgia&display=swap" rel="stylesheet">
@@ -277,13 +289,6 @@
             opacity: 0.8;
         }
 
-        /* Style customization functionality */
-        const stylePanel = document.querySelector('.style-panel');
-        const bgColorPicker = document.getElementById('bg-color');
-        const textColorPicker = document.getElementById('text-color');
-        const borderColorPicker = document.getElementById('border-color');
-        const effectSelect = document.getElementById('effect-select');
-
         /* Add these styles to your existing CSS */
         .style-panel {
             display: none;
@@ -458,6 +463,87 @@
         }
 
         /* Add responsive styles for homepage and profile page elements */
+        </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <a href="#" class="nav-logo">
+            <img id="nav-logo-img" src="" alt="GeoCities Logo">
+        </a>
+        <button id="theme-toggle">Light</button>
+    </nav>
+    <div class="container">
+        <h1 id="homepage-geocities">GeoCities</h1>
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Enter ENS or Basename">
+            <button class="search-button">Search</button>
+        </div>
+    </div>
+    <div class="loading-spinner"></div>
+    <div class="error-message"></div>
+    <div id="profile-page">
+        <div class="profile-container">
+            <div class="profile-header-image">
+                <!-- Header image will be inserted here -->
+            </div>
+            <div class="profile-records">
+                <!-- ENS records will be inserted here -->
+            </div>
+        </div>
+        <!-- Add this right after the search-container div in the profile page -->
+        <div class="style-panel">
+            <div class="style-section">
+                <div class="color-button">
+                    <input type="color" id="bg-color" class="color-picker" title="Background">
+                    <span class="button-text">Background</span>
+                </div>
+            </div>
+            <div class="style-section">
+                <div class="color-button">
+                    <input type="color" id="text-color" class="color-picker" title="Text">
+                    <span class="button-text">Text</span>
+                </div>
+            </div>
+            <div class="style-section">
+                <div class="color-button">
+                    <input type="color" id="border-color" class="color-picker" title="Border">
+                    <span class="button-text">Border</span>
+                </div>
+            </div>
+            <div class="style-section">
+                <select id="effect-select" class="effect-select">
+                    <option value="none">Effect</option>
+                    <option value="glow">Glow</option>
+                    <option value="snow">Snow</option>
+                    <option value="stars">Stars</option>
+                    <option value="rainbow">Rainbow</option>
+                    <option value="matrix">Matrix</option>
+                    <option value="fireflies">Fireflies</option>
+                    <option value="confetti">Confetti</option>
+                    <option value="neon">Neon</option>
+                    <option value="vaporware">Vaporware</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <a href="https://geocities.eth.link" target="_blank" rel="noopener noreferrer">GeoCities</a>
+    </footer>
+
+    <script>
+        // At the start of the script section
+        const API_BASE_URL = 'https://api.web3.bio';
+        const DEFAULT_AVATAR = 'https://raw.githubusercontent.com/GeoCities/Ads/main/Ads/Nyan%20Cat%20-%20GeoCities.gif';
+
+        // Style customization constants moved from <style>
+        const stylePanel = document.querySelector('.style-panel');
+        const bgColorPicker = document.getElementById('bg-color');
+        const textColorPicker = document.getElementById('text-color');
+        const borderColorPicker = document.getElementById('border-color');
+        const effectSelect = document.getElementById('effect-select');
+        const themeToggle = document.getElementById('theme-toggle');
+
+        // Consolidated stylesheet for responsive styles and effects
         const styleSheet = document.createElement('style');
         styleSheet.textContent = `
             /* Homepage responsive styles */
@@ -647,86 +733,7 @@
                 }
             }
         `;
-        document.head.appendChild(styleSheet);
-    </style>
-</head>
-<body>
-    <nav class="nav-bar">
-        <a href="#" class="nav-logo">
-            <img id="nav-logo-img" src="" alt="GeoCities Logo">
-        </a>
-        <button id="theme-toggle">Light</button>
-    </nav>
-    <div class="container">
-        <h1 id="homepage-geocities">GeoCities</h1>
-        <div class="search-container">
-            <input type="text" class="search-input" placeholder="Enter ENS or Basename">
-            <button class="search-button">Search</button>
-        </div>
-    </div>
-    <div class="loading-spinner"></div>
-    <div class="error-message"></div>
-    <div id="profile-page">
-        <div class="profile-container">
-            <div class="profile-header-image">
-                <!-- Header image will be inserted here -->
-            </div>
-            <div class="profile-records">
-                <!-- ENS records will be inserted here -->
-            </div>
-        </div>
-        <!-- Add this right after the search-container div in the profile page -->
-        <div class="style-panel">
-            <div class="style-section">
-                <div class="color-button">
-                    <input type="color" id="bg-color" class="color-picker" title="Background">
-                    <span class="button-text">Background</span>
-                </div>
-            </div>
-            <div class="style-section">
-                <div class="color-button">
-                    <input type="color" id="text-color" class="color-picker" title="Text">
-                    <span class="button-text">Text</span>
-                </div>
-            </div>
-            <div class="style-section">
-                <div class="color-button">
-                    <input type="color" id="border-color" class="color-picker" title="Border">
-                    <span class="button-text">Border</span>
-                </div>
-            </div>
-            <div class="style-section">
-                <select id="effect-select" class="effect-select">
-                    <option value="none">Effect</option>
-                    <option value="glow">Glow</option>
-                    <option value="snow">Snow</option>
-                    <option value="stars">Stars</option>
-                    <option value="rainbow">Rainbow</option>
-                    <option value="matrix">Matrix</option>
-                    <option value="fireflies">Fireflies</option>
-                    <option value="confetti">Confetti</option>
-                    <option value="neon">Neon</option>
-                    <option value="vaporware">Vaporware</option>
-                </select>
-            </div>
-        </div>
-    </div>
-    <footer class="footer">
-        <a href="https://geocities.eth.link" target="_blank" rel="noopener noreferrer">GeoCities</a>
-    </footer>
-
-    <script>
-        // At the start of the script section
-        const API_BASE_URL = 'https://api.web3.bio';
-        const DEFAULT_AVATAR = 'https://raw.githubusercontent.com/GeoCities/Ads/main/Ads/Nyan%20Cat%20-%20GeoCities.gif';
-
-        // Style customization constants
-        const stylePanel = document.querySelector('.style-panel');
-        const bgColorPicker = document.getElementById('bg-color');
-        const textColorPicker = document.getElementById('text-color');
-        const borderColorPicker = document.getElementById('border-color');
-        const effectSelect = document.getElementById('effect-select');
-        const themeToggle = document.getElementById('theme-toggle');
+        // document.head.appendChild(styleSheet); // Appended later in the script
 
         // Utility functions
         function showLoading() {
@@ -1036,6 +1043,7 @@
             });
             
             const styleSheet = document.createElement('style');
+            styleSheet.id = 'rainbow-effect-keyframes-style'; // Assign ID
             styleSheet.textContent = `
                 @keyframes rainbowBorder {
                     0% { border-color: #ff0000; }
@@ -1105,6 +1113,7 @@
             
             // Add the matrix fall animation with smoother movement
             const matrixStyle = document.createElement('style');
+            matrixStyle.id = 'matrix-effect-keyframes-style'; // Assign ID
             matrixStyle.textContent = `
                 @keyframes matrixFall {
                     0% {
@@ -1141,12 +1150,20 @@
             elements.forEach(el => {
                 el.style.animation = '';
             });
+            const styleTag = document.getElementById('rainbow-effect-keyframes-style');
+            if (styleTag) {
+                styleTag.remove();
+            }
         }
 
         function removeMatrixEffect() {
             const matrixContainer = document.getElementById('matrix-container');
             if (matrixContainer) {
                 matrixContainer.remove();
+            }
+            const styleTag = document.getElementById('matrix-effect-keyframes-style');
+            if (styleTag) {
+                styleTag.remove();
             }
         }
 
@@ -1184,6 +1201,7 @@
             }
             
             const fireflyStyle = document.createElement('style');
+            fireflyStyle.id = 'fireflies-effect-keyframes-style'; // Assign ID
             fireflyStyle.textContent = `
                 @keyframes fireflyFloat {
                     0%, 100% { transform: translate(0, 0); }
@@ -1231,6 +1249,7 @@
             }
             
             const confettiStyle = document.createElement('style');
+            confettiStyle.id = 'confetti-effect-keyframes-style'; // Assign ID
             confettiStyle.textContent = `
                 @keyframes confettiFall {
                     0% { transform: translateY(0) rotate(0deg); }
@@ -1250,6 +1269,7 @@
             });
             
             const neonStyle = document.createElement('style');
+            neonStyle.id = 'neon-effect-keyframes-style'; // Assign ID
             neonStyle.textContent = `
                 @keyframes neonPulse {
                     0%, 100% { opacity: 1; }
@@ -1288,11 +1308,19 @@
         function removeFirefliesEffect() {
             const container = document.getElementById('fireflies-container');
             if (container) container.remove();
+            const styleTag = document.getElementById('fireflies-effect-keyframes-style');
+            if (styleTag) {
+                styleTag.remove();
+            }
         }
 
         function removeConfettiEffect() {
             const container = document.getElementById('confetti-container');
             if (container) container.remove();
+            const styleTag = document.getElementById('confetti-effect-keyframes-style');
+            if (styleTag) {
+                styleTag.remove();
+            }
         }
 
         function removeNeonEffect() {
@@ -1302,6 +1330,10 @@
                 el.style.boxShadow = '';
                 el.style.animation = '';
             });
+            const styleTag = document.getElementById('neon-effect-keyframes-style');
+            if (styleTag) {
+                styleTag.remove();
+            }
         }
 
         // Event listeners
@@ -1654,10 +1686,15 @@
             // Add all records to the container
             orderedRecords.forEach(record => {
                 if (record) {
-                    if (record.isLink) {
-                        addRecord(record.label, `<a href="${record.linkUrl}" target="_blank" rel="noopener noreferrer">${record.value}</a>`);
+                    if (record.isLink && record.linkUrl) {
+                        const linkElement = document.createElement('a');
+                        linkElement.href = record.linkUrl;
+                        linkElement.target = '_blank';
+                        linkElement.rel = 'noopener noreferrer';
+                        linkElement.textContent = record.value; // Set text content for the link
+                        addRecord(record.label, linkElement); // Pass the created <a> element
                     } else {
-                        addRecord(record.label, record.value);
+                        addRecord(record.label, record.value); // Pass the string value
                     }
                 }
             });
@@ -2148,13 +2185,16 @@
             
             const valueSpan = document.createElement('span');
             valueSpan.className = 'record-value';
-            valueSpan.innerHTML = value;
-            
-            // Ensure any links in the value span inherit the text color
-            const links = valueSpan.querySelectorAll('a');
-            links.forEach(link => {
-                link.style.color = textColorPicker.value;
-            });
+
+            if (value instanceof Node) { // Check if value is an HTML element
+                valueSpan.appendChild(value);
+            } else {
+                valueSpan.textContent = value; // Treat as plain text
+            }
+
+            // The existing CSS `.profile-record a { color: inherit; }` should handle link colors.
+            // The textColorPicker.value is applied to themedElements including '.profile-record'
+            // in applyCustomStyles, and 'color: inherit' should make the link take that color.
             
             recordDiv.appendChild(labelSpan);
             recordDiv.appendChild(valueSpan);
@@ -2206,9 +2246,8 @@
             }
         }
 
-        // Add the missing snow animation keyframes
-        const styleSheet = document.createElement('style');
-        styleSheet.textContent = `
+        // Add the missing snow animation keyframes to the existing styleSheet
+        styleSheet.textContent += `
             @keyframes snowFall {
                 0% {
                     transform: translateY(-100vh);
@@ -2217,8 +2256,18 @@
                     transform: translateY(100vh);
                 }
             }
+
+            @keyframes glowPulse {
+                0%, 100% { box-shadow: 0 0 5px var(--border-color), 0 0 10px var(--border-color); }
+                50% { box-shadow: 0 0 10px var(--border-color), 0 0 20px var(--border-color); }
+            }
+
+            @keyframes starTwinkle {
+                0%, 100% { opacity: 0.2; transform: scale(0.8); }
+                50% { opacity: 1; transform: scale(1.2); }
+            }
         `;
-        document.head.appendChild(styleSheet);
+        document.head.appendChild(styleSheet); // Append the consolidated stylesheet once
 
         // Remove any existing click handlers from the nav logo
         function setupNavLogoClickHandler() {
