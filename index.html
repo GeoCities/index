@@ -1761,42 +1761,39 @@
             setupNavLogoClickHandler();
 
             // Add the download functionality using an IIFE for isolation
-            downloadButton.addEventListener('click', (function() {
+            downloadButton.addEventListener('click', (function(currentEnsName) { // Pass ensName to the IIFE
                 // Closure to isolate variables and prevent global namespace pollution
                 return function() {
                     try {
-                        // Get current styling
-                        const bgColor = getComputedStyle(document.documentElement).getPropertyValue('--background-color').trim();
-                        const textColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim();
-                        const borderColor = getComputedStyle(document.documentElement).getPropertyValue('--border-color').trim();
-                        
-                        // Get profile data
-                        const profileRecords = document.querySelector('.profile-records').cloneNode(true);
-                        const headerImage = document.querySelector('.profile-header-image img');
-                        const avatarImage = document.getElementById('nav-logo-img');
-                        const profileNameElement = document.querySelector('.profile-record .record-value');
-                        const profileName = profileNameElement ? profileNameElement.textContent : 'GeoCities Profile';
-                        
-                        // Create HTML content
-                        let htmlContent = `
+                        // Get current styling to embed
+                        const computedPageStyle = getComputedStyle(document.documentElement);
+                        const currentBgColor = computedPageStyle.getPropertyValue('--background-color').trim();
+                        const currentTextColor = computedPageStyle.getPropertyValue('--primary-color').trim();
+                        const currentBorderColor = computedPageStyle.getPropertyValue('--border-color').trim();
+                        const themeColorsForDownload = {
+                            primary: currentTextColor,
+                            background: currentBgColor,
+                            border: currentBorderColor
+                        };
+
+                        // Define the simplified HTML structure for the downloaded file
+                        const downloadedHtmlStructure = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>${profileName} - GeoCities</title>
-    <link rel="icon" href="${avatarImage.src}" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${currentEnsName} - GeoCities Profile</title>
+    <link rel="icon" id="favicon-downloaded" href="" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Georgia&display=swap" rel="stylesheet">
     <style>
+        * { box-sizing: border-box; }
         :root {
-            --primary-color: ${textColor};
-            --background-color: ${bgColor};
-            --border-color: ${borderColor};
+            --primary-color: ${currentTextColor};
+            --background-color: ${currentBgColor};
+            --border-color: ${currentBorderColor};
             --font-main: sans-serif;
-            --container-width: 90%;
-            --max-width: 1200px;
         }
-        
         body {
             font-family: var(--font-main);
             background: var(--background-color);
@@ -1808,198 +1805,396 @@
             margin: 0;
             padding: 20px 0 80px;
             box-sizing: border-box;
-            position: relative;
-            width: 100%;
-            overflow-x: hidden;
         }
-
-        .nav-bar {
-            position: relative;
-            height: 80px;
-            background: var(--background-color);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 20px;
-            z-index: 1;
-            width: var(--container-width);
-            max-width: var(--max-width);
-            box-sizing: border-box;
-            margin-bottom: 20px;
-        }
-
-        .nav-logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            color: var(--primary-color);
-            width: 80px;
-            height: 80px;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
-            box-sizing: border-box;
-            padding: 0;
-        }
-
-        .nav-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            object-position: center;
-            display: block;
-            margin: 0;
-        }
-
-        .profile-container {
-            width: var(--container-width);
-            max-width: 420px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 35px;
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-        }
-
-        .profile-header-image {
-            width: 100%;
-            height: 0;
-            padding-bottom: 33.33%;
-            border: 1px solid var(--border-color);
-            box-sizing: border-box;
-            overflow: hidden;
-            position: relative;
-            margin-bottom: 0;
-            ${!headerImage ? 'display: none;' : ''}
-        }
-
-        .profile-header-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            position: absolute;
-            top: 0;
-            left: 0;
-            display: block;
-        }
-
-        .profile-records {
-            width: 100%;
-            border: 1px solid var(--border-color);
-            box-sizing: border-box;
-            background-color: var(--background-color);
-        }
-
-        .profile-record {
-            padding: 15px;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-        }
-
-        .profile-record:last-child {
-            border-bottom: none;
-        }
-
-        .record-label {
-            font-weight: bold;
-            min-width: 100px;
-            padding-right: 10px;
-        }
-
-        .record-value {
-            flex: 1;
-            word-break: break-word;
-        }
-
-        .profile-record a {
-            color: inherit;
-            text-decoration: underline;
-            transition: opacity 0.3s ease;
-        }
-
-        .profile-record a:hover {
-            opacity: 0.8;
-        }
-
-        .footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 38px;
-            background: var(--background-color);
-            border-top: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-        }
-
-        .footer a {
-            color: inherit;
-            text-decoration: none;
-            font-size: 0.9em;
-            transition: opacity 0.3s ease;
-        }
-
-        .footer a:hover {
-            opacity: 0.8;
-        }
-
-        @media (max-width: 480px) {
-            .profile-record {
-                padding: 12px;
-            }
-
-            .record-label {
-                min-width: 80px;
-                font-size: 0.9em;
-            }
-
-            .record-value {
-                font-size: 0.9em;
-            }
-        }
+        .nav-bar-downloaded { height: 80px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+        .nav-logo-downloaded { width: 80px; height: 80px; border: 1px solid var(--border-color); object-fit: contain; }
+        .profile-container-downloaded { width: 90%; max-width: 420px; display: flex; flex-direction: column; align-items: center; }
+        .loading-spinner-downloaded { display: none; width: 40px; height: 40px; border: 3px solid var(--border-color); border-radius: 50%; border-top-color: transparent; animation: spin-downloaded 1s linear infinite; margin: 20px auto; }
+        @keyframes spin-downloaded { to { transform: rotate(360deg); } }
+        .error-message-downloaded { display: none; color: red; margin: 10px; text-align: center; }
+        .profile-header-image-downloaded { width: 100%; height: 0; padding-bottom: 33.33%; border: 1px solid var(--border-color); box-sizing: border-box; overflow: hidden; position: relative; margin-bottom: 0; }
+        .profile-header-image-downloaded img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; }
+        .profile-records-downloaded { width: 100%; border: 1px solid var(--border-color); box-sizing: border-box; background-color: var(--background-color); margin-top: 0px;} /* Ensure no top margin if header is missing */
+        .profile-record { padding: 15px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; }
+        .profile-record:last-child { border-bottom: none; }
+        .record-label { font-weight: bold; min-width: 100px; padding-right: 10px; }
+        .record-value { flex: 1; word-break: break-word; }
+        .record-value a { color: inherit; text-decoration: underline; }
+        .footer-downloaded { position: fixed; bottom: 0; left: 0; width: 100%; height: 38px; background: var(--background-color); border-top: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; font-size: 0.9em; }
     </style>
 </head>
 <body>
-    <nav class="nav-bar">
-        <a href="#" class="nav-logo" onclick="window.location.reload()">
-            <img src="${avatarImage.src}" alt="${profileName} Avatar">
-        </a>
+    <nav class="nav-bar-downloaded">
+        <img id="nav-logo-img-downloaded" src="" alt="Avatar" class="nav-logo-downloaded">
     </nav>
-    <div class="profile-container">`;
-
-                        // Add header image if it exists
-                        if (headerImage) {
-                            htmlContent += `
-        <div class="profile-header-image">
-            <img src="${headerImage.src}" alt="${profileName} header">
-        </div>`;
-                        }
-
-                        // Add profile records
-                        htmlContent += `
-        <div class="profile-records">
-            ${profileRecords.innerHTML}
-        </div>
+    <div class="profile-container-downloaded">
+        <div id="loading-spinner-downloaded" class="loading-spinner-downloaded"></div>
+        <div id="error-message-downloaded" class="error-message-downloaded"></div>
+        <div class="profile-header-image-downloaded"></div>
+        <div class="profile-records-downloaded"></div>
     </div>
-    <footer class="footer">
-        <a href="https://geocities.eth.link" target="_blank" rel="noopener noreferrer">GeoCities</a>
-    </footer>
+    <footer class="footer-downloaded">GeoCities Profile</footer>
+    <script>
+        // Embedded JavaScript will be injected here by the parent page
+    </script>
 </body>
 </html>`;
 
-                        // Create download link
-                        const downloadLink = document.createElement('a');
-                        downloadLink.setAttribute('href', 'data:text/html;charset=utf-8,' + encodeURIComponent(htmlContent));
-                        downloadLink.setAttribute('download', `${profileName.replace(/\s+/g, '-').toLowerCase()}-geocities.html`);
+                        // Functions to be stringified and embedded
+                        const embeddedAPI_BASE_URL = API_BASE_URL; // Already a global constant
+                        const embeddedDEFAULT_AVATAR = DEFAULT_AVATAR; // Already a global constant
+                        const embeddedHeaderRenames = JSON.stringify(headerRenames);
+                        const embeddedLinkableRecords = JSON.stringify(linkableRecords);
+
+                        const createDefaultAvatarForDownload = function(letter, themeColors) {
+                            const canvas = document.createElement('canvas');
+                            canvas.width = 200; canvas.height = 200;
+                            const ctx = canvas.getContext('2d');
+                            const bgColor = themeColors.background || '#000000';
+                            const textColor = themeColors.primary || '#ffffff';
+                            const borderColor = themeColors.border || '#ffffff';
+                            ctx.fillStyle = bgColor;
+                            ctx.fillRect(0, 0, canvas.width, canvas.height);
+                            ctx.strokeStyle = borderColor;
+                            ctx.lineWidth = 1;
+                            ctx.strokeRect(0, 0, canvas.width, canvas.height);
+                            ctx.fillStyle = textColor;
+                            ctx.font = 'bold 100px sans-serif';
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'middle';
+                            ctx.fillText(letter ? letter.toUpperCase() : '?', canvas.width / 2, canvas.height / 2);
+                            return canvas.toDataURL('image/png');
+                        };
+
+                        const setAvatarForDownload = function(avatarUrl, defaultAvatarUrl) {
+                            const navLogo = document.getElementById('nav-logo-img-downloaded');
+                            const favicon = document.getElementById('favicon-downloaded');
+                            const url = avatarUrl || defaultAvatarUrl;
+                            if (navLogo) navLogo.src = url;
+                            if (favicon) favicon.href = url;
+                        };
                         
-                        // Trigger download
+                        const addRecordForDownload = function(label, value) {
+                            const recordsContainer = document.querySelector('.profile-records-downloaded');
+                            if (!recordsContainer) return;
+                            const recordDiv = document.createElement('div');
+                            recordDiv.className = 'profile-record';
+                            const labelSpan = document.createElement('span');
+                            labelSpan.className = 'record-label';
+                            labelSpan.textContent = label;
+                            const valueSpan = document.createElement('span');
+                            valueSpan.className = 'record-value';
+                            if (value instanceof Node) {
+                                valueSpan.appendChild(value);
+                            } else {
+                                valueSpan.textContent = value;
+                            }
+                            recordDiv.appendChild(labelSpan);
+                            recordDiv.appendChild(valueSpan);
+                            recordsContainer.appendChild(recordDiv);
+                        };
+
+                        const normalizeUrlForDownload = normalizeUrl.toString(); // Already a global function
+                        const processValueForDownload = processValue.toString(); // Already a global function
+
+                        const showLoadingForDownload = function() {
+                            const spinner = document.getElementById('loading-spinner-downloaded');
+                            if(spinner) spinner.style.display = 'block';
+                        };
+                        const hideLoadingForDownload = function() {
+                            const spinner = document.getElementById('loading-spinner-downloaded');
+                            if(spinner) spinner.style.display = 'none';
+                        };
+                        const showErrorForDownload = function(message) {
+                            const errorEl = document.getElementById('error-message-downloaded');
+                            if(errorEl) { errorEl.textContent = message; errorEl.style.display = 'block';}
+                        };
+                         const hideErrorForDownload = function() {
+                            const errorEl = document.getElementById('error-message-downloaded');
+                            if(errorEl) errorEl.style.display = 'none';
+                        };
+
+
+                        const fetchAndDisplayProfileOnLoad = `
+async function fetchAndDisplayProfileOnLoad(ensToFetch, themeColors) {
+    const API_BASE_URL_EMBEDDED = '${embeddedAPI_BASE_URL}';
+    const DEFAULT_AVATAR_EMBEDDED = '${embeddedDEFAULT_AVATAR}';
+    const headerRenames_EMBEDDED = ${embeddedHeaderRenames};
+    const linkableRecords_EMBEDDED = ${embeddedLinkableRecords};
+
+    (${showLoadingForDownload.toString()})();
+    (${hideErrorForDownload.toString()})();
+
+    try {
+        let url = \`\${API_BASE_URL_EMBEDDED}/profile/ens/\${ensToFetch}\`;
+        if (ensToFetch.endsWith('.base.eth')) {
+            url = \`\${API_BASE_URL_EMBEDDED}/profile/basenames/\${ensToFetch}\`;
+        }
+        const response = await fetch(url);
+        let data;
+        if (response.ok) {
+            data = await response.json();
+        } else if (response.status === 404) {
+            data = { _unregistered: true }; // Special marker for unregistered
+        } else {
+            let errorText = \`Error: \${response.statusText}\`;
+            try { const errorData = await response.json(); errorText = errorData?.message || errorData?.error || errorText; } catch(e){}
+            throw new Error(errorText);
+        }
+
+        // Simplified display logic (adapted from main page's displayProfile and displayUnregisteredProfile)
+        const recordsContainer = document.querySelector('.profile-records-downloaded');
+        if (recordsContainer) recordsContainer.innerHTML = ''; // Clear previous records
+        
+        const headerContainer = document.querySelector('.profile-header-image-downloaded');
+        if (headerContainer) headerContainer.innerHTML = '';
+
+
+        if (data._unregistered) {
+            (${setAvatarForDownload.toString()})((${createDefaultAvatarForDownload.toString()})(ensToFetch.charAt(0), themeColors), DEFAULT_AVATAR_EMBEDDED);
+            if (headerContainer) headerContainer.style.display = 'none';
+            (${addRecordForDownload.toString()})(ensToFetch.endsWith('.base.eth') ? 'Basename' : 'ENS', ensToFetch);
+            (${addRecordForDownload.toString()})('Status', 'This name is not registered.');
+        } else {
+            if (data.avatar) {
+                (${setAvatarForDownload.toString()})(data.avatar, DEFAULT_AVATAR_EMBEDDED);
+            } else {
+                (${setAvatarForDownload.toString()})((${createDefaultAvatarForDownload.toString()})(ensToFetch.charAt(0), themeColors), DEFAULT_AVATAR_EMBEDDED);
+            }
+
+            if (headerContainer) {
+                if (data.header) {
+                    const headerImg = document.createElement('img');
+                    headerImg.src = data.header;
+                    headerImg.alt = ensToFetch + ' header';
+                    headerContainer.appendChild(headerImg);
+                    headerContainer.style.display = 'block';
+                } else {
+                    headerContainer.style.display = 'none';
+                }
+            }
+            
+            let recordsMap = {'identity': null, 'displayName': null, 'followers': null, 'following': null, 'location': null, 'status': null, 'description': null, 'website': null, 'email': null, 'createdAt': null };
+            let otherRecords = [];
+            const isBase = ensToFetch.endsWith('.base.eth');
+            recordsMap['identity'] = { label: isBase ? 'Basename' : 'ENS', value: ensToFetch };
+            if (data.displayName && data.displayName !== ensToFetch) recordsMap['displayName'] = { label: 'Name', value: data.displayName };
+            recordsMap['followers'] = { label: 'Followers', value: data.social?.follower !== undefined ? data.social.follower : 0 };
+            recordsMap['following'] = { label: 'Following', value: data.social?.following !== undefined ? data.social.following : 0 };
+            if (data.location) recordsMap['location'] = { label: 'Location', value: data.location };
+            if (data.status) recordsMap['status'] = { label: 'Status', value: data.status };
+            if (data.description) recordsMap['description'] = { label: 'Bio', value: data.description };
+            if (data.links?.website?.handle) recordsMap['website'] = { label: 'Website', value: data.links.website.handle, isLink: true, linkUrl: data.links.website.link || (${normalizeUrlForDownload})(data.links.website.handle) };
+            if (data.email) recordsMap['email'] = { label: 'Email', value: data.email };
+            if (data.createdAt) {
+                let formattedDate = data.createdAt;
+                try { const date = new Date(data.createdAt); if (!isNaN(date.getTime())) formattedDate = date.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' }); } catch (err) {}
+                recordsMap['createdAt'] = { label: 'Created', value: formattedDate };
+            }
+
+            const processValueEmbedded = ${processValueForDownload}; // Make it available in this scope
+            const normalizeUrlEmbedded = ${normalizeUrlForDownload}; // Make it available
+
+            if (data.links && typeof data.links === 'object') {
+                Object.entries(data.links).forEach(([platform, linkData]) => {
+                    if (platform !== 'website' && linkData.handle) {
+                        let label = '';
+                        if (linkData.sources && linkData.sources.length > 0) label = linkData.sources[0].charAt(0).toUpperCase() + linkData.sources[0].slice(1);
+                        else label = platform.charAt(0).toUpperCase() + platform.slice(1);
+                        otherRecords.push({ label: label, value: linkData.handle, isLink: true, linkUrl: linkData.link || normalizeUrlEmbedded(linkData.handle) });
+                    }
+                });
+            }
+            Object.entries(data).forEach(([key, value]) => {
+                if (!Object.keys(recordsMap).includes(key) && key !== 'links' && key !== 'address') {
+                     processValueEmbedded(key, value, otherRecords, headerRenames_EMBEDDED, linkableRecords_EMBEDDED, normalizeUrlEmbedded);
+                }
+            });
+            let orderedRecords = [];
+            if (recordsMap['identity']) orderedRecords.push(recordsMap['identity']);
+            if (recordsMap['displayName']) orderedRecords.push(recordsMap['displayName']);
+            if (recordsMap['followers']) orderedRecords.push(recordsMap['followers']);
+            if (recordsMap['following']) orderedRecords.push(recordsMap['following']);
+            if (recordsMap['location']) orderedRecords.push(recordsMap['location']);
+            if (recordsMap['status']) orderedRecords.push(recordsMap['status']);
+            if (recordsMap['description']) orderedRecords.push(recordsMap['description']);
+            if (recordsMap['email']) orderedRecords.push(recordsMap['email']);
+            if (recordsMap['website']) orderedRecords.push(recordsMap['website']);
+            otherRecords.sort((a, b) => a.label.localeCompare(b.label));
+            orderedRecords = orderedRecords.concat(otherRecords);
+            if (recordsMap['createdAt']) {
+                 orderedRecords = orderedRecords.filter(record => record.label !== 'Created');
+                 orderedRecords.push(recordsMap['createdAt']);
+            }
+            orderedRecords.forEach(record => {
+                if (record) {
+                    if (record.isLink && record.linkUrl) {
+                        const linkElement = document.createElement('a');
+                        linkElement.href = record.linkUrl;
+                        linkElement.target = '_blank';
+                        linkElement.rel = 'noopener noreferrer';
+                        linkElement.textContent = record.value;
+                        (${addRecordForDownload.toString()})(record.label, linkElement);
+                    } else {
+                        (${addRecordForDownload.toString()})(record.label, record.value);
+                    }
+                }
+            });
+            if (recordsContainer && recordsContainer.children.length === 0) {
+                (${addRecordForDownload.toString()})('Status', 'No records found');
+            }
+        }
+    } catch (error) {
+        (${showErrorForDownload.toString()})(error.message);
+    } finally {
+        (${hideLoadingForDownload.toString()})();
+    }
+}`;
+                        
+                        const embeddedJavaScript = `
+        <script>
+            (function() {
+                const API_BASE_URL = '${embeddedAPI_BASE_URL}';
+                const DEFAULT_AVATAR = '${embeddedDEFAULT_AVATAR}';
+                const headerRenames = ${embeddedHeaderRenames};
+                const linkableRecords = ${embeddedLinkableRecords};
+
+                const themeColors = ${JSON.stringify(themeColorsForDownload)};
+                const ensToFetchGlobal = '${currentEnsName}';
+                const activeEffectNameForDownload = '${activeEffectName}';
+                const capturedBorderColorForDownload = '${capturedBorderColor}';
+
+                ${createDefaultAvatarForDownload.toString()};
+                ${setAvatarForDownload.toString()};
+                ${addRecordForDownload.toString()};
+                ${normalizeUrlForDownload};
+                const processValue = ${processValueForDownload};
+                ${showLoadingForDownload.toString()};
+                ${hideLoadingForDownload.toString()};
+                ${showErrorForDownload.toString()};
+                ${hideErrorForDownload.toString()};
+                
+                // --- Effect Functions for Downloaded Page ---
+                const applyGlowEffectForDownload = function() {
+                    const elements = document.querySelectorAll('.nav-logo-downloaded, .profile-records-downloaded, .profile-record, .profile-header-image-downloaded, .footer-downloaded');
+                    elements.forEach(el => {
+                        el.style.boxShadow = '0 0 5px ' + capturedBorderColorForDownload + ', 0 0 10px ' + capturedBorderColorForDownload;
+                        el.style.animation = 'glowPulse 2s infinite';
+                    });
+                };
+                const removeGlowEffectForDownload = function() {
+                    const elements = document.querySelectorAll('.nav-logo-downloaded, .profile-records-downloaded, .profile-record, .profile-header-image-downloaded, .footer-downloaded');
+                    elements.forEach(el => {
+                        el.style.boxShadow = 'none';
+                        el.style.animation = 'none';
+                    });
+                };
+
+                const addSnowEffectForDownload = ${addSnowEffect.toString().replace(/document\.body\.appendChild\(snowContainer\)/g, "document.querySelector('.profile-container-downloaded').appendChild(snowContainer)")};
+                const removeSnowEffectForDownload = ${removeSnowEffect.toString()};
+
+                const applyStarsEffectForDownload = ${applyStarsEffect.toString().replace(/document\.body\.appendChild\(starsContainer\)/g, "document.querySelector('.profile-container-downloaded').appendChild(starsContainer)")};
+                const removeStarsEffectForDownload = ${removeStarsEffect.toString()};
+                
+                const applyRainbowEffectForDownload = function() {
+                    const elements = document.querySelectorAll('.nav-logo-downloaded, .profile-records-downloaded, .profile-record, .profile-header-image-downloaded, .footer-downloaded');
+                    elements.forEach(el => { el.style.animation = 'rainbowBorder 3s linear infinite'; });
+                };
+                const removeRainbowEffectForDownload = function() {
+                    const elements = document.querySelectorAll('.nav-logo-downloaded, .profile-records-downloaded, .profile-record, .profile-header-image-downloaded, .footer-downloaded');
+                    elements.forEach(el => { el.style.animation = ''; });
+                };
+
+                const applyMatrixEffectForDownload = ${applyMatrixEffect.toString().replace(/document\.body\.appendChild\(matrixContainer\)/g, "document.querySelector('.profile-container-downloaded').appendChild(matrixContainer)").replace(/document\.head\.appendChild\(matrixStyle\)/g, "")}; // Keyframes already in style
+                const removeMatrixEffectForDownload = ${removeMatrixEffect.toString()};
+
+                const applyFirefliesEffectForDownload = ${applyFirefliesEffect.toString().replace(/document\.body\.appendChild\(firefliesContainer\)/g, "document.querySelector('.profile-container-downloaded').appendChild(firefliesContainer)").replace(/document\.head\.appendChild\(fireflyStyle\)/g, "")};
+                const removeFirefliesEffectForDownload = ${removeFirefliesEffect.toString()};
+
+                const applyConfettiEffectForDownload = ${applyConfettiEffect.toString().replace(/document\.body\.appendChild\(confettiContainer\)/g, "document.querySelector('.profile-container-downloaded').appendChild(confettiContainer)").replace(/document\.head\.appendChild\(confettiStyle\)/g, "")};
+                const removeConfettiEffectForDownload = ${removeConfettiEffect.toString()};
+                
+                const applyNeonEffectForDownload = function() {
+                    const elements = document.querySelectorAll('.nav-logo-downloaded, .profile-records-downloaded, .profile-record, .profile-header-image-downloaded, .footer-downloaded');
+                    elements.forEach(el => {
+                        el.style.textShadow = '0 0 5px ' + capturedBorderColorForDownload + ', 0 0 10px ' + capturedBorderColorForDownload;
+                        el.style.boxShadow = '0 0 5px ' + capturedBorderColorForDownload + ', 0 0 10px ' + capturedBorderColorForDownload;
+                        el.style.animation = 'neonPulse 1.5s ease-in-out infinite';
+                    });
+                };
+                const removeNeonEffectForDownload = function() {
+                     const elements = document.querySelectorAll('.nav-logo-downloaded, .profile-records-downloaded, .profile-record, .profile-header-image-downloaded, .footer-downloaded');
+                    elements.forEach(el => {
+                        el.style.textShadow = '';
+                        el.style.boxShadow = '';
+                        el.style.animation = '';
+                    });
+                };
+                const applyVaporwareEffectForDownload = function() {
+                    document.body.style.background = 'linear-gradient(45deg, #ff00ff, #00ffff)';
+                    document.body.style.backgroundSize = '100% 100%';
+                    const navBar = document.querySelector('.nav-bar-downloaded'); // Target downloaded nav bar
+                    if (navBar) {
+                        navBar.style.backgroundColor = 'transparent';
+                        navBar.style.borderColor = '#ffffff'; // Or use capturedBorderColorForDownload if theme consistency desired
+                    }
+                };
+                const removeVaporwareEffectForDownload = function() {
+                    document.body.style.background = '';
+                    document.body.style.backgroundSize = '';
+                    const navBar = document.querySelector('.nav-bar-downloaded');
+                    if (navBar) {
+                        navBar.style.backgroundColor = ''; // Reverts to CSS variable
+                        navBar.style.borderColor = ''; // Reverts to CSS variable
+                    }
+                };
+
+                // --- End of Effect Functions for Downloaded Page ---
+
+                ${fetchAndDisplayProfileOnLoad}
+
+                document.addEventListener('DOMContentLoaded', async () => {
+                    await fetchAndDisplayProfileOnLoad(ensToFetchGlobal, themeColors);
+                    // Auto-apply the active effect
+                    switch (activeEffectNameForDownload) {
+                        case 'glow': applyGlowEffectForDownload(); break;
+                        case 'snow': addSnowEffectForDownload(); break;
+                        case 'stars': applyStarsEffectForDownload(); break;
+                        case 'rainbow': applyRainbowEffectForDownload(); break;
+                        case 'matrix': applyMatrixEffectForDownload(); break;
+                        case 'fireflies': applyFirefliesEffectForDownload(); break;
+                        case 'confetti': applyConfettiEffectForDownload(); break;
+                        case 'neon': applyNeonEffectForDownload(); break;
+                        case 'vaporware': applyVaporwareEffectForDownload(); break;
+                        default: break;
+                    }
+                });
+            })();
+        <\/script>`; 
+                        
+                        const allKeyframesCSS = `
+            @keyframes glowPulse { 0%, 100% { box-shadow: 0 0 5px var(--border-color), 0 0 10px var(--border-color); } 50% { box-shadow: 0 0 10px var(--border-color), 0 0 20px var(--border-color); } }
+            @keyframes neonPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; } }
+            @keyframes snowFall { 0% { transform: translateY(-100vh); } 100% { transform: translateY(100vh); } }
+            @keyframes starTwinkle { 0%, 100% { opacity: 0.2; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.2); } }
+            @keyframes rainbowBorder { 0% { border-color: #ff0000; } 16.666% { border-color: #ff8000; } 33.333% { border-color: #ffff00; } 50% { border-color: #00ff00; } 66.666% { border-color: #0000ff; } 83.333% { border-color: #8000ff; } 100% { border-color: #ff0000; } }
+            @keyframes matrixFall { 0% { transform: translateY(-100%); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translateY(100%); opacity: 0; } }
+            @keyframes fireflyFloat { 0%, 100% { transform: translate(0, 0); } 25% { transform: translate(10px, -20px); } 50% { transform: translate(-30px, 15px); } 75% { transform: translate(20px, 30px); } } /* Simplified random-like values for embedding */
+            @keyframes confettiFall { 0% { transform: translateY(0) rotate(0deg); } 100% { transform: translateY(100vh) rotate(360deg); } }
+        `;
+
+                        const finalHtmlContent = downloadedHtmlStructure.replace(
+                            '</style>',
+                            `${allKeyframesCSS}\n    </style>`
+                        ).replace(
+                            '<script>\n        // Embedded JavaScript will be injected here by the parent page\n    </script>',
+                             embeddedJavaScript
+                        );
+
+                        const downloadLink = document.createElement('a');
+                        downloadLink.setAttribute('href', 'data:text/html;charset=utf-8,' + encodeURIComponent(finalHtmlContent));
+                        downloadLink.setAttribute('download', `${currentEnsName.replace(/\s+/g, '-').toLowerCase()}.html`);
+                        
                         document.body.appendChild(downloadLink);
                         downloadLink.click();
                         document.body.removeChild(downloadLink);
