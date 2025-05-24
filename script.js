@@ -253,8 +253,7 @@ errer">GeoCities</a>
 
 // At the start of the script section
 const API_BASE_URL = 'https://api.web3.bio';
-const DEFAULT_AVATAR = 'https://raw.githubusercontent.com/GeoCities/Ads/main/Ads
-/Nyan%20Cat%20-%20GeoCities.gif';
+const DEFAULT_AVATAR = 'https://raw.githubusercontent.com/GeoCities/Ads/main/Ads/Nyan%20Cat%20-%20GeoCities.gif';
 
 // Define headerRenames and linkableRecords globally in script.js so they can be
  stringified
