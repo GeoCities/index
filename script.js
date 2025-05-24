@@ -389,7 +389,10 @@ function toggleTheme() {
 }
 
 // Style-related functions
-function applyCustomStyles() {
+function applyCustomStyles(event) {
+    // Only apply custom styles if the change was triggered by user interaction
+    if (!event || !event.isTrusted) return;
+
     const bgColorPicker = document.getElementById('bg-color');
     const textColorPicker = document.getElementById('text-color');
     const borderColorPicker = document.getElementById('border-color');
@@ -460,14 +463,21 @@ function removeAllEffects() {
 }
 
 function applyGlowEffect() {
-    const elements = document.querySelectorAll(
+    const borderedElements = document.querySelectorAll(
         '.nav-logo, .search-input, .search-button, #theme-toggle, ' +
         '.profile-records, .profile-record, .profile-header-image, .footer, ' +
         '.color-button, .effect-select'
     );
-    elements.forEach(el => {
-        el.style.boxShadow = `0 0 5px ${borderColorPicker.value}, 0 0 10px ${borderColorPicker.value}`;
-        el.style.animation = 'glowPulse 2s infinite';
+    
+    borderedElements.forEach(el => {
+        // Create a much stronger, static glow effect with multiple layers
+        const color = borderColorPicker.value;
+        el.style.boxShadow = `0 0 5px ${color},
+                             0 0 10px ${color},
+                             0 0 20px ${color},
+                             0 0 30px ${color},
+                             0 0 40px ${color}`;
+        el.style.transition = 'box-shadow 0.3s ease';
     });
 }
 
@@ -484,36 +494,80 @@ function removeGlowEffect() {
 }
 
 function addSnowEffect() {
-    const snowContainer = document.createElement('div');
-    snowContainer.id = 'snow-container';
-    snowContainer.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 1000;
-    `;
-
-    for (let i = 0; i < 50; i++) {
-        const snow = document.createElement('div');
-        snow.style.cssText = `
-            position: absolute;
-            width: ${Math.random() * 10 + 2}px;
-            height: ${Math.random() * 10 + 2}px;
-            background: var(--primary-color);
-            border-radius: 50%;
+    // Only add if it doesn't exist yet
+    if (!document.getElementById('snow-container')) {
+        const snowContainer = document.createElement('div');
+        snowContainer.id = 'snow-container';
+        snowContainer.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             pointer-events: none;
-            animation: snowFall ${Math.random() * 3 + 2}s linear infinite;
-            left: ${Math.random() * 100}%;
-            opacity: ${Math.random() * 0.6 + 0.4};
-            animation-delay: -${Math.random() * 5}s;
+            z-index: 50;
+            overflow: hidden;
         `;
-        snowContainer.appendChild(snow);
+        
+        // Add the snow animations style
+        const snowStyle = document.createElement('style');
+        snowStyle.textContent = `
+            @keyframes snowFall {
+                0% {
+                    transform: translateY(-100vh) rotate(0deg);
+                }
+                100% {
+                    transform: translateY(100vh) rotate(360deg);
+                }
+            }
+            
+            @keyframes snowSway {
+                0% {
+                    transform: translateX(-15px);
+                }
+                100% {
+                    transform: translateX(15px);
+                }
+            }
+            
+            .snowflake {
+                position: absolute;
+                background: white;
+                border-radius: 50%;
+                pointer-events: none;
+                transform-origin: top;
+            }
+        `;
+        document.head.appendChild(snowStyle);
+        
+        // Create more snowflakes with varied properties
+        for (let i = 0; i < 150; i++) {
+            const snowflake = document.createElement('div');
+            const size = Math.random() * 4 + 1; // Smaller size range for more realism
+            const startingLeft = Math.random() * 100;
+            const animDuration = Math.random() * 8 + 12; // Slower fall
+            const animDelay = Math.random() * 15; // More varied delays
+            const blur = Math.random() * 2 + 0.5; // Add blur for depth
+            const opacity = Math.random() * 0.4 + 0.1; // Lower opacity for subtlety
+            
+            snowflake.className = 'snowflake';
+            snowflake.style.cssText = `
+                width: ${size}px;
+                height: ${size}px;
+                top: -${size}px;
+                left: ${startingLeft}%;
+                opacity: ${opacity};
+                filter: blur(${blur}px);
+                animation: snowFall ${animDuration}s linear infinite,
+                         snowSway ${animDuration * 0.5}s ease-in-out infinite alternate;
+                animation-delay: -${animDelay}s;
+            `;
+            
+            snowContainer.appendChild(snowflake);
+        }
+        
+        document.body.appendChild(snowContainer);
     }
-
-    document.body.appendChild(snowContainer);
 }
 
 function removeSnowEffect() {
@@ -836,7 +890,7 @@ function removeVaporwareEffect() {
 }
 
 // Add the download functionality
-function generateDownload() {
+async function generateDownload() {
     try {
         // Get current profile data
         const profileNameElement = document.querySelector('.profile-record .record-value');
@@ -865,6 +919,149 @@ function generateDownload() {
         if (currentStyles.currentEffect !== 'none') {
             effectStyles = generateEffectStyles(currentStyles.currentEffect);
         }
+
+        // Add effect initialization code
+        const effectInitCode = {
+            matrix: `
+                function initializeMatrixEffect() {
+                    const container = document.createElement('div');
+                    container.className = 'matrix-effect';
+                    document.body.appendChild(container);
+
+                    const characters = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789';
+                    const columns = Math.floor(window.innerWidth / 30);
+
+                    for (let i = 0; i < columns; i++) {
+                        const column = document.createElement('div');
+                        column.className = 'matrix-column';
+                        const duration = Math.random() * 4 + 7.92;
+                        column.style.left = i * 30 + 'px';
+                        column.style.animation = \`matrixFall \${duration}s linear infinite\`;
+                        column.style.animationDelay = -Math.random() * 8 + 's';
+
+                        let text = '';
+                        const length = 35;
+                        for (let j = 0; j < length; j++) {
+                            const char = characters[Math.floor(Math.random() * characters.length)];
+                            if (j < 2 && Math.random() > 0.5) {
+                                text += \`<span style="color: #ffffff; text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 30px #ffffff;">\${char}</span><br>\`;
+                            } else {
+                                text += \`\${char}<br>\`;
+                            }
+                        }
+                        column.innerHTML = text;
+                        container.appendChild(column);
+                    }
+                }
+                document.addEventListener('DOMContentLoaded', initializeMatrixEffect);
+            `,
+            snow: `
+                function initializeSnowEffect() {
+                    const container = document.createElement('div');
+                    container.className = 'snow-container';
+                    document.body.appendChild(container);
+
+                    for (let i = 0; i < 50; i++) {
+                        const snow = document.createElement('div');
+                        snow.className = 'snowflake';
+                        const size = Math.random() * 8 + 2;
+                        snow.style.width = size + 'px';
+                        snow.style.height = size + 'px';
+                        snow.style.left = Math.random() * 100 + '%';
+                        snow.style.opacity = Math.random() * 0.6 + 0.4;
+                        snow.style.animation = \`snowFall \${Math.random() * 3 + 2}s linear infinite\`;
+                        snow.style.animationDelay = -Math.random() * 5 + 's';
+                        container.appendChild(snow);
+                    }
+                }
+                document.addEventListener('DOMContentLoaded', initializeSnowEffect);
+            `,
+            stars: `
+                function initializeStarsEffect() {
+                    const container = document.createElement('div');
+                    container.className = 'stars-container';
+                    document.body.appendChild(container);
+
+                    const starColors = ['#ffffff', '#ffff00', '#00ffff', '#ff00ff'];
+                    for (let i = 0; i < 100; i++) {
+                        const star = document.createElement('div');
+                        star.className = 'star';
+                        const size = Math.random() * 2 + 1;
+                        star.style.width = size + 'px';
+                        star.style.height = size + 'px';
+                        star.style.left = Math.random() * 100 + '%';
+                        star.style.top = Math.random() * 100 + '%';
+                        star.style.background = starColors[Math.floor(Math.random() * starColors.length)];
+                        star.style.animation = \`starTwinkle \${Math.random() * 3 + 2}s ease-in-out infinite\`;
+                        star.style.animationDelay = -Math.random() * 2 + 's';
+                        container.appendChild(star);
+                    }
+                }
+                document.addEventListener('DOMContentLoaded', initializeStarsEffect);
+            `,
+            fireflies: `
+                function initializeFirefliesEffect() {
+                    const container = document.createElement('div');
+                    container.className = 'fireflies-container';
+                    document.body.appendChild(container);
+
+                    for (let i = 0; i < 30; i++) {
+                        const firefly = document.createElement('div');
+                        firefly.className = 'firefly';
+                        const size = Math.random() * 4 + 2;
+                        firefly.style.width = size + 'px';
+                        firefly.style.height = size + 'px';
+                        firefly.style.left = Math.random() * 100 + '%';
+                        firefly.style.top = Math.random() * 100 + '%';
+                        firefly.style.setProperty('--size', size * 2 + 'px');
+                        firefly.style.setProperty('--x1', (Math.random() * 100 - 50) + 'px');
+                        firefly.style.setProperty('--y1', (Math.random() * 100 - 50) + 'px');
+                        firefly.style.setProperty('--x2', (Math.random() * 100 - 50) + 'px');
+                        firefly.style.setProperty('--y2', (Math.random() * 100 - 50) + 'px');
+                        firefly.style.setProperty('--x3', (Math.random() * 100 - 50) + 'px');
+                        firefly.style.setProperty('--y3', (Math.random() * 100 - 50) + 'px');
+                        firefly.style.animation = \`fireflyFloat \${Math.random() * 4 + 3}s ease-in-out infinite\`;
+                        container.appendChild(firefly);
+                    }
+                }
+                document.addEventListener('DOMContentLoaded', initializeFirefliesEffect);
+            `,
+            confetti: `
+                function initializeConfettiEffect() {
+                    const container = document.createElement('div');
+                    container.className = 'confetti-container';
+                    document.body.appendChild(container);
+
+                    const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+                    for (let i = 0; i < 100; i++) {
+                        const confetti = document.createElement('div');
+                        confetti.className = 'confetti';
+                        const size = Math.random() * 10 + 5;
+                        confetti.style.width = size + 'px';
+                        confetti.style.height = size + 'px';
+                        confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                        confetti.style.left = Math.random() * 100 + '%';
+                        confetti.style.animation = \`confettiFall \${Math.random() * 3 + 2}s linear infinite\`;
+                        confetti.style.animationDelay = -Math.random() * 5 + 's';
+                        confetti.style.transform = \`rotate(\${Math.random() * 360}deg)\`;
+                        container.appendChild(confetti);
+                    }
+                }
+                document.addEventListener('DOMContentLoaded', initializeConfettiEffect);
+            `
+        };
+
+        // Add the effect initialization code to the HTML template
+        const effectInit = currentStyles.currentEffect !== 'none' && effectInitCode[currentStyles.currentEffect] 
+            ? effectInitCode[currentStyles.currentEffect] 
+            : '';
+
+        // Update the script section in the HTML template
+        const scriptSection = `
+        <script>
+            ${effectInit}
+        </script>
+        `;
 
         // Create HTML content
         const html = `<!DOCTYPE html>
@@ -1043,42 +1240,7 @@ function generateDownload() {
         <a href="https://geocities.eth.link" target="_blank" rel="noopener noreferrer">GeoCities</a>
     </footer>
 
-    <script>
-        // Initialize matrix effect if selected
-        ${currentStyles.currentEffect === 'matrix' ? `
-        function initializeMatrixEffect() {
-            const container = document.createElement('div');
-            container.className = 'matrix-effect';
-            document.body.appendChild(container);
-
-            const characters = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789';
-            const columns = Math.floor(window.innerWidth / 30);
-
-            for (let i = 0; i < columns; i++) {
-                const column = document.createElement('div');
-                column.className = 'matrix-column';
-                const duration = Math.random() * 4 + 7.92;
-                column.style.left = i * 30 + 'px';
-                column.style.animation = \`matrixFall \${duration}s linear infinite\`;
-                column.style.animationDelay = -Math.random() * 8 + 's';
-
-                let text = '';
-                const length = 35;
-                for (let j = 0; j < length; j++) {
-                    const char = characters[Math.floor(Math.random() * characters.length)];
-                    if (j < 2 && Math.random() > 0.5) {
-                        text += \`<span style="color: #ffffff; text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 30px #ffffff;">\${char}</span><br>\`;
-                    } else {
-                        text += \`\${char}<br>\`;
-                    }
-                }
-                column.innerHTML = text;
-                container.appendChild(column);
-            }
-        }
-        document.addEventListener('DOMContentLoaded', initializeMatrixEffect);
-        ` : ''}
-    </script>
+    ${scriptSection}
 </body>
 </html>`;
 
@@ -1173,7 +1335,144 @@ function generateEffectStyles(effectName) {
                     animation: glowPulse 2s infinite;
                 }
             `;
-        // Add other effects here...
+        case 'snow':
+            return `
+                @keyframes snowFall {
+                    0% {
+                        transform: translateY(-100%) rotate(0deg);
+                    }
+                    100% {
+                        transform: translateY(100vh) rotate(360deg);
+                    }
+                }
+                .snow-container {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    pointer-events: none;
+                    z-index: 1000;
+                }
+                .snowflake {
+                    position: absolute;
+                    background: var(--primary-color);
+                    border-radius: 50%;
+                    pointer-events: none;
+                    animation: snowFall linear infinite;
+                }
+            `;
+        case 'stars':
+            return `
+                @keyframes starTwinkle {
+                    0%, 100% { opacity: 0.2; }
+                    50% { opacity: 1; }
+                }
+                .stars-container {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    pointer-events: none;
+                    z-index: 50;
+                    overflow: hidden;
+                }
+                .star {
+                    position: absolute;
+                    background: #ffffff;
+                    border-radius: 50%;
+                    pointer-events: none;
+                    animation: starTwinkle ease-in-out infinite;
+                }
+            `;
+        case 'rainbow':
+            return `
+                @keyframes rainbowBorder {
+                    0% { border-color: #ff0000; }
+                    16.666% { border-color: #ff8000; }
+                    33.333% { border-color: #ffff00; }
+                    50% { border-color: #00ff00; }
+                    66.666% { border-color: #0000ff; }
+                    83.333% { border-color: #8000ff; }
+                    100% { border-color: #ff0000; }
+                }
+                .nav-logo, .profile-records, .profile-record, .profile-header-image, .footer {
+                    animation: rainbowBorder 3s linear infinite;
+                }
+            `;
+        case 'fireflies':
+            return `
+                @keyframes fireflyFloat {
+                    0%, 100% { transform: translate(0, 0); }
+                    25% { transform: translate(var(--x1), var(--y1)); }
+                    50% { transform: translate(var(--x2), var(--y2)); }
+                    75% { transform: translate(var(--x3), var(--y3)); }
+                }
+                .fireflies-container {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    pointer-events: none;
+                    z-index: 40;
+                    overflow: hidden;
+                }
+                .firefly {
+                    position: absolute;
+                    background: #ffff00;
+                    border-radius: 50%;
+                    box-shadow: 0 0 var(--size) #ffff00;
+                    pointer-events: none;
+                    animation: fireflyFloat ease-in-out infinite;
+                }
+            `;
+        case 'confetti':
+            return `
+                @keyframes confettiFall {
+                    0% { transform: translateY(-100vh) rotate(0deg); }
+                    100% { transform: translateY(100vh) rotate(360deg); }
+                }
+                .confetti-container {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    pointer-events: none;
+                    z-index: 40;
+                    overflow: hidden;
+                }
+                .confetti {
+                    position: absolute;
+                    pointer-events: none;
+                    animation: confettiFall linear infinite;
+                }
+            `;
+        case 'neon':
+            return `
+                @keyframes neonPulse {
+                    0%, 100% { opacity: 1; text-shadow: 0 0 5px var(--border-color), 0 0 10px var(--border-color); }
+                    50% { opacity: 0.8; text-shadow: 0 0 10px var(--border-color), 0 0 20px var(--border-color); }
+                }
+                .nav-logo, .profile-records, .profile-record, .profile-header-image, .footer {
+                    text-shadow: 0 0 5px var(--border-color), 0 0 10px var(--border-color);
+                    box-shadow: 0 0 5px var(--border-color), 0 0 10px var(--border-color);
+                    animation: neonPulse 1.5s ease-in-out infinite;
+                }
+            `;
+        case 'vaporware':
+            return `
+                body {
+                    background: linear-gradient(45deg, #ff00ff, #00ffff);
+                    background-size: 100% 100%;
+                }
+                .nav-bar {
+                    background: transparent;
+                    border-color: #ffffff;
+                }
+            `;
         default:
             return '';
     }
@@ -1514,19 +1813,28 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Theme toggle
     if (themeToggle) {
-        themeToggle.addEventListener('click', () => {
-            const isLight = document.body.dataset.theme === 'light';
-            document.body.dataset.theme = isLight ? '' : 'light';
-            themeToggle.textContent = isLight ? 'Light' : 'Dark';
-            initializeColorPickers();
-        });
+        themeToggle.addEventListener('click', toggleTheme);
     }
     
     // Style customization
-    if (bgColorPicker) bgColorPicker.addEventListener('input', applyCustomStyles);
-    if (textColorPicker) textColorPicker.addEventListener('input', applyCustomStyles);
-    if (borderColorPicker) borderColorPicker.addEventListener('input', applyCustomStyles);
-    if (effectSelect) effectSelect.addEventListener('change', handleEffectChange);
+    if (bgColorPicker) {
+        bgColorPicker.addEventListener('change', (e) => {
+            if (e.isTrusted) applyCustomStyles(e);
+        });
+    }
+    if (textColorPicker) {
+        textColorPicker.addEventListener('change', (e) => {
+            if (e.isTrusted) applyCustomStyles(e);
+        });
+    }
+    if (borderColorPicker) {
+        borderColorPicker.addEventListener('change', (e) => {
+            if (e.isTrusted) applyCustomStyles(e);
+        });
+    }
+    if (effectSelect) {
+        effectSelect.addEventListener('change', handleEffectChange);
+    }
     
     // Download button
     const downloadButton = document.querySelector('.download-website-button');
@@ -1534,7 +1842,7 @@ document.addEventListener('DOMContentLoaded', () => {
         downloadButton.addEventListener('click', generateDownload);
     }
     
-    // Initialize color pickers
+    // Initialize color pickers with default theme colors
     initializeColorPickers();
 });
 
@@ -1680,3 +1988,187 @@ function getFontFamily(neighborhood) {
     if (neighborhood === 'athens') return "'Georgia', serif";
     return "sans-serif";
 }
+
+// Add PWA support functions
+async function registerServiceWorker() {
+    if ('serviceWorker' in navigator) {
+        try {
+            await navigator.serviceWorker.register('/sw.js');
+        } catch (error) {
+            console.error('Service worker registration failed:', error);
+        }
+    }
+}
+
+// Function to generate icons from avatar
+async function generateIcons(avatarUrl) {
+    const sizes = [192, 512];
+    const icons = [];
+
+    for (const size of sizes) {
+        const canvas = document.createElement('canvas');
+        canvas.width = size;
+        canvas.height = size;
+        const ctx = canvas.getContext('2d');
+
+        // Create a circular mask
+        ctx.beginPath();
+        ctx.arc(size/2, size/2, size/2, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.clip();
+
+        // Load and draw the avatar
+        const img = new Image();
+        await new Promise((resolve, reject) => {
+            img.onload = resolve;
+            img.onerror = reject;
+            img.src = avatarUrl;
+        });
+
+        // Draw the image with proper scaling
+        const scale = Math.max(size / img.width, size / img.height);
+        const x = (size - img.width * scale) / 2;
+        const y = (size - img.height * scale) / 2;
+        ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
+
+        icons.push({
+            src: canvas.toDataURL('image/png'),
+            sizes: `${size}x${size}`,
+            type: 'image/png',
+            purpose: 'any maskable'
+        });
+    }
+
+    return icons;
+}
+
+// Function to generate dynamic manifest for downloaded profiles
+async function generateProfileManifest(ensName, avatarUrl) {
+    const icons = await generateIcons(avatarUrl);
+    return {
+        name: ensName,
+        short_name: ensName,
+        description: `${ensName} Web3 Profile`,
+        start_url: '/',
+        display: 'standalone',
+        background_color: getComputedStyle(document.documentElement).getPropertyValue('--background-color').trim(),
+        theme_color: getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim(),
+        icons: icons
+    };
+}
+
+// Update the generateDownload function to include PWA support
+async function generateDownload() {
+    try {
+        // ... existing code until the HTML generation ...
+
+        // Get profile data
+        const profileNameElement = document.querySelector('.profile-record .record-value');
+        if (!profileNameElement) {
+            throw new Error('No profile data found to download');
+        }
+
+        const ensName = profileNameElement.textContent;
+        const avatarUrl = document.getElementById('nav-logo-img').src;
+
+        // Generate manifest for this profile
+        const manifest = await generateProfileManifest(ensName, avatarUrl);
+
+        // Create the service worker code for the downloaded profile
+        const serviceWorkerCode = `
+            const CACHE_NAME = '${ensName.toLowerCase()}-v1';
+            const ASSETS_TO_CACHE = [
+                './',
+                './index.html',
+                './manifest.json',
+                '${avatarUrl}'
+            ];
+
+            self.addEventListener('install', (event) => {
+                event.waitUntil(
+                    caches.open(CACHE_NAME)
+                        .then((cache) => cache.addAll(ASSETS_TO_CACHE))
+                );
+            });
+
+            self.addEventListener('fetch', (event) => {
+                event.respondWith(
+                    caches.match(event.request)
+                        .then((response) => {
+                            return response || fetch(event.request);
+                        })
+                );
+            });
+        `;
+
+        // Add PWA meta tags and manifest link to the HTML
+        const pwaMetaTags = `
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="${manifest.theme_color}">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="${ensName}">
+    <link rel="apple-touch-icon" href="${manifest.icons[1].src}">
+`;
+
+        // Add PWA initialization code
+        const pwaInitCode = `
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('sw.js')
+                .catch(error => console.error('Service worker registration failed:', error));
+        });
+    }
+`;
+
+        // Update the HTML template to include PWA support
+        let html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    ${pwaMetaTags}
+    <title>${ensName}</title>
+    <!-- ... rest of the existing head content ... -->
+</head>
+<body>
+    <!-- ... existing body content ... -->
+    <script>
+        ${pwaInitCode}
+        ${effectInit}
+    </script>
+</body>
+</html>`;
+
+        // Create a ZIP file containing all necessary files
+        const zip = new JSZip();
+        zip.file('index.html', html);
+        zip.file('manifest.json', JSON.stringify(manifest, null, 2));
+        zip.file('sw.js', serviceWorkerCode);
+
+        // Generate the ZIP file
+        const zipBlob = await zip.generateAsync({type: 'blob'});
+
+        // Create download link for the ZIP file
+        const downloadLink = document.createElement('a');
+        downloadLink.href = URL.createObjectURL(zipBlob);
+        downloadLink.download = `${ensName.replace(/\s+/g, '-').toLowerCase()}-pwa.zip`;
+        
+        // Trigger download
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+        
+    } catch (error) {
+        console.error('Error generating download:', error);
+        // ... existing error handling code ...
+    }
+}
+
+// Initialize PWA support when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    // ... existing DOMContentLoaded code ...
+    
+    // Register service worker for main site
+    registerServiceWorker();
+});
