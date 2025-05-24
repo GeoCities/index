@@ -3,10 +3,13 @@ const DOWNLOAD_TEMPLATE_STRING = `
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximu
+m-scale=1.0, user-scalable=no">
     <title><!--ENS_NAME_TITLE_PLACEHOLDER--> - GeoCities Profile</title>
-    <link rel="icon" id="favicon-downloaded" href="<!--FAVICON_SRC_PLACEHOLDER-->" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Georgia&display=swap" rel="stylesheet">
+    <link rel="icon" id="favicon-downloaded" href="<!--FAVICON_SRC_PLACEHOLDER--
+>" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&f
+amily=Georgia&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; }
         :root {
@@ -29,7 +32,8 @@ const DOWNLOAD_TEMPLATE_STRING = `
             min-height: 100vh;
             margin: 0;
             padding: 20px 0 80px; /* Increased bottom padding for footer */
-            transition: background 0.3s ease, color 0.3s ease; /* Kept for effect transitions if any are JS-driven post-load */
+            transition: background 0.3s ease, color 0.3s ease; /* Kept for effec
+t transitions if any are JS-driven post-load */
             position: relative;
             width: 100%;
             overflow-x: hidden;
@@ -52,7 +56,8 @@ const DOWNLOAD_TEMPLATE_STRING = `
             border: none;
         }
 
-        .nav-logo-img-downloaded { /* Class for the img tag itself if needed, or style #nav-logo-img-downloaded */
+        .nav-logo-img-downloaded { /* Class for the img tag itself if needed, or
+ style #nav-logo-img-downloaded */
             width: 80px;
             height: 80px;
             object-fit: contain;
@@ -158,7 +163,7 @@ const DOWNLOAD_TEMPLATE_STRING = `
         .profile-record a:hover {
             opacity: 0.8;
         }
-        
+
         /* Responsive adjustments for profile records */
         @media (max-width: 480px) {
             .profile-record {
@@ -200,7 +205,8 @@ const DOWNLOAD_TEMPLATE_STRING = `
             opacity: 0.8;
         }
 
-        /* Keyframes for loading spinner (if not already part of effect keyframes) */
+        /* Keyframes for loading spinner (if not already part of effect keyframe
+s) */
         @keyframes spin-downloaded {
             to { transform: rotate(360deg); }
         }
@@ -214,15 +220,19 @@ const DOWNLOAD_TEMPLATE_STRING = `
 </head>
 <body>
     <nav class="nav-bar-downloaded">
-        <img id="nav-logo-img-downloaded" src="<!--AVATAR_SRC_PLACEHOLDER-->" alt="Avatar" class="nav-logo-img-downloaded">
+        <img id="nav-logo-img-downloaded" src="<!--AVATAR_SRC_PLACEHOLDER-->" al
+t="Avatar" class="nav-logo-img-downloaded">
     </nav>
 
     <div class="profile-container-downloaded">
-        <div id="loading-spinner-downloaded" class="loading-spinner-downloaded"></div>
-        <div id="error-message-downloaded" class="error-message-downloaded"></div>
+        <div id="loading-spinner-downloaded" class="loading-spinner-downloaded">
+</div>
+        <div id="error-message-downloaded" class="error-message-downloaded"></di
+v>
 
         <div class="profile-header-image-downloaded">
-            <!-- Header image img tag will be inserted here by JS if data.header exists -->
+            <!-- Header image img tag will be inserted here by JS if data.header
+ exists -->
         </div>
         <div class="profile-records-downloaded">
             <!-- Profile records will be inserted here by JS -->
@@ -230,7 +240,8 @@ const DOWNLOAD_TEMPLATE_STRING = `
     </div>
 
     <footer class="footer-downloaded">
-        <a href="https://geocities.eth.link" target="_blank" rel="noopener noreferrer">GeoCities</a>
+        <a href="https://geocities.eth.link" target="_blank" rel="noopener noref
+errer">GeoCities</a>
     </footer>
 
     <script>
@@ -242,9 +253,11 @@ const DOWNLOAD_TEMPLATE_STRING = `
 
 // At the start of the script section
 const API_BASE_URL = 'https://api.web3.bio';
-const DEFAULT_AVATAR = 'https://raw.githubusercontent.com/GeoCities/Ads/main/Ads/Nyan%20Cat%20-%20GeoCities.gif';
+const DEFAULT_AVATAR = 'https://raw.githubusercontent.com/GeoCities/Ads/main/Ads
+/Nyan%20Cat%20-%20GeoCities.gif';
 
-// Define headerRenames and linkableRecords globally in script.js so they can be stringified
+// Define headerRenames and linkableRecords globally in script.js so they can be
+ stringified
 const headerRenames = {
     'email': 'Email',
     'description': 'Bio',
@@ -256,7 +269,8 @@ const headerRenames = {
     'com.github': 'GitHub',
     'org.telegram': 'Telegram'
 };
-const linkableRecords = ['Website', 'Twitter', 'GitHub', 'Discord', 'Telegram', 'Farcaster'];
+const linkableRecords = ['Website', 'Twitter', 'GitHub', 'Discord', 'Telegram',
+'Farcaster'];
 
 // Style customization constants moved from <style>
 const stylePanel = document.querySelector('.style-panel');
@@ -286,34 +300,39 @@ function hideError() {
 }
 
 function createDefaultAvatar(letter) {
-    // Create a canvas to generate a simple avatar with first letter using current theme colors
+    // Create a canvas to generate a simple avatar with first letter using curre
+nt theme colors
     const canvas = document.createElement('canvas');
     canvas.width = 200;
     canvas.height = 200;
     const ctx = canvas.getContext('2d');
-    
+
     // Get current theme colors from CSS variables
     const computedStyle = getComputedStyle(document.documentElement);
-    const bgColor = computedStyle.getPropertyValue('--background-color').trim() || '#000000';
-    const textColor = computedStyle.getPropertyValue('--primary-color').trim() || '#ffffff';
-    const borderColor = computedStyle.getPropertyValue('--border-color').trim() || '#ffffff';
-    
+    const bgColor = computedStyle.getPropertyValue('--background-color').trim()
+|| '#000000';
+    const textColor = computedStyle.getPropertyValue('--primary-color').trim() |
+| '#ffffff';
+    const borderColor = computedStyle.getPropertyValue('--border-color').trim()
+|| '#ffffff';
+
     // Draw background using theme background color
     ctx.fillStyle = bgColor;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    
+
     // Draw border using theme border color
     ctx.strokeStyle = borderColor;
     ctx.lineWidth = 1;
     ctx.strokeRect(0, 0, canvas.width, canvas.height);
-    
+
     // Draw letter using theme text color
     ctx.fillStyle = textColor;
     ctx.font = 'bold 100px sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText(letter ? letter.toUpperCase() : '?', canvas.width / 2, canvas.height / 2);
-    
+    ctx.fillText(letter ? letter.toUpperCase() : '?', canvas.width / 2, canvas.h
+eight / 2);
+
     // Return data URL
     return canvas.toDataURL('image/png');
 }
@@ -321,12 +340,12 @@ function createDefaultAvatar(letter) {
 function setAvatar(avatarUrl) {
     const navLogo = document.getElementById('nav-logo-img');
     const favicon = document.getElementById('favicon');
-    
+
     // Use raw GitHub URL instead of blob URL
     const url = avatarUrl || DEFAULT_AVATAR;
     navLogo.src = url;
     favicon.href = url;
-    
+
     // Debug logging
     console.log('Setting avatar to:', url);
 }
@@ -334,7 +353,7 @@ function setAvatar(avatarUrl) {
 // Style customization functions
 function initializeColorPickers() {
     const isLight = document.body.dataset.theme === 'light';
-    
+
     // Set default colors based on current theme
     if (isLight) {
         bgColorPicker.value = '#ffffff';
@@ -345,18 +364,20 @@ function initializeColorPickers() {
         textColorPicker.value = '#ffffff';
         borderColorPicker.value = '#ffffff';
     }
-    
+
     // Apply initial colors
     applyCustomStyles();
 }
 
 function rgbToHex(rgb) {
-    const rgbMatch = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*[\d.]+)?\)$/);
+    const rgbMatch = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*[\d.]+)?\)
+$/);
     if (rgbMatch) {
         const r = parseInt(rgbMatch[1]);
         const g = parseInt(rgbMatch[2]);
         const b = parseInt(rgbMatch[3]);
-        return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+        return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1
+);
     }
     return '#000000';
 }
@@ -364,19 +385,22 @@ function rgbToHex(rgb) {
 function applyCustomStyles() {
     // Get the current effect
     const currentEffect = effectSelect.value;
-    
+
     // Apply to body
     document.body.style.backgroundColor = bgColorPicker.value;
     document.body.style.color = textColorPicker.value;
-    
+
     // Update CSS variables
-    document.documentElement.style.setProperty('--primary-color', textColorPicker.value);
-    document.documentElement.style.setProperty('--background-color', bgColorPicker.value);
-    document.documentElement.style.setProperty('--border-color', borderColorPicker.value);
-    
+    document.documentElement.style.setProperty('--primary-color', textColorPicke
+r.value);
+    document.documentElement.style.setProperty('--background-color', bgColorPick
+er.value);
+    document.documentElement.style.setProperty('--border-color', borderColorPick
+er.value);
+
     // Keep vaporware effect if active
     const isVaporwareActive = currentEffect === 'vaporware';
-    
+
     // Apply to all themed elements
     const themedElements = [
         '.profile-records',
@@ -392,7 +416,7 @@ function applyCustomStyles() {
         '.effect-select',
         '.button-text'
     ];
-    
+
     // Apply navbar styling separately to respect vaporware effect
     if (!isVaporwareActive) {
         const navBar = document.querySelector('.nav-bar');
@@ -402,14 +426,14 @@ function applyCustomStyles() {
             navBar.style.borderColor = borderColorPicker.value;
         }
     }
-    
+
     themedElements.forEach(selector => {
         const elements = document.querySelectorAll(selector);
         elements.forEach(el => {
             el.style.backgroundColor = bgColorPicker.value;
             el.style.color = textColorPicker.value;
             el.style.borderColor = borderColorPicker.value;
-            
+
             // Ensure all links within the element inherit the text color
             const links = el.querySelectorAll('a');
             links.forEach(link => {
@@ -417,16 +441,18 @@ function applyCustomStyles() {
             });
         });
     });
-    
+
     // Only regenerate default avatars on profile pages
     const profilePage = document.getElementById('profile-page');
     if (profilePage && profilePage.style.display === 'flex') {
         // Check if we're using a default avatar by looking at the src
         const navLogo = document.getElementById('nav-logo-img');
-        if (navLogo && navLogo.src && navLogo.src.startsWith('data:image/png;base64,')) {
+        if (navLogo && navLogo.src && navLogo.src.startsWith('data:image/png;bas
+e64,')) {
             // This is a default avatar, regenerate it with the new colors
             // Get current name from profile records
-            const nameElement = document.querySelector('.profile-record .record-value');
+            const nameElement = document.querySelector('.profile-record .record-
+value');
             if (nameElement && nameElement.textContent) {
                 const name = nameElement.textContent;
                 const firstLetter = name.charAt(0);
@@ -434,9 +460,10 @@ function applyCustomStyles() {
                 setAvatar(newAvatar);
             }
         }
-        // If it's not a default avatar (doesn't start with data:image), leave it alone
+        // If it's not a default avatar (doesn't start with data:image), leave i
+t alone
     }
-    
+
     // Re-apply glow or neon effect to update with new border color
     if (currentEffect === 'glow') {
         applyGlowEffect();
@@ -456,7 +483,7 @@ function handleEffectChange() {
     removeConfettiEffect();
     removeNeonEffect();
     removeVaporwareEffect();
-    
+
     // Apply selected effect
     switch(effectSelect.value) {
         case 'glow':
@@ -497,7 +524,8 @@ function applyGlowEffect() {
         '.color-button, .effect-select' // Added style panel elements
     );
     borderedElements.forEach(el => {
-        el.style.boxShadow = `0 0 5px ${borderColorPicker.value}, 0 0 10px ${borderColorPicker.value}`;
+        el.style.boxShadow = `0 0 5px ${borderColorPicker.value}, 0 0 10px ${bor
+derColorPicker.value}`;
         el.style.animation = 'glowPulse 2s infinite';
     });
 }
@@ -506,7 +534,8 @@ function removeGlowEffect() {
     const borderedElements = document.querySelectorAll(
         '.nav-logo, .search-input, .search-button, #theme-toggle, ' +
         '.profile-records, .profile-record, .profile-header-image, .footer, ' +
-        '.color-button, .effect-select, .style-panel' // Added style panel elements
+        '.color-button, .effect-select, .style-panel' // Added style panel eleme
+nts
     );
     borderedElements.forEach(el => {
         el.style.boxShadow = 'none';
@@ -535,9 +564,9 @@ function applyStarsEffect() {
         z-index: 50;
         overflow: hidden;
     `;
-    
+
     const starColors = ['#ffffff', '#ffff00', '#00ffff', '#ff00ff'];
-    
+
     for (let i = 0; i < 100; i++) {
         const star = document.createElement('div');
         const size = Math.random() * 2 + 1;
@@ -546,7 +575,7 @@ function applyStarsEffect() {
         const animDuration = Math.random() * 3 + 2;
         const animDelay = Math.random() * 2;
         const color = starColors[Math.floor(Math.random() * starColors.length)];
-        
+
         star.style.cssText = `
             position: absolute;
             width: ${size}px;
@@ -560,19 +589,21 @@ function applyStarsEffect() {
             animation: starTwinkle ${animDuration}s ease-in-out infinite;
             animation-delay: -${animDelay}s;
         `;
-        
+
         starsContainer.appendChild(star);
     }
-    
+
     document.body.appendChild(starsContainer);
 }
 
 function applyRainbowEffect() {
-    const elements = document.querySelectorAll('.nav-logo, .search-input, .search-button, #theme-toggle, .profile-records, .profile-record, .profile-header-image, .footer, .color-button, .effect-select');
+    const elements = document.querySelectorAll('.nav-logo, .search-input, .searc
+h-button, #theme-toggle, .profile-records, .profile-record, .profile-header-imag
+e, .footer, .color-button, .effect-select');
     elements.forEach(el => {
         el.style.animation = 'rainbowBorder 3s linear infinite';
     });
-    
+
     const styleSheet = document.createElement('style');
     styleSheet.id = 'rainbow-effect-keyframes-style'; // Assign ID
     styleSheet.textContent = `
@@ -603,12 +634,14 @@ function applyMatrixEffect() {
         overflow: hidden;
         opacity: 0.15;
     `;
-    
+
     // Japanese characters mixed with digits
-    const characters = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789';
+    const characters = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789
+';
     // Reduce number of columns for a lighter rain effect
-    const columns = Math.floor(window.innerWidth / 30); // Increased spacing between columns
-    
+    const columns = Math.floor(window.innerWidth / 30); // Increased spacing bet
+ween columns
+
     for (let i = 0; i < columns; i++) {
         const column = document.createElement('div');
         // Vary the speed more between columns for a more natural rain effect
@@ -622,18 +655,22 @@ function applyMatrixEffect() {
             font-size: 18px;
             line-height: 18px;
             animation: matrixFall ${duration}s linear infinite;
-            animation-delay: -${Math.random() * 8}s; // Increased delay variation
+            animation-delay: -${Math.random() * 8}s; // Increased delay variatio
+n
             text-shadow: 0 0 8px #00ff00, 0 0 15px #00ff00, 0 0 20px #00ff00;
         `;
-        
+
         // Create a longer string of characters for each column
         let text = '';
         const length = 35;
         for (let j = 0; j < length; j++) {
-            const char = characters[Math.floor(Math.random() * characters.length)];
-            // Only make the first 1-2 characters bright white with enhanced glow
+            const char = characters[Math.floor(Math.random() * characters.length
+)];
+            // Only make the first 1-2 characters bright white with enhanced glo
+w
             if (j < 2 && Math.random() > 0.5) {
-                text += `<span style="color: #ffffff; text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 30px #ffffff;">${char}</span><br>`;
+                text += `<span style="color: #ffffff; text-shadow: 0 0 10px #fff
+fff, 0 0 20px #ffffff, 0 0 30px #ffffff;">${char}</span><br>`;
             } else {
                 text += `${char}<br>`;
             }
@@ -641,7 +678,7 @@ function applyMatrixEffect() {
         column.innerHTML = text;
         matrixContainer.appendChild(column);
     }
-    
+
     // Add the matrix fall animation with smoother movement
     const matrixStyle = document.createElement('style');
     matrixStyle.id = 'matrix-effect-keyframes-style'; // Assign ID
@@ -664,7 +701,7 @@ function applyMatrixEffect() {
         }
     `;
     document.head.appendChild(matrixStyle);
-    
+
     document.body.appendChild(matrixContainer);
 }
 
@@ -677,7 +714,9 @@ function removeStarsEffect() {
 }
 
 function removeRainbowEffect() {
-    const elements = document.querySelectorAll('.nav-logo, .search-input, .search-button, #theme-toggle, .profile-records, .profile-record, .profile-header-image, .footer, .color-button, .effect-select');
+    const elements = document.querySelectorAll('.nav-logo, .search-input, .searc
+h-button, #theme-toggle, .profile-records, .profile-record, .profile-header-imag
+e, .footer, .color-button, .effect-select');
     elements.forEach(el => {
         el.style.animation = '';
     });
@@ -712,7 +751,7 @@ function applyFirefliesEffect() {
         z-index: 40;
         overflow: hidden;
     `;
-    
+
     for (let i = 0; i < 30; i++) {
         const firefly = document.createElement('div');
         const size = Math.random() * 4 + 2;
@@ -723,22 +762,26 @@ function applyFirefliesEffect() {
             background: #ffff00;
             border-radius: 50%;
             box-shadow: 0 0 ${size * 2}px #ffff00;
-            animation: fireflyFloat ${Math.random() * 4 + 3}s ease-in-out infinite;
+            animation: fireflyFloat ${Math.random() * 4 + 3}s ease-in-out infini
+te;
             left: ${Math.random() * 100}%;
             top: ${Math.random() * 100}%;
             opacity: ${Math.random() * 0.6 + 0.4};
         `;
         firefliesContainer.appendChild(firefly);
     }
-    
+
     const fireflyStyle = document.createElement('style');
     fireflyStyle.id = 'fireflies-effect-keyframes-style'; // Assign ID
     fireflyStyle.textContent = `
         @keyframes fireflyFloat {
             0%, 100% { transform: translate(0, 0); }
-            25% { transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px); }
-            50% { transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px); }
-            75% { transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px); }
+            25% { transform: translate(${Math.random() * 100 - 50}px, ${Math.ran
+dom() * 100 - 50}px); }
+            50% { transform: translate(${Math.random() * 100 - 50}px, ${Math.ran
+dom() * 100 - 50}px); }
+            75% { transform: translate(${Math.random() * 100 - 50}px, ${Math.ran
+dom() * 100 - 50}px); }
         }
     `;
     document.head.appendChild(fireflyStyle);
@@ -758,9 +801,10 @@ function applyConfettiEffect() {
         z-index: 40;
         overflow: hidden;
     `;
-    
-    const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
-    
+
+    const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00f
+fff'];
+
     for (let i = 0; i < 100; i++) {
         const confetti = document.createElement('div');
         const size = Math.random() * 10 + 5;
@@ -778,7 +822,7 @@ function applyConfettiEffect() {
         `;
         confettiContainer.appendChild(confetti);
     }
-    
+
     const confettiStyle = document.createElement('style');
     confettiStyle.id = 'confetti-effect-keyframes-style'; // Assign ID
     confettiStyle.textContent = `
@@ -792,13 +836,17 @@ function applyConfettiEffect() {
 }
 
 function applyNeonEffect() {
-    const elements = document.querySelectorAll('.nav-logo, .search-input, .search-button, #theme-toggle, .profile-records, .profile-record, .profile-header-image, .footer, .color-button, .effect-select');
+    const elements = document.querySelectorAll('.nav-logo, .search-input, .searc
+h-button, #theme-toggle, .profile-records, .profile-record, .profile-header-imag
+e, .footer, .color-button, .effect-select');
     elements.forEach(el => {
-        el.style.textShadow = `0 0 5px ${borderColorPicker.value}, 0 0 10px ${borderColorPicker.value}`;
-        el.style.boxShadow = `0 0 5px ${borderColorPicker.value}, 0 0 10px ${borderColorPicker.value}`;
+        el.style.textShadow = `0 0 5px ${borderColorPicker.value}, 0 0 10px ${bo
+rderColorPicker.value}`;
+        el.style.boxShadow = `0 0 5px ${borderColorPicker.value}, 0 0 10px ${bor
+derColorPicker.value}`;
         el.style.animation = 'neonPulse 1.5s ease-in-out infinite';
     });
-    
+
     const neonStyle = document.createElement('style');
     neonStyle.id = 'neon-effect-keyframes-style'; // Assign ID
     neonStyle.textContent = `
@@ -814,7 +862,7 @@ function applyVaporwareEffect() {
     // Apply static gradient to body
     document.body.style.background = 'linear-gradient(45deg, #ff00ff, #00ffff)';
     document.body.style.backgroundSize = '100% 100%';
-    
+
     // Make nav bar transparent to show gradient underneath
     const navBar = document.querySelector('.nav-bar');
     if (navBar) {
@@ -826,7 +874,7 @@ function applyVaporwareEffect() {
 function removeVaporwareEffect() {
     document.body.style.background = '';
     document.body.style.backgroundSize = '';
-    
+
     // Restore nav bar
     const navBar = document.querySelector('.nav-bar');
     if (navBar) {
@@ -839,7 +887,8 @@ function removeVaporwareEffect() {
 function removeFirefliesEffect() {
     const container = document.getElementById('fireflies-container');
     if (container) container.remove();
-    const styleTag = document.getElementById('fireflies-effect-keyframes-style');
+    const styleTag = document.getElementById('fireflies-effect-keyframes-style')
+;
     if (styleTag) {
         styleTag.remove();
     }
@@ -855,7 +904,9 @@ function removeConfettiEffect() {
 }
 
 function removeNeonEffect() {
-    const elements = document.querySelectorAll('.nav-logo, .search-input, .search-button, #theme-toggle, .profile-records, .profile-record, .profile-header-image, .footer, .color-button, .effect-select');
+    const elements = document.querySelectorAll('.nav-logo, .search-input, .searc
+h-button, #theme-toggle, .profile-records, .profile-record, .profile-header-imag
+e, .footer, .color-button, .effect-select');
     elements.forEach(el => {
         el.style.textShadow = '';
         el.style.boxShadow = '';
@@ -870,7 +921,7 @@ function removeNeonEffect() {
 // Event listeners
 document.addEventListener('DOMContentLoaded', () => {
     initializeGeoCitiesAvatar();
-    
+
     // Add search event listeners
     const searchInput = document.querySelector('.search-input');
     const searchButton = document.querySelector('.search-button');
@@ -894,11 +945,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Single, consolidated theme toggle handler
     themeToggle.addEventListener('click', () => {
         const isLight = document.body.dataset.theme === 'light';
-        
+
         // Update theme
         document.body.dataset.theme = isLight ? '' : 'light';
         themeToggle.textContent = isLight ? 'Light' : 'Dark';
-        
+
         // Reset color pickers to default theme colors
         if (isLight) {
             // Switching to dark mode
@@ -911,10 +962,10 @@ document.addEventListener('DOMContentLoaded', () => {
             textColorPicker.value = '#000000';
             borderColorPicker.value = '#000000';
         }
-        
+
         // Reset effect select
         effectSelect.value = 'none';
-        
+
         // Remove any active effects
         removeSnowEffect();
         removeGlowEffect();
@@ -925,14 +976,17 @@ document.addEventListener('DOMContentLoaded', () => {
         removeConfettiEffect();
         removeNeonEffect();
         removeVaporwareEffect();
-        
+
         // Apply the new colors to all elements
         applyCustomStyles();
-        
+
         // Update CSS variables
-        document.documentElement.style.setProperty('--primary-color', textColorPicker.value);
-        document.documentElement.style.setProperty('--background-color', bgColorPicker.value);
-        document.documentElement.style.setProperty('--border-color', borderColorPicker.value);
+        document.documentElement.style.setProperty('--primary-color', textColorP
+icker.value);
+        document.documentElement.style.setProperty('--background-color', bgColor
+Picker.value);
+        document.documentElement.style.setProperty('--border-color', borderColor
+Picker.value);
     });
 
     // Add style customization event listeners
@@ -947,19 +1001,21 @@ async function fetchProfile(query) {
     try {
         showLoading();
         hideError();
-        
+
         // Remove any existing register button container
-        const existingRegisterContainer = document.querySelector('.register-container');
+        const existingRegisterContainer = document.querySelector('.register-cont
+ainer');
         if (existingRegisterContainer) {
             existingRegisterContainer.remove();
         }
-        
+
         // Remove any existing download button container
-        const existingDownloadContainer = document.querySelector('.download-website-container');
+        const existingDownloadContainer = document.querySelector('.download-webs
+ite-container');
         if (existingDownloadContainer) {
             existingDownloadContainer.remove();
         }
-        
+
         // Format the query
         query = query.trim().toLowerCase();
         if (!query) {
@@ -969,8 +1025,9 @@ async function fetchProfile(query) {
             throw new Error('Name cannot contain spaces.');
         }
 
-        const ensName = (query.endsWith('.eth') || query.endsWith('.base.eth')) ? query : `${query}.eth`;
-        
+        const ensName = (query.endsWith('.eth') || query.endsWith('.base.eth'))
+? query : `${query}.eth`;
+
         // Determine the correct API endpoint
         let url = `${API_BASE_URL}/profile/ens/${ensName}`;
         if (ensName.endsWith('.base.eth')) {
@@ -988,7 +1045,8 @@ async function fetchProfile(query) {
                 let errorText = `Error: ${response.statusText}`;
                 try {
                     const errorData = await response.json();
-                    errorText = errorData?.message || errorData?.error || `Error ${response.status}: ${response.statusText}`;
+                    errorText = errorData?.message || errorData?.error || `Error
+ ${response.status}: ${response.statusText}`;
                     if (errorText.toLowerCase().includes("invalid name")) {
                         errorText = `Invalid name format: ${ensName}`;
                     } else if (response.status >= 500) {
@@ -1017,8 +1075,9 @@ async function initializeGeoCitiesAvatar() {
     try {
         // First set the default avatar in case the fetch fails
         setAvatar(DEFAULT_AVATAR);
-        
-        const response = await fetch(`${API_BASE_URL}/profile/ens/geocities.eth`);
+
+        const response = await fetch(`${API_BASE_URL}/profile/ens/geocities.eth`
+);
         if (response.ok) {
             const data = await response.json();
             if (data.avatar) {
@@ -1035,20 +1094,21 @@ function displayProfile(data, ensName) {
     // Hide homepage elements
     document.querySelector('.container').style.display = 'none';
     document.querySelector('#homepage-geocities').style.display = 'none';
-    
+
     // Show profile page
     const profilePage = document.getElementById('profile-page');
     profilePage.style.display = 'flex';
-    
+
     // Move search container to profile page
     const searchContainer = document.querySelector('.search-container');
     searchContainer.style.margin = '10px auto 20px';
     profilePage.insertBefore(searchContainer, profilePage.firstChild);
-    
+
     // Move style panel right after search container
     stylePanel.style.margin = '10px auto 20px';
-    profilePage.insertBefore(stylePanel, document.querySelector('.profile-container'));
-    
+    profilePage.insertBefore(stylePanel, document.querySelector('.profile-contai
+ner'));
+
     // Set avatar
     if (data.avatar) {
         setAvatar(data.avatar);
@@ -1058,11 +1118,11 @@ function displayProfile(data, ensName) {
         const defaultAvatar = createDefaultAvatar(firstLetter);
         setAvatar(defaultAvatar);
     }
-    
+
     // Set header image if available, otherwise hide it
     const headerContainer = document.querySelector('.profile-header-image');
     headerContainer.innerHTML = ''; // Clear previous content
-    
+
     if (data.header) {
         const headerImg = document.createElement('img');
         headerImg.src = data.header;
@@ -1072,11 +1132,11 @@ function displayProfile(data, ensName) {
     } else {
         headerContainer.style.display = 'none';
     }
-    
+
     // Clear existing records
     const recordsContainer = document.querySelector('.profile-records');
     recordsContainer.innerHTML = '';
-    
+
     // Define header renames for better display
     const headerRenames = {
         'email': 'Email',
@@ -1089,9 +1149,10 @@ function displayProfile(data, ensName) {
         'com.github': 'GitHub',
         'org.telegram': 'Telegram'
     };
-    
-    const linkableRecords = ['Website', 'Twitter', 'GitHub', 'Discord', 'Telegram', 'Farcaster'];
-    
+
+    const linkableRecords = ['Website', 'Twitter', 'GitHub', 'Discord', 'Telegra
+m', 'Farcaster'];
+
     // Create a map for ordered records
     let recordsMap = {
         'identity': null,
@@ -1105,9 +1166,9 @@ function displayProfile(data, ensName) {
         'email': null,
         'createdAt': null
     };
-    
+
     let otherRecords = [];
-    
+
     // Populate the records map
     if (ensName) {
         const isBase = ensName.endsWith('.base.eth');
@@ -1117,18 +1178,18 @@ function displayProfile(data, ensName) {
     if (data.displayName && data.displayName !== ensName) {
         recordsMap['displayName'] = { label: 'Name', value: data.displayName };
     }
-    
+
     // Always show followers/following even if 0 or null
-    recordsMap['followers'] = { 
-        label: 'Followers', 
-        value: data.social?.follower !== undefined ? data.social.follower : 0 
+    recordsMap['followers'] = {
+        label: 'Followers',
+        value: data.social?.follower !== undefined ? data.social.follower : 0
     };
-    
-    recordsMap['following'] = { 
-        label: 'Following', 
-        value: data.social?.following !== undefined ? data.social.following : 0 
+
+    recordsMap['following'] = {
+        label: 'Following',
+        value: data.social?.following !== undefined ? data.social.following : 0
     };
-    
+
     if (data.location) {
         recordsMap['location'] = { label: 'Location', value: data.location };
     }
@@ -1139,11 +1200,12 @@ function displayProfile(data, ensName) {
         recordsMap['description'] = { label: 'Bio', value: data.description };
     }
     if (data.links?.website?.handle) {
-        recordsMap['website'] = { 
-            label: 'Website', 
-            value: data.links.website.handle, 
-            isLink: true, 
-            linkUrl: data.links.website.link || normalizeUrl(data.links.website.handle) 
+        recordsMap['website'] = {
+            label: 'Website',
+            value: data.links.website.handle,
+            isLink: true,
+            linkUrl: data.links.website.link || normalizeUrl(data.links.website.
+handle)
         };
     }
     if (data.email) {
@@ -1153,7 +1215,7 @@ function displayProfile(data, ensName) {
         let formattedDate = data.createdAt;
         try {
             const date = new Date(data.createdAt);
-            if (!isNaN(date.getTime())) { 
+            if (!isNaN(date.getTime())) {
                 formattedDate = date.toLocaleDateString('en-US', {
                     month: '2-digit',
                     day: '2-digit',
@@ -1163,18 +1225,20 @@ function displayProfile(data, ensName) {
         } catch (err) { }
         recordsMap['createdAt'] = { label: 'Created', value: formattedDate };
     }
-    
+
     // Process all links from profile.links
     if (data.links && typeof data.links === 'object') {
         Object.entries(data.links).forEach(([platform, linkData]) => {
             if (platform !== 'website' && linkData.handle) {
                 let label = '';
                 if (linkData.sources && linkData.sources.length > 0) {
-                    label = linkData.sources[0].charAt(0).toUpperCase() + linkData.sources[0].slice(1);
+                    label = linkData.sources[0].charAt(0).toUpperCase() + linkDa
+ta.sources[0].slice(1);
                 } else {
-                    label = platform.charAt(0).toUpperCase() + platform.slice(1);
+                    label = platform.charAt(0).toUpperCase() + platform.slice(1)
+;
                 }
-                
+
                 otherRecords.push({
                     label: label,
                     value: linkData.handle,
@@ -1184,36 +1248,40 @@ function displayProfile(data, ensName) {
             }
         });
     }
-    
+
     // Process all other fields
     Object.entries(data).forEach(([key, value]) => {
-        if (!Object.keys(recordsMap).includes(key) && key !== 'links' && key !== 'address') {
-            processValue(key, value, otherRecords);
+        if (!Object.keys(recordsMap).includes(key) && key !== 'links' && key !==
+ 'address') {
+            processValue(key, value, otherRecords, headerRenames, linkableRecords, normalizeUrl);
         }
     });
-    
+
     // Create ordered records array
     let orderedRecords = [];
     if (recordsMap['identity']) orderedRecords.push(recordsMap['identity']);
-    if (recordsMap['displayName']) orderedRecords.push(recordsMap['displayName']);
+    if (recordsMap['displayName']) orderedRecords.push(recordsMap['displayName']
+);
     if (recordsMap['followers']) orderedRecords.push(recordsMap['followers']);
     if (recordsMap['following']) orderedRecords.push(recordsMap['following']);
     if (recordsMap['location']) orderedRecords.push(recordsMap['location']);
     if (recordsMap['status']) orderedRecords.push(recordsMap['status']);
-    if (recordsMap['description']) orderedRecords.push(recordsMap['description']);
+    if (recordsMap['description']) orderedRecords.push(recordsMap['description']
+);
     if (recordsMap['email']) orderedRecords.push(recordsMap['email']);
     if (recordsMap['website']) orderedRecords.push(recordsMap['website']);
-    
+
     // Sort other records alphabetically
     otherRecords.sort((a, b) => a.label.localeCompare(b.label));
     orderedRecords = orderedRecords.concat(otherRecords);
-    
+
     // Add "Created" as the last record if it exists
     if (recordsMap['createdAt']) {
-        orderedRecords = orderedRecords.filter(record => record.label !== 'Created');
+        orderedRecords = orderedRecords.filter(record => record.label !== 'Creat
+ed');
         orderedRecords.push(recordsMap['createdAt']);
     }
-    
+
     // Add all records to the container
     orderedRecords.forEach(record => {
         if (record) {
@@ -1222,24 +1290,27 @@ function displayProfile(data, ensName) {
                 linkElement.href = record.linkUrl;
                 linkElement.target = '_blank';
                 linkElement.rel = 'noopener noreferrer';
-                linkElement.textContent = record.value; // Set text content for the link
-                addRecord(record.label, linkElement); // Pass the created <a> element
+                linkElement.textContent = record.value; // Set text content for
+the link
+                addRecord(record.label, linkElement); // Pass the created <a> el
+ement
             } else {
                 addRecord(record.label, record.value); // Pass the string value
             }
         }
     });
-    
+
     // If no records were added, show a message
     if (recordsContainer.children.length === 0) {
         addRecord('Status', 'No records found');
     }
-    
+
     // Show style panel
     document.querySelector('.style-panel').style.display = 'flex';
-    
+
     // Remove any existing download button container
-    const existingDownloadContainer = document.querySelector('.download-website-container');
+    const existingDownloadContainer = document.querySelector('.download-website-
+container');
     if (existingDownloadContainer) {
         existingDownloadContainer.remove();
     }
@@ -1283,32 +1354,43 @@ function displayProfile(data, ensName) {
     downloadContainer.appendChild(downloadButton);
 
     // Insert the download button container after the profile records
-    recordsContainer.parentNode.insertBefore(downloadContainer, recordsContainer.nextSibling);
-    
+    recordsContainer.parentNode.insertBefore(downloadContainer, recordsContainer
+.nextSibling);
+
     // Initialize color pickers
     initializeColorPickers();
-    
+
     // Remove any existing click handlers from the nav logo
     setupNavLogoClickHandler();
 
     // Add the download functionality using an IIFE for isolation
-    downloadButton.addEventListener('click', (function(currentEnsNameFromDisplayProfile) {
+    downloadButton.addEventListener('click', (function(currentEnsNameFromDisplay
+Profile) {
         return function() {
             try {
                 const pageTitle = currentEnsNameFromDisplayProfile;
-                let currentAvatarSrc = document.getElementById('nav-logo-img').src;
-                if (!currentAvatarSrc || currentAvatarSrc === window.location.href || currentAvatarSrc.startsWith('data:image/png;base64,')) {
-                    const firstLetter = currentEnsNameFromDisplayProfile.charAt(0);
-                    currentAvatarSrc = createDefaultAvatar(firstLetter) || DEFAULT_AVATAR;
+                let currentAvatarSrc = document.getElementById('nav-logo-img').s
+rc;
+                if (!currentAvatarSrc || currentAvatarSrc === window.location.hr
+ef || currentAvatarSrc.startsWith('data:image/png;base64,')) {
+                    const firstLetter = currentEnsNameFromDisplayProfile.charAt(
+0);
+                    currentAvatarSrc = createDefaultAvatar(firstLetter) || DEFAU
+LT_AVATAR;
                 }
 
-                const computedPageStyle = getComputedStyle(document.documentElement);
-                const bgColor = computedPageStyle.getPropertyValue('--background-color').trim();
-                const textColor = computedPageStyle.getPropertyValue('--primary-color').trim();
-                const borderColor = computedPageStyle.getPropertyValue('--border-color').trim();
+                const computedPageStyle = getComputedStyle(document.documentElem
+ent);
+                const bgColor = computedPageStyle.getPropertyValue('--background
+-color').trim();
+                const textColor = computedPageStyle.getPropertyValue('--primary-
+color').trim();
+                const borderColor = computedPageStyle.getPropertyValue('--border
+-color').trim();
                 const activeEffectName = effectSelect.value;
-                
-                const themeColorsForDownload = { primary: textColor, background: bgColor, border: borderColor };
+
+                const themeColorsForDownload = { primary: textColor, background:
+ bgColor, border: borderColor };
 
                 const themeCssVariablesString = `
     --primary-color: ${textColor};
@@ -1319,146 +1401,263 @@ function displayProfile(data, ensName) {
 
                 const allKeyframesCssString = `
     @keyframes spin-downloaded { to { transform: rotate(360deg); } }
-    @keyframes glowPulse { 0%, 100% { box-shadow: 0 0 5px var(--border-color), 0 0 10px var(--border-color); } 50% { box-shadow: 0 0 10px var(--border-color), 0 0 20px var(--border-color); } }
+    @keyframes glowPulse { 0%, 100% { box-shadow: 0 0 5px var(--border-color), 0
+ 0 10px var(--border-color); } 50% { box-shadow: 0 0 10px var(--border-color), 0
+ 0 20px var(--border-color); } }
     @keyframes neonPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; } }
-    @keyframes snowFall { 0% { transform: translateY(-100vh); } 100% { transform: translateY(100vh); } }
-    @keyframes starTwinkle { 0%, 100% { opacity: 0.2; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.2); } }
-    @keyframes rainbowBorder { 0% { border-color: #ff0000; } 16.666% { border-color: #ff8000; } 33.333% { border-color: #ffff00; } 50% { border-color: #00ff00; } 66.666% { border-color: #0000ff; } 83.333% { border-color: #8000ff; } 100% { border-color: #ff0000; } }
-    @keyframes matrixFall { 0% { transform: translateY(-100%); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translateY(100%); opacity: 0; } }
-    @keyframes fireflyFloat { 0%, 100% { transform: translate(0, 0); } 25% { transform: translate(10px, -20px); } 50% { transform: translate(-30px, 15px); } 75% { transform: translate(20px, 30px); } }
-    @keyframes confettiFall { 0% { transform: translateY(0) rotate(0deg); } 100% { transform: translateY(100vh) rotate(360deg); } }
+    @keyframes snowFall { 0% { transform: translateY(-100vh); } 100% { transform
+: translateY(100vh); } }
+    @keyframes starTwinkle { 0%, 100% { opacity: 0.2; transform: scale(0.8); } 5
+0% { opacity: 1; transform: scale(1.2); } }
+    @keyframes rainbowBorder { 0% { border-color: #ff0000; } 16.666% { border-co
+lor: #ff8000; } 33.333% { border-color: #ffff00; } 50% { border-color: #00ff00;
+} 66.666% { border-color: #0000ff; } 83.333% { border-color: #8000ff; } 100% { b
+order-color: #ff0000; } }
+    @keyframes matrixFall { 0% { transform: translateY(-100%); opacity: 0; } 10%
+ { opacity: 1; } 90% { opacity: 1; } 100% { transform: translateY(100%); opacity
+: 0; } }
+    @keyframes fireflyFloat { 0%, 100% { transform: translate(0, 0); } 25% { tra
+nsform: translate(10px, -20px); } 50% { transform: translate(-30px, 15px); } 75%
+ { transform: translate(20px, 30px); } }
+    @keyframes confettiFall { 0% { transform: translateY(0) rotate(0deg); } 100%
+ { transform: translateY(100vh) rotate(360deg); } }
                 `;
-                
-                const createDefaultAvatarForDownloadString = createDefaultAvatar.toString();
-                const setAvatarForDownloadString = setAvatar.toString()
-                    .replace("document.getElementById('nav-logo-img')", "document.getElementById('nav-logo-img-downloaded')")
-                    .replace("document.getElementById('favicon')", "document.getElementById('favicon-downloaded')");
-                const addRecordForDownloadString = addRecord.toString()
-                    .replace("document.querySelector('.profile-records')", "document.querySelector('.profile-records-downloaded')");
-                const normalizeUrlString = normalizeUrl.toString();
-                const processValueString = processValue.toString(); 
 
-                const showLoadingForDownloadString = function() { const spinner = document.getElementById('loading-spinner-downloaded'); if(spinner) spinner.style.display = 'block'; }.toString();
-                const hideLoadingForDownloadString = function() { const spinner = document.getElementById('loading-spinner-downloaded'); if(spinner) spinner.style.display = 'none'; }.toString();
-                const showErrorForDownloadString = function(message) { const errorEl = document.getElementById('error-message-downloaded'); if(errorEl) { errorEl.textContent = message; errorEl.style.display = 'block';} }.toString();
-                const hideErrorForDownloadString = function() { const errorEl = document.getElementById('error-message-downloaded'); if(errorEl) errorEl.style.display = 'none'; }.toString();
-                
+                const createDefaultAvatarForDownloadString = createDefaultAvatar
+.toString();
+                const setAvatarForDownloadString = setAvatar.toString()
+                    .replace("document.getElementById('nav-logo-img')", "documen
+t.getElementById('nav-logo-img-downloaded')")
+                    .replace("document.getElementById('favicon')", "document.get
+ElementById('favicon-downloaded')");
+                const addRecordForDownloadString = addRecord.toString()
+                    .replace("document.querySelector('.profile-records')", "docu
+ment.querySelector('.profile-records-downloaded')");
+                const normalizeUrlString = normalizeUrl.toString();
+                const processValueString = processValue.toString();
+
+                const showLoadingForDownloadString = function() { const spinner
+= document.getElementById('loading-spinner-downloaded'); if(spinner) spinner.sty
+le.display = 'block'; }.toString();
+                const hideLoadingForDownloadString = function() { const spinner
+= document.getElementById('loading-spinner-downloaded'); if(spinner) spinner.sty
+le.display = 'none'; }.toString();
+                const showErrorForDownloadString = function(message) { const err
+orEl = document.getElementById('error-message-downloaded'); if(errorEl) { errorE
+l.textContent = message; errorEl.style.display = 'block';} }.toString();
+                const hideErrorForDownloadString = function() { const errorEl =
+document.getElementById('error-message-downloaded'); if(errorEl) errorEl.style.d
+isplay = 'none'; }.toString();
+
                 const effectFunctionsStrings = {
-                    applyGlow: function(bColor) { const els = document.querySelectorAll('.nav-logo-img-downloaded, .profile-records-downloaded, .profile-record, .profile-header-image-downloaded, .footer-downloaded'); els.forEach(el => { el.style.boxShadow = '0 0 5px ' + bColor + ', 0 0 10px ' + bColor; el.style.animation = 'glowPulse 2s infinite'; }); }.toString(),
-                    removeGlow: function() { const els = document.querySelectorAll('.nav-logo-img-downloaded, .profile-records-downloaded, .profile-record, .profile-header-image-downloaded, .footer-downloaded'); els.forEach(el => { el.style.boxShadow = 'none'; el.style.animation = 'none'; }); }.toString(),
-                    addSnow: addSnowEffect.toString().replace(/document\.body\.appendChild\(snowContainer\)/g, "document.querySelector('.profile-container-downloaded').appendChild(snowContainer)"),
+                    applyGlow: function(bColor) { const els = document.querySele
+ctorAll('.nav-logo-img-downloaded, .profile-records-downloaded, .profile-record,
+ .profile-header-image-downloaded, .footer-downloaded'); els.forEach(el => { el.
+style.boxShadow = '0 0 5px ' + bColor + ', 0 0 10px ' + bColor; el.style.animati
+on = 'glowPulse 2s infinite'; }); }.toString(),
+                    removeGlow: function() { const els = document.querySelectorA
+ll('.nav-logo-img-downloaded, .profile-records-downloaded, .profile-record, .pro
+file-header-image-downloaded, .footer-downloaded'); els.forEach(el => { el.style
+.boxShadow = 'none'; el.style.animation = 'none'; }); }.toString(),
+                    addSnow: addSnowEffect.toString().replace(/document\.body\.a
+ppendChild\(snowContainer\)/g, "document.querySelector('.profile-container-downl
+oaded').appendChild(snowContainer)"),
                     removeSnow: removeSnowEffect.toString(),
-                    applyStars: applyStarsEffect.toString().replace(/document\.body\.appendChild\(starsContainer\)/g, "document.querySelector('.profile-container-downloaded').appendChild(starsContainer)"),
+                    applyStars: applyStarsEffect.toString().replace(/document\.b
+ody\.appendChild\(starsContainer\)/g, "document.querySelector('.profile-containe
+r-downloaded').appendChild(starsContainer)"),
                     removeStars: removeStarsEffect.toString(),
-                    applyRainbow: function() { const els = document.querySelectorAll('.nav-logo-img-downloaded, .profile-records-downloaded, .profile-record, .profile-header-image-downloaded, .footer-downloaded'); els.forEach(el => { el.style.animation = 'rainbowBorder 3s linear infinite'; }); }.toString(),
-                    removeRainbow: function() { const els = document.querySelectorAll('.nav-logo-img-downloaded, .profile-records-downloaded, .profile-record, .profile-header-image-downloaded, .footer-downloaded'); els.forEach(el => { el.style.animation = ''; }); }.toString(),
-                    applyMatrix: applyMatrixEffect.toString().replace(/document\.body\.appendChild\(matrixContainer\)/g, "document.querySelector('.profile-container-downloaded').appendChild(matrixContainer)").replace("document.head.appendChild(matrixStyle);", "").replace("const matrixStyle = document.createElement('style');", "").replace("matrixStyle.id = 'matrix-effect-keyframes-style';", ""),
-                    removeMatrix: removeMatrixEffect.toString().replace("const styleTag = document.getElementById('matrix-effect-keyframes-style'); if (styleTag) styleTag.remove();",""),
-                    applyFireflies: applyFirefliesEffect.toString().replace(/document\.body\.appendChild\(firefliesContainer\)/g, "document.querySelector('.profile-container-downloaded').appendChild(firefliesContainer)").replace("document.head.appendChild(fireflyStyle);", "").replace("const fireflyStyle = document.createElement('style');", "").replace("fireflyStyle.id = 'fireflies-effect-keyframes-style';", ""),
-                    removeFireflies: removeFirefliesEffect.toString().replace("const styleTag = document.getElementById('fireflies-effect-keyframes-style'); if (styleTag) styleTag.remove();",""),
-                    applyConfetti: applyConfettiEffect.toString().replace(/document\.body\.appendChild\(confettiContainer\)/g, "document.querySelector('.profile-container-downloaded').appendChild(confettiContainer)").replace("document.head.appendChild(confettiStyle);", "").replace("const confettiStyle = document.createElement('style');", "").replace("confettiStyle.id = 'confetti-effect-keyframes-style';", ""),
-                    removeConfetti: removeConfettiEffect.toString().replace("const styleTag = document.getElementById('confetti-effect-keyframes-style'); if (styleTag) styleTag.remove();",""),
-                    applyNeon: function(bColor) { const els = document.querySelectorAll('.nav-logo-img-downloaded, .profile-records-downloaded, .profile-record, .profile-header-image-downloaded, .footer-downloaded'); els.forEach(el => { el.style.textShadow = '0 0 5px ' + bColor + ', 0 0 10px ' + bColor; el.style.boxShadow = '0 0 5px ' + bColor + ', 0 0 10px ' + bColor; el.style.animation = 'neonPulse 1.5s ease-in-out infinite'; }); }.toString(),
-                    removeNeon: function() { const els = document.querySelectorAll('.nav-logo-img-downloaded, .profile-records-downloaded, .profile-record, .profile-header-image-downloaded, .footer-downloaded'); els.forEach(el => { el.style.textShadow = ''; el.style.boxShadow = ''; el.style.animation = ''; }); }.toString(),
-                    applyVaporware: function() { document.body.style.background = 'linear-gradient(45deg, #ff00ff, #00ffff)'; document.body.style.backgroundSize = '100% 100%'; const nb = document.querySelector('.nav-bar-downloaded'); if (nb) { nb.style.backgroundColor = 'transparent'; nb.style.borderColor = '#ffffff';} }.toString(),
-                    removeVaporware: function() { document.body.style.background = ''; document.body.style.backgroundSize = ''; const nb = document.querySelector('.nav-bar-downloaded'); if (nb) { nb.style.backgroundColor = ''; nb.style.borderColor = ''; } }.toString()
+                    applyRainbow: function() { const els = document.querySelecto
+rAll('.nav-logo-img-downloaded, .profile-records-downloaded, .profile-record, .p
+rofile-header-image-downloaded, .footer-downloaded'); els.forEach(el => { el.sty
+le.animation = 'rainbowBorder 3s linear infinite'; }); }.toString(),
+                    removeRainbow: function() { const els = document.querySelect
+orAll('.nav-logo-img-downloaded, .profile-records-downloaded, .profile-record, .
+profile-header-image-downloaded, .footer-downloaded'); els.forEach(el => { el.st
+yle.animation = ''; }); }.toString(),
+                    applyMatrix: applyMatrixEffect.toString().replace(/document\
+.body\.appendChild\(matrixContainer\)/g, "document.querySelector('.profile-conta
+iner-downloaded').appendChild(matrixContainer)").replace("document.head.appendCh
+ild(matrixStyle);", "").replace("const matrixStyle = document.createElement('sty
+le');", "").replace("matrixStyle.id = 'matrix-effect-keyframes-style';", ""),
+                    removeMatrix: removeMatrixEffect.toString().replace("const s
+tyleTag = document.getElementById('matrix-effect-keyframes-style'); if (styleTag
+) styleTag.remove();",""),
+                    applyFireflies: applyFirefliesEffect.toString().replace(/doc
+ument\.body\.appendChild\(firefliesContainer\)/g, "document.querySelector('.prof
+ile-container-downloaded').appendChild(firefliesContainer)").replace("document.h
+ead.appendChild(fireflyStyle);", "").replace("const fireflyStyle = document.crea
+teElement('style');", "").replace("fireflyStyle.id = 'fireflies-effect-keyframes
+-style';", ""),
+                    removeFireflies: removeFirefliesEffect.toString().replace("c
+onst styleTag = document.getElementById('fireflies-effect-keyframes-style'); if
+(styleTag) styleTag.remove();",""),
+                    applyConfetti: applyConfettiEffect.toString().replace(/docum
+ent\.body\.appendChild\(confettiContainer\)/g, "document.querySelector('.profile
+-container-downloaded').appendChild(confettiContainer)").replace("document.head.
+appendChild(confettiStyle);", "").replace("const confettiStyle = document.create
+Element('style');", "").replace("confettiStyle.id = 'confetti-effect-keyframes-s
+tyle';", ""),
+                    removeConfetti: removeConfettiEffect.toString().replace("con
+st styleTag = document.getElementById('confetti-effect-keyframes-style'); if (st
+yleTag) styleTag.remove();",""),
+                    applyNeon: function(bColor) { const els = document.querySele
+ctorAll('.nav-logo-img-downloaded, .profile-records-downloaded, .profile-record,
+ .profile-header-image-downloaded, .footer-downloaded'); els.forEach(el => { el.
+style.textShadow = '0 0 5px ' + bColor + ', 0 0 10px ' + bColor; el.style.boxSha
+dow = '0 0 5px ' + bColor + ', 0 0 10px ' + bColor; el.style.animation = 'neonPu
+lse 1.5s ease-in-out infinite'; }); }.toString(),
+                    removeNeon: function() { const els = document.querySelectorA
+ll('.nav-logo-img-downloaded, .profile-records-downloaded, .profile-record, .pro
+file-header-image-downloaded, .footer-downloaded'); els.forEach(el => { el.style
+.textShadow = ''; el.style.boxShadow = ''; el.style.animation = ''; }); }.toStri
+ng(),
+                    applyVaporware: function() { document.body.style.background
+= 'linear-gradient(45deg, #ff00ff, #00ffff)'; document.body.style.backgroundSize
+ = '100% 100%'; const nb = document.querySelector('.nav-bar-downloaded'); if (nb
+) { nb.style.backgroundColor = 'transparent'; nb.style.borderColor = '#ffffff';}
+ }.toString(),
+                    removeVaporware: function() { document.body.style.background
+ = ''; document.body.style.backgroundSize = ''; const nb = document.querySelecto
+r('.nav-bar-downloaded'); if (nb) { nb.style.backgroundColor = ''; nb.style.bord
+erColor = ''; } }.toString()
                 };
-                
-                const fetchAndDisplayProfileOnLoadString = ` 
+
+                const fetchAndDisplayProfileOnLoadString = `
 async function fetchAndDisplayProfileOnLoad(ensToFetch, themeColors) {
     app.showLoading();
     app.hideError();
     try {
         let url = \`\${app.API_BASE_URL}/profile/ens/\${ensToFetch}\`;
-        if (ensToFetch.endsWith('.base.eth')) { url = \`\${app.API_BASE_URL}/profile/basenames/\${ensToFetch}\`; }
+        if (ensToFetch.endsWith('.base.eth')) { url = \`\${app.API_BASE_URL}/pro
+file/basenames/\${ensToFetch}\`; }
         const response = await fetch(url);
         let data;
         if (response.ok) { data = await response.json(); }
         else if (response.status === 404) { data = { _unregistered: true }; }
-        else { let errorText = \`Error: \${response.statusText}\`; try { const errorData = await response.json(); errorText = errorData?.message || errorData?.error || errorText; } catch (e) {} throw new Error(errorText); }
-        
-        const recordsContainer = document.querySelector('.profile-records-downloaded');
+        else { let errorText = \`Error: \${response.statusText}\`; try { const e
+rrorData = await response.json(); errorText = errorData?.message || errorData?.e
+rror || errorText; } catch (e) {} throw new Error(errorText); }
+
+        const recordsContainer = document.querySelector('.profile-records-downlo
+aded');
         if (recordsContainer) recordsContainer.innerHTML = '';
-        const headerContainer = document.querySelector('.profile-header-image-downloaded');
+        const headerContainer = document.querySelector('.profile-header-image-do
+wnloaded');
         if (headerContainer) headerContainer.innerHTML = '';
 
         if (data._unregistered) {
-            app.setAvatar(app.createDefaultAvatar(ensToFetch.charAt(0), themeColors), app.DEFAULT_AVATAR);
+            app.setAvatar(app.createDefaultAvatar(ensToFetch.charAt(0), themeCol
+ors), app.DEFAULT_AVATAR);
             if (headerContainer) headerContainer.style.display = 'none';
-            app.addRecord(ensToFetch.endsWith('.base.eth') ? 'Basename' : 'ENS', ensToFetch);
+            app.addRecord(ensToFetch.endsWith('.base.eth') ? 'Basename' : 'ENS',
+ ensToFetch);
             app.addRecord('Status', 'This name is not registered.');
         } else {
-            app.setAvatar(data.avatar || app.createDefaultAvatar(ensToFetch.charAt(0), themeColors), app.DEFAULT_AVATAR);
+            app.setAvatar(data.avatar || app.createDefaultAvatar(ensToFetch.char
+At(0), themeColors), app.DEFAULT_AVATAR);
             if (headerContainer) {
                 if (data.header) {
-                    const headerImg = document.createElement('img'); headerImg.src = data.header; headerImg.alt = ensToFetch + ' header';
-                    headerContainer.appendChild(headerImg); headerContainer.style.display = 'block';
+                    const headerImg = document.createElement('img'); headerImg.s
+rc = data.header; headerImg.alt = ensToFetch + ' header';
+                    headerContainer.appendChild(headerImg); headerContainer.styl
+e.display = 'block';
                 } else { headerContainer.style.display = 'none'; }
             }
-            let recordsMap = {'identity': null, 'displayName': null, 'followers': null, 'following': null, 'location': null, 'status': null, 'description': null, 'website': null, 'email': null, 'createdAt': null };
+            let recordsMap = {'identity': null, 'displayName': null, 'followers'
+: null, 'following': null, 'location': null, 'status': null, 'description': null
+, 'website': null, 'email': null, 'createdAt': null };
             let otherRecords = [];
             const isBase = ensToFetch.endsWith('.base.eth');
-            recordsMap['identity'] = { label: isBase ? 'Basename' : 'ENS', value: ensToFetch };
-            if (data.displayName && data.displayName !== ensToFetch) recordsMap['displayName'] = { label: 'Name', value: data.displayName };
-            recordsMap['followers'] = { label: 'Followers', value: data.social?.follower !== undefined ? data.social.follower : 0 };
-            recordsMap['following'] = { label: 'Following', value: data.social?.following !== undefined ? data.social.following : 0 };
-            if (data.location) recordsMap['location'] = { label: 'Location', value: data.location };
-            if (data.status) recordsMap['status'] = { label: 'Status', value: data.status };
-            if (data.description) recordsMap['description'] = { label: 'Bio', value: data.description };
-            if (data.links?.website?.handle) recordsMap['website'] = { label: 'Website', value: data.links.website.handle, isLink: true, linkUrl: data.links.website.link || app.normalizeUrl(data.links.website.handle) };
-            if (data.email) recordsMap['email'] = { label: 'Email', value: data.email };
+            recordsMap['identity'] = { label: isBase ? 'Basename' : 'ENS', value
+: ensToFetch };
+            if (data.displayName && data.displayName !== ensToFetch) recordsMap[
+'displayName'] = { label: 'Name', value: data.displayName };
+            recordsMap['followers'] = { label: 'Followers', value: data.social?.
+follower !== undefined ? data.social.follower : 0 };
+            recordsMap['following'] = { label: 'Following', value: data.social?.
+following !== undefined ? data.social.following : 0 };
+            if (data.location) recordsMap['location'] = { label: 'Location', val
+ue: data.location };
+            if (data.status) recordsMap['status'] = { label: 'Status', value: da
+ta.status };
+            if (data.description) recordsMap['description'] = { label: 'Bio', va
+lue: data.description };
+            if (data.links?.website?.handle) recordsMap['website'] = { label: 'W
+ebsite', value: data.links.website.handle, isLink: true, linkUrl: data.links.web
+site.link || app.normalizeUrl(data.links.website.handle) };
+            if (data.email) recordsMap['email'] = { label: 'Email', value: data.
+email };
             if (data.createdAt) {
                 let formattedDate = data.createdAt;
-                try { const date = new Date(data.createdAt); if (!isNaN(date.getTime())) formattedDate = date.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' }); } catch (err) {}
-                recordsMap['createdAt'] = { label: 'Created', value: formattedDate };
+                try { const date = new Date(data.createdAt); if (!isNaN(date.get
+Time())) formattedDate = date.toLocaleDateString('en-US', { month: '2-digit', da
+y: '2-digit', year: 'numeric' }); } catch (err) {}
+                recordsMap['createdAt'] = { label: 'Created', value: formattedDa
+te };
             }
             if (data.links && typeof data.links === 'object') {
                 Object.entries(data.links).forEach(([platform, linkData]) => {
                     if (platform !== 'website' && linkData.handle) {
                         let label = '';
-                        if (linkData.sources && linkData.sources.length > 0) label = linkData.sources[0].charAt(0).toUpperCase() + linkData.sources[0].slice(1);
-                        else label = platform.charAt(0).toUpperCase() + platform.slice(1);
-                        otherRecords.push({ label: label, value: linkData.handle, isLink: true, linkUrl: linkData.link || app.normalizeUrl(linkData.handle) });
+                        if (linkData.sources && linkData.sources.length > 0) lab
+el = linkData.sources[0].charAt(0).toUpperCase() + linkData.sources[0].slice(1);
+                        else label = platform.charAt(0).toUpperCase() + platform
+.slice(1);
+                        otherRecords.push({ label: label, value: linkData.handle
+, isLink: true, linkUrl: linkData.link || app.normalizeUrl(linkData.handle) });
                     }
                 });
             }
             Object.entries(data).forEach(([key, value]) => {
-                if (!Object.keys(recordsMap).includes(key) && key !== 'links' && key !== 'address') {
-                    app.processValue(key, value, otherRecords, app.HEADER_RENAMES, app.LINKABLE_RECORDS, app.normalizeUrl);
+                if (!Object.keys(recordsMap).includes(key) && key !== 'links' &&
+ key !== 'address') {
+                    app.processValue(key, value, otherRecords, app.HEADER_RENAME
+S, app.LINKABLE_RECORDS, app.normalizeUrl);
                 }
             });
             let orderedRecords = [];
-            if (recordsMap['identity']) orderedRecords.push(recordsMap['identity']);
-            if (recordsMap['displayName']) orderedRecords.push(recordsMap['displayName']);
-            if (recordsMap['followers']) orderedRecords.push(recordsMap['followers']);
-            if (recordsMap['following']) orderedRecords.push(recordsMap['following']);
-            if (recordsMap['location']) orderedRecords.push(recordsMap['location']);
+            if (recordsMap['identity']) orderedRecords.push(recordsMap['identity
+']);
+            if (recordsMap['displayName']) orderedRecords.push(recordsMap['displ
+ayName']);
+            if (recordsMap['followers']) orderedRecords.push(recordsMap['followe
+rs']);
+            if (recordsMap['following']) orderedRecords.push(recordsMap['followi
+ng']);
+            if (recordsMap['location']) orderedRecords.push(recordsMap['location
+']);
             if (recordsMap['status']) orderedRecords.push(recordsMap['status']);
-            if (recordsMap['description']) orderedRecords.push(recordsMap['description']);
+            if (recordsMap['description']) orderedRecords.push(recordsMap['descr
+iption']);
             if (recordsMap['email']) orderedRecords.push(recordsMap['email']);
-            if (recordsMap['website']) orderedRecords.push(recordsMap['website']);
+            if (recordsMap['website']) orderedRecords.push(recordsMap['website']
+);
             otherRecords.sort((a, b) => a.label.localeCompare(b.label));
             orderedRecords = orderedRecords.concat(otherRecords);
             if (recordsMap['createdAt']) {
-                 orderedRecords = orderedRecords.filter(record => record.label !== 'Created');
+                 orderedRecords = orderedRecords.filter(record => record.label !
+== 'Created');
                  orderedRecords.push(recordsMap['createdAt']);
             }
             orderedRecords.forEach(record => {
                 if (record) {
                     if (record.isLink && record.linkUrl) {
                         const linkElement = document.createElement('a');
-                        linkElement.href = record.linkUrl; linkElement.target = '_blank'; linkElement.rel = 'noopener noreferrer';
+                        linkElement.href = record.linkUrl; linkElement.target =
+'_blank'; linkElement.rel = 'noopener noreferrer';
                         linkElement.textContent = record.value;
                         app.addRecord(record.label, linkElement);
                     } else { app.addRecord(record.label, record.value); }
                 }
             });
-            if (recordsContainer && recordsContainer.children.length === 0) { app.addRecord('Status', 'No records found'); }
+            if (recordsContainer && recordsContainer.children.length === 0) { ap
+p.addRecord('Status', 'No records found'); }
         }
-    } catch (error) { app.showError(error.message); } 
+    } catch (error) { app.showError(error.message); }
     finally { app.hideLoading(); }
 }`;
-                        
+
                 const embeddedJavaScriptString = `
 window.downloadedProfileApp = {};
 (function(app) {
@@ -1499,11 +1698,12 @@ window.downloadedProfileApp = {};
     app.removeNeonEffect = ${effectFunctionsStrings.removeNeon};
     app.applyVaporwareEffect = ${effectFunctionsStrings.applyVaporware};
     app.removeVaporwareEffect = ${effectFunctionsStrings.removeVaporware};
-    
+
     app.fetchAndDisplayProfileOnLoad = ${fetchAndDisplayProfileOnLoadString};
 
     app.init = async function() {
-        await app.fetchAndDisplayProfileOnLoad(app.ENS_TO_FETCH, app.THEME_COLORS);
+        await app.fetchAndDisplayProfileOnLoad(app.ENS_TO_FETCH, app.THEME_COLOR
+S);
         switch (app.ACTIVE_EFFECT_NAME) {
             case 'glow': app.applyGlowEffect(app.CAPTURED_BORDER_COLOR); break;
             case 'snow': app.addSnowEffect(); break;
@@ -1521,27 +1721,36 @@ window.downloadedProfileApp = {};
     document.addEventListener('DOMContentLoaded', function() { app.init(); });
 })(window.downloadedProfileApp);
         <\/script>`;
-                        
+
                         let populatedTemplate = DOWNLOAD_TEMPLATE_STRING;
-                        populatedTemplate = populatedTemplate.replace('<!--ENS_NAME_TITLE_PLACEHOLDER-->', pageTitle);
-                        populatedTemplate = populatedTemplate.replace('<!--FAVICON_SRC_PLACEHOLDER-->', currentAvatarSrc);
-                        populatedTemplate = populatedTemplate.replace('<!--AVATAR_SRC_PLACEHOLDER-->', currentAvatarSrc);
-                        populatedTemplate = populatedTemplate.replace('/* THEME_CSS_VARIABLES_PLACEHOLDER */', themeCssVariablesString);
-                        populatedTemplate = populatedTemplate.replace('/* EFFECT_KEYFRAMES_PLACEHOLDER */', allKeyframesCssString);
-                        populatedTemplate = populatedTemplate.replace('// EMBEDDED_JS_LOGIC_PLACEHOLDER', embeddedJavaScriptString);
+                        populatedTemplate = populatedTemplate.replace('<!--ENS_N
+AME_TITLE_PLACEHOLDER-->', pageTitle);
+                        populatedTemplate = populatedTemplate.replace('<!--FAVIC
+ON_SRC_PLACEHOLDER-->', currentAvatarSrc);
+                        populatedTemplate = populatedTemplate.replace('<!--AVATA
+R_SRC_PLACEHOLDER-->', currentAvatarSrc);
+                        populatedTemplate = populatedTemplate.replace('/* THEME_
+CSS_VARIABLES_PLACEHOLDER */', themeCssVariablesString);
+                        populatedTemplate = populatedTemplate.replace('/* EFFECT
+_KEYFRAMES_PLACEHOLDER */', allKeyframesCssString);
+                        populatedTemplate = populatedTemplate.replace('// EMBEDD
+ED_JS_LOGIC_PLACEHOLDER', embeddedJavaScriptString);
 
                         const downloadLink = document.createElement('a');
-                        downloadLink.setAttribute('href', 'data:text/html;charset=utf-8,' + encodeURIComponent(populatedTemplate));
-                        downloadLink.setAttribute('download', `${currentEnsNameFromDisplayProfile.replace(/\s+/g, '-').toLowerCase()}.html`);
-                        
+                        downloadLink.setAttribute('href', 'data:text/html;charse
+t=utf-8,' + encodeURIComponent(populatedTemplate));
+                        downloadLink.setAttribute('download', `${currentEnsNameF
+romDisplayProfile.replace(/\s+/g, '-').toLowerCase()}.html`);
+
                         document.body.appendChild(downloadLink);
                         downloadLink.click();
                         document.body.removeChild(downloadLink);
-                        
+
                     } catch (error) {
                         console.error('Error generating download:', error);
                         const errorToast = document.createElement('div');
-                        errorToast.textContent = 'Error downloading website. Please try again.';
+                        errorToast.textContent = 'Error downloading website. Ple
+ase try again.';
                         errorToast.style.cssText = `
                             position: fixed;
                             bottom: 50px;
@@ -1557,7 +1766,8 @@ window.downloadedProfileApp = {};
                         setTimeout(() => {
                             errorToast.style.opacity = '0';
                             errorToast.style.transition = 'opacity 0.5s ease';
-                            setTimeout(() => document.body.removeChild(errorToast), 500);
+                            setTimeout(() => document.body.removeChild(errorToas
+t), 500);
                         }, 3000);
                     }
                 };
@@ -1565,4 +1775,189 @@ window.downloadedProfileApp = {};
         }
 
         // Helper function to normalize URLs
->>>>>>> REPLACE
+// (The rest of the script content from the fetched URL,
+// including normalizeUrl, addRecord, processValue,
+// displayUnregisteredProfile, setupNavLogoClickHandler, etc.
+// should follow here, unchanged from the fetched content)
+
+function addRecord(label, value) {
+    const recordDiv = document.createElement('div');
+    recordDiv.className = 'profile-record';
+
+    const labelSpan = document.createElement('span');
+    labelSpan.className = 'record-label';
+    labelSpan.textContent = label;
+    recordDiv.appendChild(labelSpan);
+
+    const valueSpan = document.createElement('span');
+    valueSpan.className = 'record-value';
+    if (typeof value === 'string') {
+        valueSpan.textContent = value;
+    } else {
+        valueSpan.appendChild(value); // Assuming value is an HTML element (like
+an <a> tag)
+    }
+    recordDiv.appendChild(valueSpan);
+
+    document.querySelector('.profile-records').appendChild(recordDiv);
+}
+
+function normalizeUrl(url) {
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+        return 'https://' + url;
+    }
+    return url;
+}
+
+function processValue(key, value, recordsArray, renames, linkables, urlNormaliz
+er) {
+    if (typeof value === 'string' && value.trim() !== '') {
+        const label = renames[key] || key.charAt(0).toUpperCase() + key.slice(1)
+;
+        if (linkables.includes(label) && value.includes('.')) { // Basic check f
+or a link-like value
+            recordsArray.push({
+                label: label,
+                value: value,
+                isLink: true,
+                linkUrl: urlNormalizer(value)
+            });
+        } else {
+            recordsArray.push({ label: label, value: value });
+        }
+    } else if (typeof value === 'object' && value !== null) {
+        // If the value is an object, iterate over its properties
+        Object.entries(value).forEach(([subKey, subValue]) => {
+            // Create a combined key for display, e.g., "Social.Twitter"
+            const combinedKey = `${key.charAt(0).toUpperCase() + key.slice(1)}.${
+subKey.charAt(0).toUpperCase() + subKey.slice(1)}`;
+            processValue(combinedKey, subValue, recordsArray, renames, linkables
+, urlNormalizer); // Recursive call
+        });
+    }
+    // Numbers, booleans, nulls, or empty strings are ignored in this version
+}
+
+function displayUnregisteredProfile(ensName) {
+    document.querySelector('.container').style.display = 'none';
+    document.querySelector('#homepage-geocities').style.display = 'none';
+
+    const profilePage = document.getElementById('profile-page');
+    profilePage.style.display = 'flex';
+
+    const searchContainer = document.querySelector('.search-container');
+    searchContainer.style.margin = '10px auto 20px';
+    profilePage.insertBefore(searchContainer, profilePage.firstChild);
+
+    stylePanel.style.margin = '10px auto 20px';
+    profilePage.insertBefore(stylePanel, document.querySelector('.profile-contai
+ner'));
+
+    const firstLetter = ensName.charAt(0);
+    const defaultAvatar = createDefaultAvatar(firstLetter);
+    setAvatar(defaultAvatar);
+
+    document.querySelector('.profile-header-image').style.display = 'none';
+    const recordsContainer = document.querySelector('.profile-records');
+    recordsContainer.innerHTML = '';
+
+    addRecord(ensName.endsWith('.base.eth') ? 'Basename' : 'ENS', ensName);
+    addRecord('Status', 'This name is not registered.');
+
+    const existingRegisterContainer = document.querySelector('.register-containe
+r');
+    if (existingRegisterContainer) {
+        existingRegisterContainer.remove();
+    }
+
+    const registerContainer = document.createElement('div');
+    registerContainer.className = 'register-container';
+    registerContainer.style.cssText = `
+        width: var(--container-width);
+        max-width: var(--max-width);
+        display: flex;
+        justify-content: center;
+        margin: 20px auto;
+    `;
+
+    const registerButton = document.createElement('a');
+    const isBaseName = ensName.endsWith('.base.eth');
+    const registerUrl = isBaseName ? `https://app.basetoken.eth.limo/#/name/${en
+sName}` : `https://app.ens.domains/${ensName}`;
+    registerButton.href = registerUrl;
+    registerButton.target = '_blank';
+    registerButton.rel = 'noopener noreferrer';
+    registerButton.textContent = isBaseName ? 'Register on Base Name' : 'Registe
+r on ENS';
+    registerButton.className = 'register-button'; // Use a class for styling
+    registerButton.style.cssText = `
+        padding: 8px 15px;
+        background: var(--background-color);
+        color: var(--primary-color);
+        border: 1px solid var(--border-color);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 0.9em;
+        text-decoration: none;
+        text-align: center;
+    `;
+
+    registerButton.addEventListener('mouseover', () => {
+        registerButton.style.opacity = '0.8';
+    });
+    registerButton.addEventListener('mouseout', () => {
+        registerButton.style.opacity = '1';
+    });
+
+    registerContainer.appendChild(registerButton);
+    recordsContainer.parentNode.insertBefore(registerContainer, recordsContainer
+.nextSibling);
+
+    initializeColorPickers();
+    setupNavLogoClickHandler();
+}
+
+function setupNavLogoClickHandler() {
+    const navLogoLink = document.querySelector('.nav-logo');
+    const newNavLogoLink = navLogoLink.cloneNode(true); // Clone to remove exist
+ing listeners
+    navLogoLink.parentNode.replaceChild(newNavLogoLink, navLogoLink);
+
+    newNavLogoLink.addEventListener('click', (event) => {
+        event.preventDefault(); // Prevent default anchor action
+
+        // Hide profile page and its specific elements
+        document.getElementById('profile-page').style.display = 'none';
+
+        // Show homepage elements
+        document.querySelector('.container').style.display = 'block';
+        document.querySelector('#homepage-geocities').style.display = 'block';
+
+        // Move search container back to main page
+        const searchContainer = document.querySelector('.search-container');
+        document.querySelector('.container').appendChild(searchContainer);
+        searchContainer.style.margin = '20px auto'; // Reset margin
+
+        // Hide style panel
+        document.querySelector('.style-panel').style.display = 'none';
+
+        // Reset avatar to GeoCities default
+        initializeGeoCitiesAvatar();
+
+        // Clear search input
+        document.querySelector('.search-input').value = '';
+
+        // Remove any existing register button container
+        const existingRegisterContainer = document.querySelector('.register-cont
+ainer');
+        if (existingRegisterContainer) {
+            existingRegisterContainer.remove();
+        }
+        // Remove any existing download button container
+        const existingDownloadContainer = document.querySelector('.download-webs
+ite-container');
+        if (existingDownloadContainer) {
+            existingDownloadContainer.remove();
+        }
+    });
+}
