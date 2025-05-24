@@ -3,19 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title><!--ENS_NAME_TITLE_PLACEHOLDER--> - GeoCities Profile</title>
-    <link rel="icon" id="favicon-downloaded" href="<!--FAVICON_SRC_PLACEHOLDER-->" type="image/x-icon">
+    <title><!--ENS_NAME_TITLE_PLACEHOLDER--></title>
+    <link rel="icon" href="<!--FAVICON_SRC_PLACEHOLDER-->" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Georgia&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; }
         :root {
             /* THEME_CSS_VARIABLES_PLACEHOLDER */
-            /* Example:
-            --primary-color: #ffffff;
-            --background-color: #000000;
-            --border-color: #ffffff;
-            --font-main: sans-serif;
-            */
         }
 
         body {
@@ -27,87 +21,66 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            padding: 20px 0 80px; /* Increased bottom padding for footer */
-            transition: background 0.3s ease, color 0.3s ease; /* Kept for effect transitions if any are JS-driven post-load */
+            padding: 20px 0 80px;
+            transition: background 0.3s ease, color 0.3s ease;
             position: relative;
             width: 100%;
             overflow-x: hidden;
         }
 
-        /* Simplified Nav Bar for Downloaded Page */
-        .nav-bar-downloaded {
-            position: relative;
+        .nav-bar {
+            width: 90%;
+            max-width: 1200px;
             height: 80px;
-            background: var(--background-color);
             display: flex;
             align-items: center;
-            justify-content: center; /* Center the logo */
+            justify-content: flex-start;
             padding: 0 20px;
-            z-index: 1;
-            width: 90%; /* var(--container-width) equivalent */
-            max-width: 1200px; /* var(--max-width) equivalent */
             box-sizing: border-box;
-            margin-bottom: 20px;
-            border: none;
-        }
-
-        .nav-logo-img-downloaded { /* Class for the img tag itself if needed, or style #nav-logo-img-downloaded */
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
-            object-position: center;
-            display: block;
-            margin: 0;
-            border: 1px solid var(--border-color);
-        }
-
-        /* Profile Container for Downloaded Page */
-        .profile-container-downloaded {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 90%; /* var(--container-width) equivalent */
-            max-width: 420px; /* Fixed max-width for profile content area */
-            flex-grow: 1;
-            margin: 0 auto;
-            padding-bottom: 20px; /* Space for footer */
-        }
-
-        .loading-spinner-downloaded {
-            display: none; /* Initially hidden, shown by JS */
-            width: 40px;
-            height: 40px;
-            border: 3px solid var(--border-color); /* Uses theme border color */
-            border-radius: 50%;
-            border-top-color: transparent;
-            animation: spin-downloaded 1s linear infinite;
             margin: 20px auto;
         }
 
-        .error-message-downloaded {
-            display: none; /* Initially hidden */
-            color: var(--primary-color); /* Or a specific error color */
-            background-color: rgba(255,0,0,0.1); /* Subtle error background */
-            border: 1px solid red;
-            padding: 10px;
-            margin: 10px auto;
-            width: 100%;
-            text-align: center;
+        .nav-logo {
+            width: 80px;
+            height: 80px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--primary-color);
+            cursor: pointer;
         }
 
-        .profile-header-image-downloaded {
+        .nav-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .profile-container {
+            width: 420px;
+            max-width: 90%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 40px auto;
+        }
+
+        .profile-header-image {
             width: 100%;
             height: 0;
-            padding-bottom: 33.33%; /* 3:1 ratio */
+            padding-bottom: 33.33%;
             border: 1px solid var(--border-color);
             box-sizing: border-box;
             overflow: hidden;
             position: relative;
-            margin-bottom: 0; /* Records attach directly below */
-            display: none; /* Hidden by default, shown by JS if header exists */
+            margin-bottom: 0;
+            display: block;
         }
 
-        .profile-header-image-downloaded img {
+        .profile-header-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -115,17 +88,16 @@
             position: absolute;
             top: 0;
             left: 0;
-            display: block;
         }
 
-        .profile-records-downloaded {
+        .profile-records {
             width: 100%;
             border: 1px solid var(--border-color);
             box-sizing: border-box;
             background-color: var(--background-color);
         }
 
-        .profile-record { /* Re-using class from main site for consistency */
+        .profile-record {
             padding: 15px;
             border-bottom: 1px solid var(--border-color);
             display: flex;
@@ -148,32 +120,12 @@
             word-break: break-word;
         }
 
-        .profile-record a { /* Styling for links within records */
-            color: inherit; /* Inherits --primary-color */
+        .record-value a {
+            color: inherit;
             text-decoration: underline;
-            transition: opacity 0.3s ease;
         }
 
-        .profile-record a:hover {
-            opacity: 0.8;
-        }
-        
-        /* Responsive adjustments for profile records */
-        @media (max-width: 480px) {
-            .profile-record {
-                padding: 12px;
-            }
-            .record-label {
-                min-width: 80px;
-                font-size: 0.9em;
-            }
-            .record-value {
-                font-size: 0.9em;
-            }
-        }
-
-        /* Footer for Downloaded Page */
-        .footer-downloaded {
+        .footer {
             position: fixed;
             bottom: 0;
             left: 0;
@@ -184,56 +136,235 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 1000;
-            transition: all 0.3s ease;
         }
 
-        .footer-downloaded a {
+        .footer a {
             color: inherit;
             text-decoration: none;
             font-size: 0.9em;
-            transition: opacity 0.3s ease;
         }
 
-        .footer-downloaded a:hover {
-            opacity: 0.8;
+        /* Loading spinner */
+        .loading-spinner {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border-color);
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
         }
 
-        /* Keyframes for loading spinner (if not already part of effect keyframes) */
-        @keyframes spin-downloaded {
+        @keyframes spin {
             to { transform: rotate(360deg); }
         }
 
-        /* EFFECT_KEYFRAMES_PLACEHOLDER */
-        /* Example:
-        @keyframes matrixFall { ... }
-        */
+        /* Error message */
+        .error-message {
+            display: none;
+            color: #ff0000;
+            text-align: center;
+            margin: 10px auto;
+            padding: 10px;
+            max-width: 450px;
+            border: 1px solid #ff0000;
+            background-color: rgba(255, 0, 0, 0.1);
+        }
 
+        @media (max-width: 768px) {
+            .profile-container {
+                width: 95%;
+            }
+        }
+
+        /* EFFECT_STYLES_PLACEHOLDER */
     </style>
 </head>
 <body>
-    <nav class="nav-bar-downloaded">
-        <img id="nav-logo-img-downloaded" src="<!--AVATAR_SRC_PLACEHOLDER-->" alt="Avatar" class="nav-logo-img-downloaded">
+    <nav class="nav-bar">
+        <a href="#" class="nav-logo" onclick="window.location.reload()">
+            <img src="<!--AVATAR_SRC_PLACEHOLDER-->" alt="<!--ENS_NAME_TITLE_PLACEHOLDER-->">
+        </a>
     </nav>
 
-    <div class="profile-container-downloaded">
-        <div class="loading-spinner-downloaded"></div>
-        <div class="error-message-downloaded"></div>
-
-        <div class="profile-header-image-downloaded">
-            <!-- Header image img tag will be inserted here by JS if data.header exists -->
-        </div>
-        <div class="profile-records-downloaded">
-            <!-- Profile records will be inserted here by JS -->
+    <div class="profile-container">
+        <div class="loading-spinner"></div>
+        <div class="error-message"></div>
+        <div class="profile-records">
+            <!-- PROFILE_RECORDS_PLACEHOLDER -->
         </div>
     </div>
 
-    <footer class="footer-downloaded">
+    <footer class="footer">
         <a href="https://geocities.eth.link" target="_blank" rel="noopener noreferrer">GeoCities</a>
     </footer>
 
     <script>
-        // EMBEDDED_JS_LOGIC_PLACEHOLDER
+        // Constants
+        const API_BASE_URL = 'https://api.web3.bio';
+        const DEFAULT_AVATAR = 'https://raw.githubusercontent.com/GeoCities/Ads/main/Ads/Nyan%20Cat%20-%20GeoCities.gif';
+        const ENS_NAME = '<!--ENS_NAME_TITLE_PLACEHOLDER-->';
+
+        // Utility functions
+        function showLoading() {
+            document.querySelector('.loading-spinner').style.display = 'block';
+        }
+
+        function hideLoading() {
+            document.querySelector('.loading-spinner').style.display = 'none';
+        }
+
+        function showError(message) {
+            const errorElement = document.querySelector('.error-message');
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+        }
+
+        function hideError() {
+            document.querySelector('.error-message').style.display = 'none';
+        }
+
+        function setAvatar(avatarUrl) {
+            const navLogo = document.querySelector('.nav-logo img');
+            const favicon = document.querySelector('link[rel="icon"]');
+            
+            const url = avatarUrl || DEFAULT_AVATAR;
+            if (navLogo) navLogo.src = url;
+            if (favicon) favicon.href = url;
+        }
+
+        function addRecord(label, value, isLink = false, href = '') {
+            const recordsContainer = document.querySelector('.profile-records');
+            if (!recordsContainer) return;
+            
+            const record = document.createElement('div');
+            record.className = 'profile-record';
+            
+            const labelElement = document.createElement('div');
+            labelElement.className = 'record-label';
+            labelElement.textContent = label;
+            
+            const valueElement = document.createElement('div');
+            valueElement.className = 'record-value';
+            
+            if (isLink && href) {
+                const link = document.createElement('a');
+                link.href = href;
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+                link.textContent = value;
+                valueElement.appendChild(link);
+            } else {
+                valueElement.textContent = value;
+            }
+            
+            record.appendChild(labelElement);
+            record.appendChild(valueElement);
+            recordsContainer.appendChild(record);
+        }
+
+        function normalizeUrl(url) {
+            if (!url) return '';
+            url = url.trim();
+            if (!/^https?:\/\//i.test(url)) {
+                return 'https://' + url;
+            }
+            return url;
+        }
+
+        // Load profile
+        async function loadProfile() {
+            try {
+                showLoading();
+                hideError();
+
+                const url = ENS_NAME.endsWith('.base.eth') ? 
+                    `${API_BASE_URL}/profile/basenames/${ENS_NAME}` :
+                    `${API_BASE_URL}/profile/ens/${ENS_NAME}`;
+
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Profile not found');
+                
+                const data = await response.json();
+                
+                // Update avatar
+                if (data.avatar) {
+                    setAvatar(data.avatar);
+                }
+
+                // Clear existing records
+                const recordsContainer = document.querySelector('.profile-records');
+                if (recordsContainer) {
+                    recordsContainer.innerHTML = '';
+                }
+
+                // Add ENS/Base name
+                const isBase = ENS_NAME.endsWith('.base.eth');
+                addRecord(isBase ? 'Base Name' : 'ENS', ENS_NAME);
+
+                // Add display name if different
+                if (data.displayName && data.displayName !== ENS_NAME) {
+                    addRecord('Name', data.displayName);
+                }
+
+                // Add followers/following
+                if (data.social) {
+                    addRecord('Followers', data.social.follower ?? 0);
+                    addRecord('Following', data.social.following ?? 0);
+                }
+
+                // Add other fields
+                if (data.location) addRecord('Location', data.location);
+                if (data.status) addRecord('Status', data.status);
+                if (data.description) addRecord('Bio', data.description);
+                if (data.email) addRecord('Email', data.email);
+
+                // Add website if exists
+                if (data.links?.website?.handle) {
+                    const websiteUrl = data.links.website.link || normalizeUrl(data.links.website.handle);
+                    addRecord('Website', data.links.website.handle, true, websiteUrl);
+                }
+
+                // Add social links
+                if (data.links) {
+                    Object.entries(data.links).forEach(([platform, linkData]) => {
+                        if (platform !== 'website' && linkData.handle) {
+                            const label = platform.charAt(0).toUpperCase() + platform.slice(1);
+                            addRecord(label, linkData.handle, true, linkData.link || normalizeUrl(linkData.handle));
+                        }
+                    });
+                }
+
+                // Add created date if exists
+                if (data.createdAt) {
+                    let formattedDate = data.createdAt;
+                    try {
+                        const date = new Date(data.createdAt);
+                        if (!isNaN(date.getTime())) {
+                            formattedDate = date.toLocaleDateString('en-US', {
+                                month: '2-digit',
+                                day: '2-digit',
+                                year: 'numeric'
+                            });
+                        }
+                    } catch (err) {}
+                    addRecord('Created', formattedDate);
+                }
+
+                hideLoading();
+            } catch (error) {
+                console.error('Error loading profile:', error);
+                showError('Error loading profile. Please try again.');
+                hideLoading();
+            }
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize profile data
+            loadProfile();
+        });
     </script>
 </body>
 </html>

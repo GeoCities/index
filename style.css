@@ -237,8 +237,16 @@ h1#homepage-geocities {
     color: var(--primary-color);
     border: 1px solid var(--border-color);
     cursor: pointer;
-    transition: all 0.3s ease;
+    height: 38px;
     font-size: 0.9em;
+    box-sizing: border-box;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+/* Remove hover effect */
+#theme-toggle:hover {
+    opacity: 1;
 }
 
 /* Footer */
@@ -270,27 +278,25 @@ h1#homepage-geocities {
 
 /* Add these styles to your existing CSS */
 .style-panel {
-    display: none;
+    display: flex;
     width: 420px;
+    height: 38px;
     max-width: 100%;
     margin: 20px auto;
-    padding: 15px;
-    border: 1px solid var(--border-color);
+    padding: 0;
     background-color: var(--background-color);
     color: var(--primary-color);
     box-sizing: border-box;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
+    gap: 10px;
     justify-content: center;
+    align-items: center;
 }
 
 .style-section {
-    flex: 0 0 105px;
-    width: 105px;
+    flex: 0 0 auto;
+    width: auto;
     display: flex;
-    flex-direction: column;
-    gap: 8px;
+    gap: 10px;
     align-items: center;
 }
 
@@ -306,6 +312,7 @@ h1#homepage-geocities {
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
+    margin: 0;
 }
 
 .color-picker {
@@ -649,3 +656,118 @@ h1#homepage-geocities {
     50% { opacity: 1; transform: scale(1.2); }
 }
 /* --- End of content previously in JS-managed styleSheet --- */
+
+/* Add these animations at the end of the file */
+
+/* Effect animations */
+@keyframes glowPulse {
+    0%, 100% { box-shadow: 0 0 5px var(--border-color), 0 0 10px var(--border-color); }
+    50% { box-shadow: 0 0 10px var(--border-color), 0 0 20px var(--border-color); }
+}
+
+@keyframes snowFall {
+    0% { transform: translateY(-100vh); }
+    100% { transform: translateY(100vh); }
+}
+
+@keyframes starTwinkle {
+    0%, 100% { opacity: 0.2; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes rainbowBorder {
+    0% { border-color: #ff0000; }
+    16.666% { border-color: #ff8000; }
+    33.333% { border-color: #ffff00; }
+    50% { border-color: #00ff00; }
+    66.666% { border-color: #0000ff; }
+    83.333% { border-color: #8000ff; }
+    100% { border-color: #ff0000; }
+}
+
+@keyframes matrixFall {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+}
+
+@keyframes fireflyFloat {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(var(--x1), var(--y1)); }
+    50% { transform: translate(var(--x2), var(--y2)); }
+    75% { transform: translate(var(--x3), var(--y3)); }
+}
+
+@keyframes confettiFall {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(100vh) rotate(360deg); }
+}
+
+@keyframes neonPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+/* Register button styles */
+.register-button {
+    padding: 8px 15px;
+    background: var(--background-color);
+    color: var(--primary-color);
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9em;
+    text-decoration: none;
+    text-align: center;
+}
+
+.register-button:hover {
+    opacity: 0.8;
+}
+
+/* Download button styles */
+.download-website-container {
+    width: var(--container-width);
+    max-width: var(--max-width);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+}
+
+.download-website-button {
+    padding: 8px 15px;
+    background: var(--background-color);
+    color: var(--primary-color);
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9em;
+    text-decoration: none;
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Error message styles */
+.error-message {
+    display: none;
+    color: #ff0000;
+    text-align: center;
+    margin: 10px auto;
+    padding: 10px;
+    max-width: 450px;
+    border: 1px solid #ff0000;
+    background-color: rgba(255, 0, 0, 0.1);
+}

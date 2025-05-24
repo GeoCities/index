@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="Content-Security-Policy" content="
         default-src 'self';
-        script-src 'self' 'unsafe-inline' https://raw.githubusercontent.com; 
+        script-src 'self' 'unsafe-inline' 'unsafe-eval';
         style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
         font-src 'self' https://fonts.gstatic.com;
-        img-src 'self' https: data:; 
+        img-src 'self' data: https: http:;
         connect-src 'self' https://api.web3.bio https://raw.githubusercontent.com;
         object-src 'none';
         base-uri 'self';
@@ -36,15 +36,10 @@
     <div class="loading-spinner"></div>
     <div class="error-message"></div>
     <div id="profile-page">
-        <div class="profile-container">
-            <div class="profile-header-image">
-                <!-- Header image will be inserted here -->
-            </div>
-            <div class="profile-records">
-                <!-- ENS records will be inserted here -->
-            </div>
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Enter ENS or Basename">
+            <button class="search-button">Search</button>
         </div>
-        <!-- Add this right after the search-container div in the profile page -->
         <div class="style-panel">
             <div class="style-section">
                 <div class="color-button">
@@ -77,6 +72,17 @@
                     <option value="neon">Neon</option>
                     <option value="vaporware">Vaporware</option>
                 </select>
+            </div>
+        </div>
+        <div class="profile-container">
+            <div class="profile-header-image">
+                <!-- Header image will be inserted here -->
+            </div>
+            <div class="profile-records">
+                <!-- ENS records will be inserted here -->
+            </div>
+            <div class="download-website-container">
+                <button class="download-website-button">Download Website</button>
             </div>
         </div>
     </div>
