@@ -310,8 +310,7 @@ nt theme colors
     const computedStyle = getComputedStyle(document.documentElement);
     const bgColor = computedStyle.getPropertyValue('--background-color').trim()
 || '#000000';
-    const textColor = computedStyle.getPropertyValue('--primary-color').trim() |
-| '#ffffff';
+    const textColor = computedStyle.getPropertyValue('--primary-color').trim() || '#ffffff';
     const borderColor = computedStyle.getPropertyValue('--border-color').trim()
 || '#ffffff';
 
