@@ -2053,124 +2053,229 @@ async function fetchAndDisplayProfileOnLoad(ensToFetch, themeColors) {
                         
                         const embeddedJavaScript = `
         <script>
-            (function() {
-                const API_BASE_URL = '${embeddedAPI_BASE_URL}';
-                const DEFAULT_AVATAR = '${embeddedDEFAULT_AVATAR}';
-                const headerRenames = ${embeddedHeaderRenames};
-                const linkableRecords = ${embeddedLinkableRecords};
+            window.downloadedProfileApp = {};
+            (function(app) {
+                // Constants
+                app.API_BASE_URL = '${embeddedAPI_BASE_URL}';
+                app.DEFAULT_AVATAR = '${embeddedDEFAULT_AVATAR}';
+                app.HEADER_RENAMES = ${embeddedHeaderRenames};
+                app.LINKABLE_RECORDS = ${embeddedLinkableRecords};
+                app.CAPTURED_BORDER_COLOR = '${capturedBorderColor}';
+                app.THEME_COLORS = ${JSON.stringify(themeColorsForDownload)};
+                app.ENS_TO_FETCH = '${currentEnsName}';
+                app.ACTIVE_EFFECT_NAME = '${activeEffectName}';
 
-                const themeColors = ${JSON.stringify(themeColorsForDownload)};
-                const ensToFetchGlobal = '${currentEnsName}';
-                const activeEffectNameForDownload = '${activeEffectName}';
-                const capturedBorderColorForDownload = '${capturedBorderColor}';
-
-                ${createDefaultAvatarForDownload.toString()};
-                ${setAvatarForDownload.toString()};
-                ${addRecordForDownload.toString()};
-                ${normalizeUrlForDownload};
-                const processValue = ${processValueForDownload};
-                ${showLoadingForDownload.toString()};
-                ${hideLoadingForDownload.toString()};
-                ${showErrorForDownload.toString()};
-                ${hideErrorForDownload.toString()};
+                // Core Display Logic
+                app.createDefaultAvatar = ${createDefaultAvatarForDownload.toString()};
+                app.setAvatar = ${setAvatarForDownload.toString()};
+                app.addRecord = ${addRecordForDownload.toString()};
                 
-                // --- Effect Functions for Downloaded Page ---
-                const applyGlowEffectForDownload = function() {
+                // Utility Functions
+                app.normalizeUrl = ${normalizeUrl.toString()};
+                app.processValue = ${processValue.toString()}; // This will use app.HEADER_RENAMES etc. if they are part of its closure or passed in.
+                                                              // For safety, ensure its stringified version uses app. prefixed constants or pass them.
+                                                              // Given it's global, it doesn't have closure over 'app'.
+                                                              // The best is to make its stringified version refer to app. vars.
+
+                // UI Helpers
+                app.showLoading = ${showLoadingForDownloadString};
+                app.hideLoading = ${hideLoadingForDownloadString};
+                app.showError = ${showErrorForDownloadString};
+                app.hideError = ${hideErrorForDownloadString};
+
+                // Effect Functions (stringified and adapted)
+                app.applyGlowEffect = function() {
                     const elements = document.querySelectorAll('.nav-logo-downloaded, .profile-records-downloaded, .profile-record, .profile-header-image-downloaded, .footer-downloaded');
                     elements.forEach(el => {
-                        el.style.boxShadow = '0 0 5px ' + capturedBorderColorForDownload + ', 0 0 10px ' + capturedBorderColorForDownload;
+                        el.style.boxShadow = '0 0 5px ' + app.CAPTURED_BORDER_COLOR + ', 0 0 10px ' + app.CAPTURED_BORDER_COLOR;
                         el.style.animation = 'glowPulse 2s infinite';
                     });
                 };
-                const removeGlowEffectForDownload = function() {
+                app.removeGlowEffect = function() {
                     const elements = document.querySelectorAll('.nav-logo-downloaded, .profile-records-downloaded, .profile-record, .profile-header-image-downloaded, .footer-downloaded');
-                    elements.forEach(el => {
-                        el.style.boxShadow = 'none';
-                        el.style.animation = 'none';
-                    });
+                    elements.forEach(el => { el.style.boxShadow = 'none'; el.style.animation = 'none'; });
                 };
-
-                const addSnowEffectForDownload = ${addSnowEffect.toString().replace(/document\.body\.appendChild\(snowContainer\)/g, "document.querySelector('.profile-container-downloaded').appendChild(snowContainer)")};
-                const removeSnowEffectForDownload = ${removeSnowEffect.toString()};
-
-                const applyStarsEffectForDownload = ${applyStarsEffect.toString().replace(/document\.body\.appendChild\(starsContainer\)/g, "document.querySelector('.profile-container-downloaded').appendChild(starsContainer)")};
-                const removeStarsEffectForDownload = ${removeStarsEffect.toString()};
-                
-                const applyRainbowEffectForDownload = function() {
+                app.addSnowEffect = ${addSnowEffect.toString().replace(/document\.body\.appendChild\(snowContainer\)/g, "document.querySelector('.profile-container-downloaded').appendChild(snowContainer)")};
+                app.removeSnowEffect = ${removeSnowEffect.toString()};
+                app.applyStarsEffect = ${applyStarsEffect.toString().replace(/document\.body\.appendChild\(starsContainer\)/g, "document.querySelector('.profile-container-downloaded').appendChild(starsContainer)")};
+                app.removeStarsEffect = ${removeStarsEffect.toString()};
+                app.applyRainbowEffect = function() {
                     const elements = document.querySelectorAll('.nav-logo-downloaded, .profile-records-downloaded, .profile-record, .profile-header-image-downloaded, .footer-downloaded');
                     elements.forEach(el => { el.style.animation = 'rainbowBorder 3s linear infinite'; });
                 };
-                const removeRainbowEffectForDownload = function() {
+                app.removeRainbowEffect = function() {
                     const elements = document.querySelectorAll('.nav-logo-downloaded, .profile-records-downloaded, .profile-record, .profile-header-image-downloaded, .footer-downloaded');
                     elements.forEach(el => { el.style.animation = ''; });
                 };
-
-                const applyMatrixEffectForDownload = ${applyMatrixEffect.toString().replace(/document\.body\.appendChild\(matrixContainer\)/g, "document.querySelector('.profile-container-downloaded').appendChild(matrixContainer)").replace(/document\.head\.appendChild\(matrixStyle\)/g, "")}; // Keyframes already in style
-                const removeMatrixEffectForDownload = ${removeMatrixEffect.toString()};
-
-                const applyFirefliesEffectForDownload = ${applyFirefliesEffect.toString().replace(/document\.body\.appendChild\(firefliesContainer\)/g, "document.querySelector('.profile-container-downloaded').appendChild(firefliesContainer)").replace(/document\.head\.appendChild\(fireflyStyle\)/g, "")};
-                const removeFirefliesEffectForDownload = ${removeFirefliesEffect.toString()};
-
-                const applyConfettiEffectForDownload = ${applyConfettiEffect.toString().replace(/document\.body\.appendChild\(confettiContainer\)/g, "document.querySelector('.profile-container-downloaded').appendChild(confettiContainer)").replace(/document\.head\.appendChild\(confettiStyle\)/g, "")};
-                const removeConfettiEffectForDownload = ${removeConfettiEffect.toString()};
-                
-                const applyNeonEffectForDownload = function() {
+                app.applyMatrixEffect = ${applyMatrixEffect.toString().replace(/document\.body\.appendChild\(matrixContainer\)/g, "document.querySelector('.profile-container-downloaded').appendChild(matrixContainer)").replace(/document\.head\.appendChild\(matrixStyle\)/g, "")};
+                app.removeMatrixEffect = ${removeMatrixEffect.toString()};
+                app.applyFirefliesEffect = ${applyFirefliesEffect.toString().replace(/document\.body\.appendChild\(firefliesContainer\)/g, "document.querySelector('.profile-container-downloaded').appendChild(firefliesContainer)").replace(/document\.head\.appendChild\(fireflyStyle\)/g, "")};
+                app.removeFirefliesEffect = ${removeFirefliesEffect.toString()};
+                app.applyConfettiEffect = ${applyConfettiEffect.toString().replace(/document\.body\.appendChild\(confettiContainer\)/g, "document.querySelector('.profile-container-downloaded').appendChild(confettiContainer)").replace(/document\.head\.appendChild\(confettiStyle\)/g, "")};
+                app.removeConfettiEffect = ${removeConfettiEffect.toString()};
+                app.applyNeonEffect = function() {
                     const elements = document.querySelectorAll('.nav-logo-downloaded, .profile-records-downloaded, .profile-record, .profile-header-image-downloaded, .footer-downloaded');
                     elements.forEach(el => {
-                        el.style.textShadow = '0 0 5px ' + capturedBorderColorForDownload + ', 0 0 10px ' + capturedBorderColorForDownload;
-                        el.style.boxShadow = '0 0 5px ' + capturedBorderColorForDownload + ', 0 0 10px ' + capturedBorderColorForDownload;
+                        el.style.textShadow = '0 0 5px ' + app.CAPTURED_BORDER_COLOR + ', 0 0 10px ' + app.CAPTURED_BORDER_COLOR;
+                        el.style.boxShadow = '0 0 5px ' + app.CAPTURED_BORDER_COLOR + ', 0 0 10px ' + app.CAPTURED_BORDER_COLOR;
                         el.style.animation = 'neonPulse 1.5s ease-in-out infinite';
                     });
                 };
-                const removeNeonEffectForDownload = function() {
-                     const elements = document.querySelectorAll('.nav-logo-downloaded, .profile-records-downloaded, .profile-record, .profile-header-image-downloaded, .footer-downloaded');
-                    elements.forEach(el => {
-                        el.style.textShadow = '';
-                        el.style.boxShadow = '';
-                        el.style.animation = '';
-                    });
+                app.removeNeonEffect = function() {
+                    const elements = document.querySelectorAll('.nav-logo-downloaded, .profile-records-downloaded, .profile-record, .profile-header-image-downloaded, .footer-downloaded');
+                    elements.forEach(el => { el.style.textShadow = ''; el.style.boxShadow = ''; el.style.animation = ''; });
                 };
-                const applyVaporwareEffectForDownload = function() {
+                app.applyVaporwareEffect = function() {
                     document.body.style.background = 'linear-gradient(45deg, #ff00ff, #00ffff)';
                     document.body.style.backgroundSize = '100% 100%';
-                    const navBar = document.querySelector('.nav-bar-downloaded'); // Target downloaded nav bar
-                    if (navBar) {
-                        navBar.style.backgroundColor = 'transparent';
-                        navBar.style.borderColor = '#ffffff'; // Or use capturedBorderColorForDownload if theme consistency desired
-                    }
-                };
-                const removeVaporwareEffectForDownload = function() {
-                    document.body.style.background = '';
-                    document.body.style.backgroundSize = '';
                     const navBar = document.querySelector('.nav-bar-downloaded');
-                    if (navBar) {
-                        navBar.style.backgroundColor = ''; // Reverts to CSS variable
-                        navBar.style.borderColor = ''; // Reverts to CSS variable
+                    if (navBar) { navBar.style.backgroundColor = 'transparent'; navBar.style.borderColor = '#ffffff'; }
+                };
+                app.removeVaporwareEffect = function() {
+                    document.body.style.background = ''; document.body.style.backgroundSize = '';
+                    const navBar = document.querySelector('.nav-bar-downloaded');
+                    if (navBar) { navBar.style.backgroundColor = ''; navBar.style.borderColor = ''; }
+                };
+
+                // Main Orchestration Logic
+                app.fetchAndDisplayProfileOnLoad = async function(ensToFetch, themeColors) {
+                    app.showLoading();
+                    app.hideError();
+                    try {
+                        let url = \`\${app.API_BASE_URL}/profile/ens/\${ensToFetch}\`;
+                        if (ensToFetch.endsWith('.base.eth')) {
+                            url = \`\${app.API_BASE_URL}/profile/basenames/\${ensToFetch}\`;
+                        }
+                        const response = await fetch(url);
+                        let data;
+                        if (response.ok) {
+                            data = await response.json();
+                        } else if (response.status === 404) {
+                            data = { _unregistered: true };
+                        } else {
+                            let errorText = \`Error: \${response.statusText}\`;
+                            try { const errorData = await response.json(); errorText = errorData?.message || errorData?.error || errorText; } catch (e) {}
+                            throw new Error(errorText);
+                        }
+
+                        const recordsContainer = document.querySelector('.profile-records-downloaded');
+                        if (recordsContainer) recordsContainer.innerHTML = '';
+                        const headerContainer = document.querySelector('.profile-header-image-downloaded');
+                        if (headerContainer) headerContainer.innerHTML = '';
+
+                        if (data._unregistered) {
+                            app.setAvatar(app.createDefaultAvatar(ensToFetch.charAt(0), themeColors), app.DEFAULT_AVATAR);
+                            if (headerContainer) headerContainer.style.display = 'none';
+                            app.addRecord(ensToFetch.endsWith('.base.eth') ? 'Basename' : 'ENS', ensToFetch);
+                            app.addRecord('Status', 'This name is not registered.');
+                        } else {
+                            app.setAvatar(data.avatar || app.createDefaultAvatar(ensToFetch.charAt(0), themeColors), app.DEFAULT_AVATAR);
+                            if (headerContainer) {
+                                if (data.header) {
+                                    const headerImg = document.createElement('img');
+                                    headerImg.src = data.header;
+                                    headerImg.alt = ensToFetch + ' header';
+                                    headerContainer.appendChild(headerImg);
+                                    headerContainer.style.display = 'block';
+                                } else {
+                                    headerContainer.style.display = 'none';
+                                }
+                            }
+                            
+                            let recordsMap = {'identity': null, 'displayName': null, 'followers': null, 'following': null, 'location': null, 'status': null, 'description': null, 'website': null, 'email': null, 'createdAt': null };
+                            let otherRecords = [];
+                            const isBase = ensToFetch.endsWith('.base.eth');
+                            recordsMap['identity'] = { label: isBase ? 'Basename' : 'ENS', value: ensToFetch };
+                            if (data.displayName && data.displayName !== ensToFetch) recordsMap['displayName'] = { label: 'Name', value: data.displayName };
+                            recordsMap['followers'] = { label: 'Followers', value: data.social?.follower !== undefined ? data.social.follower : 0 };
+                            recordsMap['following'] = { label: 'Following', value: data.social?.following !== undefined ? data.social.following : 0 };
+                            if (data.location) recordsMap['location'] = { label: 'Location', value: data.location };
+                            if (data.status) recordsMap['status'] = { label: 'Status', value: data.status };
+                            if (data.description) recordsMap['description'] = { label: 'Bio', value: data.description };
+                            if (data.links?.website?.handle) recordsMap['website'] = { label: 'Website', value: data.links.website.handle, isLink: true, linkUrl: data.links.website.link || app.normalizeUrl(data.links.website.handle) };
+                            if (data.email) recordsMap['email'] = { label: 'Email', value: data.email };
+                            if (data.createdAt) {
+                                let formattedDate = data.createdAt;
+                                try { const date = new Date(data.createdAt); if (!isNaN(date.getTime())) formattedDate = date.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' }); } catch (err) {}
+                                recordsMap['createdAt'] = { label: 'Created', value: formattedDate };
+                            }
+                            if (data.links && typeof data.links === 'object') {
+                                Object.entries(data.links).forEach(([platform, linkData]) => {
+                                    if (platform !== 'website' && linkData.handle) {
+                                        let label = '';
+                                        if (linkData.sources && linkData.sources.length > 0) label = linkData.sources[0].charAt(0).toUpperCase() + linkData.sources[0].slice(1);
+                                        else label = platform.charAt(0).toUpperCase() + platform.slice(1);
+                                        otherRecords.push({ label: label, value: linkData.handle, isLink: true, linkUrl: linkData.link || app.normalizeUrl(linkData.handle) });
+                                    }
+                                });
+                            }
+                            Object.entries(data).forEach(([key, value]) => {
+                                if (!Object.keys(recordsMap).includes(key) && key !== 'links' && key !== 'address') {
+                                    app.processValue(key, value, otherRecords, app.HEADER_RENAMES, app.LINKABLE_RECORDS, app.normalizeUrl);
+                                }
+                            });
+                            let orderedRecords = [];
+                            if (recordsMap['identity']) orderedRecords.push(recordsMap['identity']);
+                            if (recordsMap['displayName']) orderedRecords.push(recordsMap['displayName']);
+                            if (recordsMap['followers']) orderedRecords.push(recordsMap['followers']);
+                            if (recordsMap['following']) orderedRecords.push(recordsMap['following']);
+                            if (recordsMap['location']) orderedRecords.push(recordsMap['location']);
+                            if (recordsMap['status']) orderedRecords.push(recordsMap['status']);
+                            if (recordsMap['description']) orderedRecords.push(recordsMap['description']);
+                            if (recordsMap['email']) orderedRecords.push(recordsMap['email']);
+                            if (recordsMap['website']) orderedRecords.push(recordsMap['website']);
+                            otherRecords.sort((a, b) => a.label.localeCompare(b.label));
+                            orderedRecords = orderedRecords.concat(otherRecords);
+                            if (recordsMap['createdAt']) {
+                                 orderedRecords = orderedRecords.filter(record => record.label !== 'Created');
+                                 orderedRecords.push(recordsMap['createdAt']);
+                            }
+                            orderedRecords.forEach(record => {
+                                if (record) {
+                                    if (record.isLink && record.linkUrl) {
+                                        const linkElement = document.createElement('a');
+                                        linkElement.href = record.linkUrl;
+                                        linkElement.target = '_blank';
+                                        linkElement.rel = 'noopener noreferrer';
+                                        linkElement.textContent = record.value;
+                                        app.addRecord(record.label, linkElement);
+                                    } else {
+                                        app.addRecord(record.label, record.value);
+                                    }
+                                }
+                            });
+                            if (recordsContainer && recordsContainer.children.length === 0) {
+                                app.addRecord('Status', 'No records found');
+                            }
+                        }
+                    } catch (error) {
+                        app.showError(error.message);
+                    } finally {
+                        app.hideLoading();
                     }
                 };
 
-                // --- End of Effect Functions for Downloaded Page ---
-
-                ${fetchAndDisplayProfileOnLoad}
-
-                document.addEventListener('DOMContentLoaded', async () => {
-                    await fetchAndDisplayProfileOnLoad(ensToFetchGlobal, themeColors);
-                    // Auto-apply the active effect
-                    switch (activeEffectNameForDownload) {
-                        case 'glow': applyGlowEffectForDownload(); break;
-                        case 'snow': addSnowEffectForDownload(); break;
-                        case 'stars': applyStarsEffectForDownload(); break;
-                        case 'rainbow': applyRainbowEffectForDownload(); break;
-                        case 'matrix': applyMatrixEffectForDownload(); break;
-                        case 'fireflies': applyFirefliesEffectForDownload(); break;
-                        case 'confetti': applyConfettiEffectForDownload(); break;
-                        case 'neon': applyNeonEffectForDownload(); break;
-                        case 'vaporware': applyVaporwareEffectForDownload(); break;
+                app.init = async function() { // Removed ensToFetch param, uses app.ENS_TO_FETCH
+                    await app.fetchAndDisplayProfileOnLoad(app.ENS_TO_FETCH, app.THEME_COLORS);
+                    switch (app.ACTIVE_EFFECT_NAME) {
+                        case 'glow': app.applyGlowEffect(); break;
+                        case 'snow': app.addSnowEffect(); break;
+                        case 'stars': app.applyStarsEffect(); break;
+                        case 'rainbow': app.applyRainbowEffect(); break;
+                        case 'matrix': app.applyMatrixEffect(); break;
+                        case 'fireflies': app.applyFirefliesEffect(); break;
+                        case 'confetti': app.applyConfettiEffect(); break;
+                        case 'neon': app.applyNeonEffect(); break;
+                        case 'vaporware': app.applyVaporwareEffect(); break;
                         default: break;
                     }
+                };
+
+                document.addEventListener('DOMContentLoaded', function() {
+                    app.init();
                 });
-            })();
-        <\/script>`; 
+            })(window.downloadedProfileApp);
+        <\/script>`;
                         
                         const allKeyframesCSS = `
             @keyframes glowPulse { 0%, 100% { box-shadow: 0 0 5px var(--border-color), 0 0 10px var(--border-color); } 50% { box-shadow: 0 0 10px var(--border-color), 0 0 20px var(--border-color); } }
